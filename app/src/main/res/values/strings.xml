@@ -3,6 +3,12 @@
 
     <!-- Auth -->
     <string name="email_label">Email</string>
+    <string name="name_label">Imie</string>
+    <string name="surname_label">Nazwisko</string>
     <string name="password_label">Hasło</string>
+    <string name="repeat_password_label">Powtórz hasło</string>
+
+
     <string name="login">ZALOGUJ SIĘ</string>
+    <string name="register">ZAREJESTRUJ SIĘ</string>
 </resources>
