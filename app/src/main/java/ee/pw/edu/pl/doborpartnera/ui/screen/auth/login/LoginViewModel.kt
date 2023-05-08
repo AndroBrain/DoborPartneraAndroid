@@ -10,8 +10,8 @@ class LoginViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : SingleStateViewModel<LoginState>(savedStateHandle, LoginState()) {
 
-    fun changeUsername(name: String) {
-        updateState { state -> state.copy(username = name) }
+    fun changeEmail(name: String) {
+        updateState { state -> state.copy(email = name) }
     }
 
     fun changePassword(password: String) {

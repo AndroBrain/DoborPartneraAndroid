@@ -6,6 +6,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class LoginState(
     val isLoading: Boolean = false,
-    val username: String = "",
+    val email: String = "",
     val password: String = "",
 ) : UiState

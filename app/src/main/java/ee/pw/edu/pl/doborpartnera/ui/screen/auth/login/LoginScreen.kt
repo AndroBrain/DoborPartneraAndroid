@@ -54,8 +54,8 @@ fun LoginScreen(
                     .fillMaxWidth()
                     .padding(top = App.dimens.views_spacing_medium)
                     .padding(bottom = App.dimens.views_spacing_small),
-                value = state.value.username,
-                onValueChange = viewModel::changeUsername,
+                value = state.value.email,
+                onValueChange = viewModel::changeEmail,
                 label = {
                     Text(text = stringResource(id = R.string.username_label))
                 }
