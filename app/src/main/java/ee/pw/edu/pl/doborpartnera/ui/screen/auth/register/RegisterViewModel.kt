@@ -31,7 +31,6 @@ class RegisterViewModel @Inject constructor(
     }
 
     fun register() {
-        TODO("Not yet implemented")
     }
 
 }

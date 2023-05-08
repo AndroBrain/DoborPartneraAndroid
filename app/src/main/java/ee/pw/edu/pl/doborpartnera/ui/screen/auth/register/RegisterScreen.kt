@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
@@ -59,6 +60,7 @@ fun RegisterScreen(
                     Text(text = stringResource(id = R.string.email_label))
                 },
                 maxLines = 1,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             )
             OutlinedTextField(
                 modifier = textFieldModifier,
@@ -68,6 +70,7 @@ fun RegisterScreen(
                     Text(text = stringResource(id = R.string.name_label))
                 },
                 maxLines = 1,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             )
             OutlinedTextField(
                 modifier = textFieldModifier,
@@ -77,6 +80,7 @@ fun RegisterScreen(
                     Text(text = stringResource(id = R.string.surname_label))
                 },
                 maxLines = 1,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             )
             OutlinedTextField(
                 modifier = textFieldModifier,
@@ -86,6 +90,7 @@ fun RegisterScreen(
                     Text(text = stringResource(id = R.string.password_label))
                 },
                 maxLines = 1,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             )
             OutlinedTextField(
                 modifier = textFieldModifier,
@@ -94,8 +99,13 @@ fun RegisterScreen(
                 label = {
                     Text(text = stringResource(id = R.string.repeat_password_label))
                 },
-                keyboardActions = KeyboardActions(onDone = { viewModel.register() }),
-                keyboardOptions = KeyboardOptions(imeAction = androidx.compose.ui.text.input.ImeAction.Done),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        defaultKeyboardAction(ImeAction.Done)
+                        viewModel.register()
+                    }
+                ),
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 maxLines = 1,
             )
             Button(
