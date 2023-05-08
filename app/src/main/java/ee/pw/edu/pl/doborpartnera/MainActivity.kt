@@ -7,8 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
-import ee.pw.edu.pl.doborpartnera.ui.screen.auth.login.LoginScreen
+import ee.pw.edu.pl.doborpartnera.ui.screen.auth.AuthScreen
 import ee.pw.edu.pl.doborpartnera.ui.theme.Theme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +20,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 //                    RegisterScreen(viewModel = hiltViewModel(), navigateUp = {})
-                    LoginScreen(viewModel = hiltViewModel(), navigateUp = {})
+//                    LoginScreen(viewModel = hiltViewModel(), navigateUp = {})
+                    AuthScreen(navigateToLogin = { /*TODO*/ }, navigateToRegister = { /*TODO*/ })
                 }
             }
         }
