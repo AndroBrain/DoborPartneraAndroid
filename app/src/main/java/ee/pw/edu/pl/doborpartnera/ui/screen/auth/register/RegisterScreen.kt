@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.HeartBroken
 import androidx.compose.material3.Button
@@ -34,6 +36,7 @@ fun RegisterScreen(
     ) { insets ->
         Column(
             modifier = Modifier
+                .verticalScroll(rememberScrollState())
                 .padding(insets)
                 .padding(App.dimens.screen_spacing_medium),
             horizontalAlignment = Alignment.CenterHorizontally,
