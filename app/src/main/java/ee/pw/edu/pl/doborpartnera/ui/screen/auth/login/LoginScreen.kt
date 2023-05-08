@@ -45,7 +45,7 @@ fun LoginScreen(
                 tint = MaterialTheme.colorScheme.primary,
             )
             Text(
-                modifier= Modifier.padding(top =App.dimens.views_spacing_small),
+                modifier = Modifier.padding(top = App.dimens.views_spacing_small),
                 text = stringResource(id = R.string.app_name),
                 style = MaterialTheme.typography.headlineSmall,
             )
@@ -58,7 +58,9 @@ fun LoginScreen(
                 onValueChange = viewModel::changeEmail,
                 label = {
                     Text(text = stringResource(id = R.string.email_label))
-                }
+                },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                maxLines = 1,
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -67,7 +69,10 @@ fun LoginScreen(
                 label = {
                     Text(text = stringResource(id = R.string.password_label))
                 },
-                keyboardActions = KeyboardActions(onDone = { viewModel.login() }),
+                keyboardActions = KeyboardActions(onDone = {
+                    defaultKeyboardAction(ImeAction.Done)
+                    viewModel.login()
+                }),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
             )
             Button(
