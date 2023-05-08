@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Dobor Partnera</string>
+    <string name="app_name">Dobór Partnera</string>
+
+    <!-- Auth -->
+    <string name="username_label">Email</string>
+    <string name="password_label">Hasło</string>
+    <string name="login">ZALOGUJ SIĘ</string>
 </resources>

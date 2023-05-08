@@ -17,6 +17,8 @@ class Dimensions(
 
     val letter_box_size: Dp = 48.dp,
 
+    val logo_size: Dp = 150.dp,
+
     val keyboard_letter_vertical_spacing: Dp = 8.dp,
     val dialog_icon_size: Dp = 48.dp,
 
