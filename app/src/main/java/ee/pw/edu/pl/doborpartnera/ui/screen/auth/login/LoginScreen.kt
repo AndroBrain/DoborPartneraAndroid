@@ -57,7 +57,7 @@ fun LoginScreen(
                 value = state.value.email,
                 onValueChange = viewModel::changeEmail,
                 label = {
-                    Text(text = stringResource(id = R.string.username_label))
+                    Text(text = stringResource(id = R.string.email_label))
                 }
             )
             OutlinedTextField(
