@@ -3,16 +3,17 @@ package ee.pw.edu.pl.doborpartnera.ui.screen.auth.register
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.HeartBroken
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -25,14 +26,28 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,
     viewModel: RegisterViewModel,
+    navigateUp: () -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     Scaffold(
         modifier = modifier,
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(text = stringResource(id = R.string.register_title))
+                },
+                navigationIcon = {
+                    IconButton(onClick = navigateUp) {
+                        Icon(imageVector = Icons.Default.Close, contentDescription = null)
+                    }
+                }
+            )
+        },
     ) { insets ->
         Column(
             modifier = Modifier
@@ -41,17 +56,6 @@ fun RegisterScreen(
                 .padding(App.dimens.screen_spacing_medium),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Icon(
-                modifier = Modifier.size(App.dimens.logo_size),
-                imageVector = Icons.Default.HeartBroken,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-            )
-            Text(
-                modifier = Modifier.padding(vertical = App.dimens.views_spacing_small),
-                text = stringResource(id = R.string.app_name),
-                style = MaterialTheme.typography.headlineSmall,
-            )
             val textFieldModifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = App.dimens.views_spacing_extra_small)
