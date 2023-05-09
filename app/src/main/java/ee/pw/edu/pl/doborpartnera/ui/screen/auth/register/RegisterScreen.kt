@@ -80,6 +80,10 @@ fun RegisterScreen(
                 },
                 maxLines = 1,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                supportingText = {
+                    state.value.nameError?.let { error -> Text(text = stringResource(id = error)) }
+                },
+                isError = state.value.nameError != null,
             )
             OutlinedTextField(
                 modifier = textFieldModifier,
@@ -90,6 +94,10 @@ fun RegisterScreen(
                 },
                 maxLines = 1,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                supportingText = {
+                    state.value.surnameError?.let { error -> Text(text = stringResource(id = error)) }
+                },
+                isError = state.value.surnameError != null,
             )
             OutlinedTextField(
                 modifier = textFieldModifier,

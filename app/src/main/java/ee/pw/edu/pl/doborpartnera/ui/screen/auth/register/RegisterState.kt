@@ -10,7 +10,9 @@ data class RegisterState(
     val email: String = "",
     @StringRes val emailError: Int? = null,
     val name: String = "",
+    @StringRes val nameError: Int? = null,
     val surname: String = "",
+    @StringRes val surnameError: Int? = null,
     val password: String = "",
     val repeatPassword: String = "",
 ) : UiState

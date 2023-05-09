@@ -17,4 +17,6 @@
 
     <!-- Validation -->
     <string name="validation_err_email">Wpisz poprawny email</string>
+    <string name="validation_err_name_length">Imię powinno mieć od 3 do 50 znaków.</string>
+    <string name="validation_err_surname_length">Nazwisko powinno mieć od 3 do 50 znaków.</string>
 </resources>
