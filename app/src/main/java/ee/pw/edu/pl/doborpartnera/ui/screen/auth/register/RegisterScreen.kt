@@ -66,6 +66,10 @@ fun RegisterScreen(
                 },
                 maxLines = 1,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                supportingText = {
+                    state.value.emailError?.let { error -> Text(text = stringResource(id = error)) }
+                },
+                isError = state.value.emailError != null,
             )
             OutlinedTextField(
                 modifier = textFieldModifier,

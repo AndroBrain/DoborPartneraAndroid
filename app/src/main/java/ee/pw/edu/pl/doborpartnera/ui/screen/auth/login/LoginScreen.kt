@@ -66,6 +66,10 @@ fun LoginScreen(
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 maxLines = 1,
+                supportingText = {
+                    state.value.emailError?.let { error -> Text(text = stringResource(id = error)) }
+                },
+                isError = state.value.emailError != null,
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),

@@ -2,6 +2,8 @@ package ee.pw.edu.pl.doborpartnera.ui.screen.auth.register
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ee.pw.edu.pl.doborpartnera.core.validation.EmailValidator
+import ee.pw.edu.pl.doborpartnera.core.validation.Validator
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import javax.inject.Inject
 
@@ -11,7 +13,7 @@ class RegisterViewModel @Inject constructor(
 ) : SingleStateViewModel<RegisterState>(savedStateHandle, RegisterState()) {
 
     fun changeEmail(email: String) {
-        updateState { state -> state.copy(email = email) }
+        updateState { state -> state.copy(email = email, emailError = null) }
     }
 
     fun changeName(name: String) {
@@ -31,6 +33,11 @@ class RegisterViewModel @Inject constructor(
     }
 
     fun register() {
+        val currentState = state.value
+        val emailError = Validator.validate(currentState.email, EmailValidator)
+        if (emailError != null) {
+            updateState { state -> state.copy(emailError = emailError) }
+        }
     }
 
 }

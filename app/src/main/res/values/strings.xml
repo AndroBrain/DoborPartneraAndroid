@@ -14,4 +14,7 @@
 
     <string name="register_title">Rejestracja</string>
     <string name="register">ZAREJESTRUJ SIĘ</string>
+
+    <!-- Validation -->
+    <string name="validation_err_email">Wpisz poprawny email</string>
 </resources>
