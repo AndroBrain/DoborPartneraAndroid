@@ -128,6 +128,10 @@ fun RegisterScreen(
                 ),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 maxLines = 1,
+                supportingText = {
+                    state.value.repeatPasswordError?.let { error -> Text(text = stringResource(id = error)) }
+                },
+                isError = state.value.repeatPasswordError != null,
             )
             Button(
                 modifier = Modifier

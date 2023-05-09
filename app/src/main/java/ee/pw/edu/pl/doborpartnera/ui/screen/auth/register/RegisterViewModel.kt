@@ -6,6 +6,7 @@ import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.core.validation.EmailValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.NameLengthValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.PasswordValidator
+import ee.pw.edu.pl.doborpartnera.core.validation.RepeatPasswordValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.Validator
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import javax.inject.Inject
@@ -59,6 +60,16 @@ class RegisterViewModel @Inject constructor(
         if (passwordError != null) {
             updateState { state -> state.copy(passwordError = passwordError) }
         }
+        val repeatPasswordError = Validator.validate(
+            currentState.repeatPassword,
+            RepeatPasswordValidator(currentState.password),
+        )
+        if (repeatPasswordError != null) {
+            updateState { state -> state.copy(repeatPasswordError = repeatPasswordError) }
+        }
+        if (emailError != null || nameError != null || surnameError != null || passwordError != null || repeatPasswordError != null) {
+            return
+        }
+//        TODO add LoginUseCase invoke
     }
-
 }

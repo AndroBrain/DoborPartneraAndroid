@@ -16,4 +16,5 @@ data class RegisterState(
     val password: String = "",
     @StringRes val passwordError: Int? = null,
     val repeatPassword: String = "",
+    @StringRes val repeatPasswordError: Int? = null,
 ) : UiState
