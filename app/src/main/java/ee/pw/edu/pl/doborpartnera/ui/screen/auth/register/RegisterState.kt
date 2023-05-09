@@ -14,5 +14,6 @@ data class RegisterState(
     val surname: String = "",
     @StringRes val surnameError: Int? = null,
     val password: String = "",
+    @StringRes val passwordError: Int? = null,
     val repeatPassword: String = "",
 ) : UiState

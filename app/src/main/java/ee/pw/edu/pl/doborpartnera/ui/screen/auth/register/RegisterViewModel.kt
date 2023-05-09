@@ -5,6 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.core.validation.EmailValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.NameLengthValidator
+import ee.pw.edu.pl.doborpartnera.core.validation.PasswordValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.Validator
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import javax.inject.Inject
@@ -27,7 +28,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     fun changePassword(password: String) {
-        updateState { state -> state.copy(password = password) }
+        updateState { state -> state.copy(password = password, passwordError = null) }
     }
 
     fun changeRepeatPassword(repeatPassword: String) {
@@ -53,6 +54,10 @@ class RegisterViewModel @Inject constructor(
         )
         if (surnameError != null) {
             updateState { state -> state.copy(surnameError = surnameError) }
+        }
+        val passwordError = Validator.validate(currentState.name, PasswordValidator)
+        if (passwordError != null) {
+            updateState { state -> state.copy(passwordError = passwordError) }
         }
     }
 

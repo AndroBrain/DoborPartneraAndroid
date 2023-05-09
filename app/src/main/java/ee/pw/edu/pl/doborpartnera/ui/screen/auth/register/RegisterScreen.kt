@@ -108,6 +108,10 @@ fun RegisterScreen(
                 },
                 maxLines = 1,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                supportingText = {
+                    state.value.passwordError?.let { error -> Text(text = stringResource(id = error)) }
+                },
+                isError = state.value.passwordError != null,
             )
             OutlinedTextField(
                 modifier = textFieldModifier,
