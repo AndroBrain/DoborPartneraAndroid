@@ -17,6 +17,8 @@
 
     <!-- Chat -->
     <string name="chat_title">Czat</string>
+    <string name="chat_empty">Jest tu pusto…</string>
+    <string name="chat_empty_description">Wyszukaj partnera i napisz do niego, aby wypełnić to miejsce!</string>
 
     <!-- Match -->
     <string name="match_title">Szukaj</string>

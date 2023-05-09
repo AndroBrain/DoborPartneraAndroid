@@ -15,14 +15,8 @@ class Dimensions(
     val views_spacing_large: Dp = 24.dp,
     val views_spacing_extra_large: Dp = 32.dp,
 
-    val letter_box_size: Dp = 48.dp,
-
     val logo_size: Dp = 250.dp,
-
-    val keyboard_letter_vertical_spacing: Dp = 8.dp,
-    val dialog_icon_size: Dp = 48.dp,
-
-    val game_history_height: Dp = 32.dp,
+    val empty_chat_icon_size: Dp = 175.dp,
 )
 
 val defaultDimensions = Dimensions()

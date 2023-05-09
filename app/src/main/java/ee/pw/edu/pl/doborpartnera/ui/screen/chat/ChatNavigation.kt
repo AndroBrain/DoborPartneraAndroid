@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.chat
 
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -9,7 +10,8 @@ const val CHAT_ROUTE = "CHAT"
 
 fun NavGraphBuilder.chatScreen() {
     composable(CHAT_ROUTE) {
-        ChatScreen()
+        val viewModel: ChatViewModel = hiltViewModel()
+        ChatScreen(viewModel = viewModel)
     }
 }
 
