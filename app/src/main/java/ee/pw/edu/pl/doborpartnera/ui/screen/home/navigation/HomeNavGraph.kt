@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.doborpartnera.ui.screen.home
+package ee.pw.edu.pl.doborpartnera.ui.screen.home.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
