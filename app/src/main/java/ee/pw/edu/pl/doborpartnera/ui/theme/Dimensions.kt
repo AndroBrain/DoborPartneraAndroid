@@ -18,6 +18,8 @@ class Dimensions(
     val logo_size: Dp = 250.dp,
     val empty_chat_icon_size: Dp = 175.dp,
     val chat_image_size: Dp = 48.dp,
+
+    val profile_image_size: Dp = 150.dp,
 )
 
 val defaultDimensions = Dimensions()
