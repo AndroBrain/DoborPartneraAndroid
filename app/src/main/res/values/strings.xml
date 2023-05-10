@@ -26,6 +26,7 @@
     <!-- Profile -->
     <string name="profile_title">Profil</string>
     <string name="profile_edit">Edytuj</string>
+    <string name="profile_your_images">Twoje zdjęcia</string>
 
     <!-- Validation -->
     <string name="validation_err_email">Wpisz poprawny email</string>

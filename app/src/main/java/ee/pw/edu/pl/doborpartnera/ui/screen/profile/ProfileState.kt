@@ -10,5 +10,6 @@ data class ProfileState(
     val surname: String = "",
     val shortDescription: String = "",
     val imageUrl: String? = null,
+    val imageGallery: List<String> = emptyList(),
     val isLoading: Boolean = true,
 ) : UiState
