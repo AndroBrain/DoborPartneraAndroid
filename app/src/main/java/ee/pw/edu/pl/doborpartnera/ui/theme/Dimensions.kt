@@ -20,6 +20,7 @@ class Dimensions(
     val chat_image_size: Dp = 48.dp,
 
     val profile_image_size: Dp = 150.dp,
+    val profile_gallery_image_size: Dp = 120.dp,
 )
 
 val defaultDimensions = Dimensions()
