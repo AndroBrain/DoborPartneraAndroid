@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.profile
 
+import android.net.Uri
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,14 +17,18 @@ import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
 @Composable
-fun LoadedProfile(modifier: Modifier = Modifier, state: ProfileState) {
+fun LoadedProfile(
+    modifier: Modifier = Modifier,
+    state: ProfileState,
+    onProfileImageChanged: (Uri) -> Unit,
+) {
     LazyColumn(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         contentPadding = PaddingValues(bottom = App.dimens.screen_spacing_large),
     ) {
         item {
-            ProfileImage(state.imageUrl)
+            ProfileImage(state.imageUrl, onProfileImageChanged)
         }
         item {
             Text(

@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.profile
 
+import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,5 +28,9 @@ class ProfileViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun changeProfileImage(uri: Uri) {
+        // TODO add request for change
     }
 }

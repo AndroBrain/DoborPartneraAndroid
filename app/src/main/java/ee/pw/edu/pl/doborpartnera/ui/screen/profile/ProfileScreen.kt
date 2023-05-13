@@ -52,6 +52,7 @@ fun ProfileScreen(
                     LoadedProfile(
                         modifier = Modifier.fillMaxSize(),
                         state = state.value,
+                        onProfileImageChanged = viewModel::changeProfileImage,
                     )
                 }
             }
