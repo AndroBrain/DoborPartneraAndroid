@@ -9,7 +9,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.R
+import ee.pw.edu.pl.doborpartnera.ui.components.LoadingButton
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
 @Composable
@@ -84,12 +84,12 @@ fun LoginScreen(
                 }),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
             )
-            Button(
+            LoadingButton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = App.dimens.views_spacing_medium),
                 onClick = viewModel::login,
-                enabled = !state.value.isLoading,
+                isLoading = state.value.isLoading,
             ) {
                 Text(text = stringResource(id = R.string.login))
             }
