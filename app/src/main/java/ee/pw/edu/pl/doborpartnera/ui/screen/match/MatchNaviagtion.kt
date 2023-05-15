@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.match
 
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -9,7 +10,8 @@ const val MATCH_ROUTE = "MATCH"
 
 fun NavGraphBuilder.matchScreen() {
     composable(MATCH_ROUTE) {
-        MatchScreen()
+        val viewModel: MatchViewModel = hiltViewModel()
+        MatchScreen(viewModel = viewModel)
     }
 }
 

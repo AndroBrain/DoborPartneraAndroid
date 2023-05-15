@@ -27,6 +27,7 @@
 
     <!-- Match -->
     <string name="match_title">Szukaj</string>
+    <string name="match_profile_unfilled">Dodaj zdjęcie profilowe, 2 zdjęcia do galerii i krótki opis, aby zacząć szukać swojej Drugiej Połówki</string>
 
     <!-- Profile -->
     <string name="profile_title">Profil</string>
