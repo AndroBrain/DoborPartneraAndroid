@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class LoginUseCase @Inject constructor() {
-    operator fun invoke(): Flow<UseCaseResult<LoginResponse>> = flow {
+    operator fun invoke(form: LoginForm): Flow<UseCaseResult<LoginResponse>> = flow {
         delay(2000L)
         emit(UseCaseResult.Ok(LoginResponse(token = "secret token", isTestFilled = false)))
 //        emit(UseCaseResult.Error(ResultErrorType.INVALID_CREDENTIALS))

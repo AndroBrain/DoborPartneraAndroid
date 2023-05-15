@@ -8,6 +8,7 @@ import ee.pw.edu.pl.doborpartnera.core.validation.EmailValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.Validator
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
+import ee.pw.edu.pl.domain.usecase.auth.login.LoginForm
 import ee.pw.edu.pl.domain.usecase.auth.login.LoginUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
@@ -45,7 +46,9 @@ class LoginViewModel @Inject constructor(
                 updateState { state -> state.copy(emailError = emailError, isLoading = false) }
                 return@launch
             }
-            loginUseCase().onEach { result ->
+            loginUseCase(
+                LoginForm(email = currentState.email, password = currentState.password)
+            ).onEach { result ->
                 result.fold(
                     onOk = {
                         updateState { state -> state.copy(isLoggedIn = true, isLoading = false) }
