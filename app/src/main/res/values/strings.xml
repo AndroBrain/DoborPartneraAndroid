@@ -2,6 +2,10 @@
     <string name="app_name">Dobór Partnera</string>
     <string name="app_description">Witaj w naszej aplikacji wspierającej dobór partnera. Została ona stworzona specjalnie dla osób poszukujących miłości i partnerów na dłużej. Szybko i skutecznie wyszukaj swojego kolejnego partnera!</string>
 
+    <!-- Common -->
+    <string name="connection_lost">Stracono połączenie</string>
+    <string name="refresh">Odśwież</string>
+
     <!-- Auth -->
     <string name="email_label">Email</string>
     <string name="name_label">Imie</string>
