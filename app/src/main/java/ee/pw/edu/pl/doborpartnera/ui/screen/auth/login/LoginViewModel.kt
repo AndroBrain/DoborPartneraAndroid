@@ -49,8 +49,7 @@ class LoginViewModel @Inject constructor(
                 result.fold(
                     onOk = {
                         updateState { state -> state.copy(isLoggedIn = true, isLoading = false) }
-                    },
-                    onError = { error ->
+                    }, onError = { error ->
                         updateState { state ->
                             state.copy(
                                 errorMsg = error.type.getMessage(),
