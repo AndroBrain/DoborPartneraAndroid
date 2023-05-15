@@ -23,7 +23,7 @@ fun EmptyChat(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
-            modifier = Modifier.size(App.dimens.empty_chat_icon_size),
+            modifier = Modifier.size(App.dimens.main_icon_size),
             imageVector = Icons.Default.SentimentDissatisfied,
             contentDescription = null,
         )

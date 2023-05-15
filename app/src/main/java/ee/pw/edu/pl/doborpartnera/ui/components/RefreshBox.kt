@@ -29,7 +29,7 @@ fun RefreshBox(
             verticalArrangement = Arrangement.Center,
         ) {
             Icon(
-                modifier = Modifier.size(App.dimens.refresh_box_icon_size),
+                modifier = Modifier.size(App.dimens.main_icon_size),
                 imageVector = Icons.Default.Wifi,
                 contentDescription = null,
             )
