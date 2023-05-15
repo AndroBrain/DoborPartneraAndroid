@@ -9,7 +9,10 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigation.HomeNavGraph
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigation.HomeNavigationBar
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    navigateToFindMatch: () -> Unit,
+) {
     val navController = rememberAnimatedNavController()
     Scaffold(
         modifier = modifier,
@@ -17,6 +20,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             HomeNavigationBar(navController = navController)
         }
     ) { insets ->
-        HomeNavGraph(modifier = Modifier.padding(insets), navController = navController)
+        HomeNavGraph(
+            modifier = Modifier.padding(insets),
+            navController = navController,
+            navigateToFindMatch = navigateToFindMatch,
+        )
     }
 }

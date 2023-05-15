@@ -8,10 +8,17 @@ import ee.pw.edu.pl.doborpartnera.ui.navigation.composable
 
 const val MATCH_ROUTE = "MATCH"
 
-fun NavGraphBuilder.matchScreen() {
+fun NavGraphBuilder.matchScreen(
+    navigateToChats: () -> Unit,
+    navigateToFindMatch: () -> Unit,
+) {
     composable(MATCH_ROUTE) {
         val viewModel: MatchViewModel = hiltViewModel()
-        MatchScreen(viewModel = viewModel)
+        MatchScreen(
+            viewModel = viewModel,
+            navigateToChats = navigateToChats,
+            navigateToFindMatch = navigateToFindMatch,
+        )
     }
 }
 

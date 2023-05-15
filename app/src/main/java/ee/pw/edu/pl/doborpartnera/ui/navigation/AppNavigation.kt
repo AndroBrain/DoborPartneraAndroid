@@ -14,6 +14,8 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.auth.register.navigateToRegister
 import ee.pw.edu.pl.doborpartnera.ui.screen.auth.register.registerScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.homeScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigateToHome
+import ee.pw.edu.pl.doborpartnera.ui.screen.match.find.findMatchScreen
+import ee.pw.edu.pl.doborpartnera.ui.screen.match.find.navigateToFindMatch
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
@@ -51,6 +53,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                 )
             }
         )
-        homeScreen()
+        homeScreen(navigateToFindMatch = { navController.navigateToFindMatch() })
+        findMatchScreen()
     }
 }

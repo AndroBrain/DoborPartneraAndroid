@@ -30,6 +30,8 @@ import ee.pw.edu.pl.doborpartnera.ui.theme.App
 fun MatchScreen(
     modifier: Modifier = Modifier,
     viewModel: MatchViewModel,
+    navigateToChats: () -> Unit,
+    navigateToFindMatch: () -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     state.value.errorMsg?.let { errorMsg ->
@@ -42,7 +44,8 @@ fun MatchScreen(
     val isProfileFilled = state.value.isProfileFilled
     LaunchedEffect(isProfileFilled) {
         if (isProfileFilled) {
-//            TODO navigate to full screen matcher and to chats in nested home navigation
+            navigateToChats()
+            navigateToFindMatch()
         }
     }
     Scaffold(
