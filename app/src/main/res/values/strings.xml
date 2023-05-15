@@ -31,7 +31,7 @@
     <!-- Profile -->
     <string name="profile_title">Profil</string>
     <string name="profile_your_images">Zmień swoje zdjęcia</string>
-    <string name="profile_empty_images">Dodaj pierwsze zdjęcia</string>
+    <string name="profile_empty_images">Dodaj swoje pierwsze zdjęcia</string>
 
     <!-- Validation -->
     <string name="validation_err_email">Wpisz poprawny email</string>

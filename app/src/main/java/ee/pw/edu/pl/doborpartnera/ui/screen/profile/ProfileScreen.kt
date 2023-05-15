@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ee.pw.edu.pl.doborpartnera.ui.components.RefreshBox
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
 @Composable
@@ -25,21 +26,29 @@ fun ProfileScreen(
             modifier = Modifier
                 .padding(insets)
                 .fillMaxSize(),
-            targetState = state.value.isLoading
-        ) { isLoading ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(App.dimens.screen_spacing_medium),
-            ) {
-                if (isLoading) {
-                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-                } else {
-                    LoadedProfile(
-                        modifier = Modifier.fillMaxSize(),
-                        state = state.value,
-                        onProfileImageChanged = viewModel::changeProfileImage,
-                    )
+            targetState = state.value,
+        ) { state ->
+            if (state.isInError) {
+                RefreshBox(
+                    modifier = Modifier.fillMaxSize(),
+                    isLoading = state.isLoading,
+                    onClick = viewModel::loadProfile,
+                )
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(App.dimens.screen_spacing_medium),
+                ) {
+                    if (state.isLoading) {
+                        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                    } else {
+                        LoadedProfile(
+                            modifier = Modifier.fillMaxSize(),
+                            state = state,
+                            onProfileImageChanged = viewModel::changeProfileImage,
+                        )
+                    }
                 }
             }
         }
