@@ -75,18 +75,12 @@ fun LoadedProfile(
                     .padding(top = App.dimens.views_spacing_medium)
                     .padding(bottom = App.dimens.views_spacing_small)
                     .fillMaxWidth(),
-                contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                 onClick = {
                     multiplePhotoPickerLauncher.launch(
                         PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                     )
                 },
             ) {
-                Icon(
-                    modifier = Modifier.padding(end = App.dimens.views_spacing_small),
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = null,
-                )
                 Text(
                     text = stringResource(id = R.string.profile_your_images),
                     style = MaterialTheme.typography.titleLarge,
