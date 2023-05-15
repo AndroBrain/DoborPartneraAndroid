@@ -41,7 +41,16 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                 )
             }
         )
-        registerScreen(navigateUp = { navController.navigateUp() })
+        registerScreen(
+            navigateUp = { navController.navigateUp() },
+            navigateToLogin = {
+                navController.navigateToLogin(
+                    navOptions = navOptions {
+                        popUpTo(AUTH_ROUTE)
+                    }
+                )
+            }
+        )
         homeScreen()
     }
 }

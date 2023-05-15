@@ -4,18 +4,24 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.R
+import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.validation.EmailValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.NameLengthValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.PasswordValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.RepeatPasswordValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.Validator
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
+import ee.pw.edu.pl.domain.core.result.fold
+import ee.pw.edu.pl.domain.usecase.auth.register.RegisterForm
+import ee.pw.edu.pl.domain.usecase.auth.register.RegisterUseCase
 import javax.inject.Inject
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
+    private val registerUseCase: RegisterUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<RegisterState>(savedStateHandle, RegisterState()) {
 
@@ -37,6 +43,14 @@ class RegisterViewModel @Inject constructor(
 
     fun changeRepeatPassword(repeatPassword: String) {
         updateState { state -> state.copy(repeatPassword = repeatPassword) }
+    }
+
+    fun clearErrorMsg() {
+        updateState { state -> state.copy(errorMsg = null) }
+    }
+
+    fun registered() {
+        updateState { state -> state.copy(isRegistered = false) }
     }
 
     fun register() {
@@ -76,9 +90,26 @@ class RegisterViewModel @Inject constructor(
                 updateState { state -> state.copy(isLoading = false) }
                 return@launch
             }
-//        TODO add RegisterUseCase invoke
-            delay(2000L)
-            updateState { state -> state.copy(isLoading = false) }
+            registerUseCase(
+                RegisterForm(
+                    email = currentState.email,
+                    name = currentState.name,
+                    surname = currentState.surname,
+                    password = currentState.password,
+                )
+            ).onEach { result ->
+                result.fold(
+                    onOk = {
+                        updateState { state -> state.copy(isRegistered = true, isLoading = false) }
+                    }, onError = { error ->
+                        updateState { state ->
+                            state.copy(
+                                errorMsg = error.type.getMessage(), isLoading = false,
+                            )
+                        }
+                    }
+                )
+            }.launchIn(this)
         }
     }
 }

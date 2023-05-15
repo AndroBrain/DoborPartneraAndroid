@@ -14,6 +14,7 @@
 
     <string name="register_title">Rejestracja</string>
     <string name="register">ZAREJESTRUJ SIĘ</string>
+    <string name="register_successful">Zarejestrowano pomyślnie</string>
 
     <!-- Chat -->
     <string name="chat_title">Czat</string>

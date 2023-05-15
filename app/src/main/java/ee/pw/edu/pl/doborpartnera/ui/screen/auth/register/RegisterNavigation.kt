@@ -8,10 +8,14 @@ import ee.pw.edu.pl.doborpartnera.ui.navigation.composable
 
 const val REGISTER_ROUTE = "REGISTER"
 
-fun NavGraphBuilder.registerScreen(navigateUp: () -> Unit) {
+fun NavGraphBuilder.registerScreen(navigateUp: () -> Unit, navigateToLogin: () -> Unit) {
     composable(REGISTER_ROUTE) {
         val viewModel: RegisterViewModel = hiltViewModel()
-        RegisterScreen(viewModel = viewModel, navigateUp = navigateUp)
+        RegisterScreen(
+            viewModel = viewModel,
+            navigateUp = navigateUp,
+            navigateToLogin = navigateToLogin,
+        )
     }
 }
 

@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.auth.register
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,8 +17,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -30,8 +33,24 @@ fun RegisterScreen(
     modifier: Modifier = Modifier,
     viewModel: RegisterViewModel,
     navigateUp: () -> Unit,
+    navigateToLogin: () -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    state.value.errorMsg?.let { errorMsg ->
+        LaunchedEffect(errorMsg) {
+            Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
+            viewModel.clearErrorMsg()
+        }
+    }
+    val isRegistered = state.value.isRegistered
+    LaunchedEffect(isRegistered) {
+        if (isRegistered) {
+            Toast.makeText(context, R.string.register_successful, Toast.LENGTH_SHORT).show()
+            navigateToLogin()
+            viewModel.registered()
+        }
+    }
     Scaffold(
         modifier = modifier,
         topBar = {
