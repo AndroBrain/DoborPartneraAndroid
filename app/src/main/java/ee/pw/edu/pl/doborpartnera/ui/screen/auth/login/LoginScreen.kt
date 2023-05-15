@@ -23,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.components.LoadingButton
@@ -96,11 +98,17 @@ fun LoginScreen(
                 label = {
                     Text(text = stringResource(id = R.string.password_label))
                 },
-                keyboardActions = KeyboardActions(onDone = {
-                    defaultKeyboardAction(ImeAction.Done)
-                    viewModel.login()
-                }),
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        defaultKeyboardAction(ImeAction.Done)
+                        viewModel.login()
+                    }
+                ),
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Password,
+                ),
+                visualTransformation = PasswordVisualTransformation(),
             )
             LoadingButton(
                 modifier = Modifier
