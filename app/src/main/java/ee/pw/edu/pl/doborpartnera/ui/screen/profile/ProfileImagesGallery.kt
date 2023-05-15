@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -79,9 +79,8 @@ fun ProfileImagesGallery(
             ) {
                 Icon(
                     modifier = Modifier.size(App.dimens.profile_gallery_empty_image_size),
-                    imageVector = Icons.Default.Image,
+                    imageVector = Icons.Default.PhotoCamera,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.secondary,
                 )
                 Button(
                     onClick = pickImages,
