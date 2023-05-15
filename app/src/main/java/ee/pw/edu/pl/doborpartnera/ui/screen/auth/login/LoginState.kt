@@ -10,4 +10,6 @@ data class LoginState(
     val email: String = "",
     @StringRes val emailError: Int? = null,
     val password: String = "",
+    @StringRes val errorMsg: Int? = null,
+    val isLoggedIn: Boolean = false,
 ) : UiState

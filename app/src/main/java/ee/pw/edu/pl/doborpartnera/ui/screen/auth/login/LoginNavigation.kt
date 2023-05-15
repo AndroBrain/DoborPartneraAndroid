@@ -8,10 +8,10 @@ import ee.pw.edu.pl.doborpartnera.ui.navigation.composable
 
 const val LOGIN_ROUTE = "LOGIN"
 
-fun NavGraphBuilder.loginScreen(navigateUp: () -> Unit) {
+fun NavGraphBuilder.loginScreen(navigateUp: () -> Unit, navigateToHome: () -> Unit) {
     composable(LOGIN_ROUTE) {
         val viewModel: LoginViewModel = hiltViewModel()
-        LoginScreen(viewModel = viewModel, navigateUp = navigateUp)
+        LoginScreen(viewModel = viewModel, navigateUp = navigateUp, navigateToHome = navigateToHome)
     }
 }
 

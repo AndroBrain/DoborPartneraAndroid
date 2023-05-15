@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.auth.login
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,8 +17,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -30,8 +33,23 @@ fun LoginScreen(
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel,
     navigateUp: () -> Unit,
+    navigateToHome: () -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
+    state.value.errorMsg?.let { errorMsg ->
+        val context = LocalContext.current
+        LaunchedEffect(errorMsg) {
+            Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
+            viewModel.clearErrorMsg()
+        }
+    }
+    val isLoggedIn = state.value.isLoggedIn
+    LaunchedEffect(isLoggedIn) {
+        if (isLoggedIn) {
+            navigateToHome()
+            viewModel.loggedIn()
+        }
+    }
     Scaffold(
         modifier = modifier,
         topBar = {
