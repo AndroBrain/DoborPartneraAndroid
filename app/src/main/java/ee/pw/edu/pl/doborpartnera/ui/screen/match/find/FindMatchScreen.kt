@@ -29,7 +29,12 @@ fun FindMatchScreen(
         }
     }
     Scaffold(modifier = modifier) { insets ->
-        Crossfade(modifier = Modifier.padding(insets), targetState = state.value) { state ->
+//        TODO remove crossfades when we load next profiles
+        Crossfade(
+            modifier = Modifier.padding(insets),
+            targetState = state.value.profileIndex
+        ) { index ->
+            val state = state.value
 
             Box(modifier = Modifier.fillMaxSize()) {
                 when {
@@ -42,7 +47,7 @@ fun FindMatchScreen(
                     }
 
                     state.profiles.isNotEmpty() -> {
-                        val profile = state.profiles.getOrNull(state.profileIndex)
+                        val profile = state.profiles.getOrNull(index)
                         if (profile == null) {
                             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                         } else {
