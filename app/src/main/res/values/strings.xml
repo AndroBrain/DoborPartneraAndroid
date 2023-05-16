@@ -29,6 +29,10 @@
     <string name="match_title">Szukaj</string>
     <string name="match_profile_unfilled">Dodaj zdjęcie profilowe, 2 zdjęcia do galerii i krótki opis, aby zacząć szukać swojej Drugiej Połówki</string>
 
+    <!-- Match: Find -->
+    <string name="match_accept">Akceptuj</string>
+    <string name="match_decline">Odrzuć</string>
+
     <!-- Profile -->
     <string name="profile_title">Profil</string>
     <string name="profile_your_images">Zmień swoje zdjęcia</string>

@@ -25,6 +25,8 @@ class Dimensions(
     val profile_image_size: Dp = 150.dp,
     val profile_gallery_image_size: Dp = 120.dp,
     val profile_gallery_empty_image_size: Dp = 150.dp,
+
+    val find_match_profile_image_size: Dp = 80.dp,
 )
 
 val defaultDimensions = Dimensions()

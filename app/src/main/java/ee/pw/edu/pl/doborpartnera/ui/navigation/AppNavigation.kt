@@ -14,6 +14,7 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.auth.register.navigateToRegister
 import ee.pw.edu.pl.doborpartnera.ui.screen.auth.register.registerScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.homeScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigateToHome
+import ee.pw.edu.pl.doborpartnera.ui.screen.match.find.FIND_MATCH_ROUTE
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.find.findMatchScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.find.navigateToFindMatch
 
@@ -23,7 +24,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     AnimatedNavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = AUTH_ROUTE,
+        startDestination = FIND_MATCH_ROUTE,
     ) {
         authScreen(
             navigateToLogin = { navController.navigateToLogin() },
