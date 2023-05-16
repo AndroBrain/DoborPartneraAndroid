@@ -10,16 +10,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.Block
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +35,7 @@ import com.skydoves.landscapist.glide.GlideImage
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 import ee.pw.edu.pl.domain.usecase.match.MatchProfile
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -39,9 +45,10 @@ fun Match(
     onAccept: () -> Unit,
     onDecline: () -> Unit,
 ) {
+    val pagerState = rememberPagerState()
     ConstraintLayout(modifier = modifier) {
-        val (background, profileImage, name, shortDescription, choicesContainer) = createRefs()
-        HorizontalPager(pageCount = profile.galleryImages.size) { imageIndex ->
+        val (background, profileImage, name, shortDescription, choicesContainer, nextButton, previousButton) = createRefs()
+        HorizontalPager(pageCount = profile.galleryImages.size, state = pagerState) { imageIndex ->
             GlideImage(
                 modifier = Modifier.fillMaxSize(),
                 imageModel = { profile.galleryImages[imageIndex] },
@@ -51,6 +58,47 @@ fun Match(
                     }
                 }
             )
+        }
+        val coroutineScope = rememberCoroutineScope()
+
+        if (pagerState.currentPage > 0) {
+            IconButton(
+                modifier = Modifier
+                    .constrainAs(previousButton) {
+                        start.linkTo(parent.start)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                    },
+                onClick = {
+                    coroutineScope.launch { pagerState.animateScrollToPage(pagerState.currentPage - 1) }
+                },
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBackIos,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.surface,
+                )
+            }
+        }
+
+        if (pagerState.currentPage < profile.galleryImages.lastIndex) {
+            IconButton(
+                modifier = Modifier
+                    .constrainAs(nextButton) {
+                        end.linkTo(parent.end)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                    },
+                onClick = {
+                    coroutineScope.launch { pagerState.animateScrollToPage(pagerState.currentPage + 1) }
+                },
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowForwardIos,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.surface,
+                )
+            }
         }
 
         Box(
