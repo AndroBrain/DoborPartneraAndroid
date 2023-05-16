@@ -116,12 +116,14 @@ fun FindMatchScreen(
                     ExtendedFloatingActionButton(
                         modifier = Modifier.align(Alignment.BottomStart),
                         onClick = { /*TODO*/ },
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
                     ) {
                         Text(text = stringResource(id = R.string.match_decline))
                     }
                     ExtendedFloatingActionButton(
                         modifier = Modifier.align(Alignment.BottomEnd),
                         onClick = { /*TODO*/ },
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                     ) {
                         Text(text = stringResource(id = R.string.match_accept))
                     }
