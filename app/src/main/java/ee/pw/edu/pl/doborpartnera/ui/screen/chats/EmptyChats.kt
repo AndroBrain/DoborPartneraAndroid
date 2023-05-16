@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.doborpartnera.ui.screen.chat
+package ee.pw.edu.pl.doborpartnera.ui.screen.chats
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -28,13 +28,13 @@ fun EmptyChat(modifier: Modifier = Modifier) {
             contentDescription = null,
         )
         Text(
-            text = stringResource(id = R.string.chat_empty),
+            text = stringResource(id = R.string.chats_empty),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineMedium,
         )
         Text(
             modifier = Modifier.padding(top = App.dimens.views_spacing_small),
-            text = stringResource(id = R.string.chat_empty_description),
+            text = stringResource(id = R.string.chats_empty_description),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodyMedium,
         )

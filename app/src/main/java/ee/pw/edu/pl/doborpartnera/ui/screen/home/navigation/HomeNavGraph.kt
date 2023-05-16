@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
-import ee.pw.edu.pl.doborpartnera.ui.screen.chat.CHAT_ROUTE
-import ee.pw.edu.pl.doborpartnera.ui.screen.chat.chatScreen
-import ee.pw.edu.pl.doborpartnera.ui.screen.chat.navigateToChat
+import ee.pw.edu.pl.doborpartnera.ui.screen.chats.CHATS_ROUTE
+import ee.pw.edu.pl.doborpartnera.ui.screen.chats.chatsScreen
+import ee.pw.edu.pl.doborpartnera.ui.screen.chats.navigateToChats
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.matchScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.profileScreen
 
@@ -19,12 +19,12 @@ fun HomeNavGraph(
     AnimatedNavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = CHAT_ROUTE,
+        startDestination = CHATS_ROUTE,
     ) {
-        chatScreen()
+        chatsScreen()
         matchScreen(
             navigateToChats = {
-                navController.navigateToChat()
+                navController.navigateToChats()
             },
             navigateToFindMatch = navigateToFindMatch,
         )

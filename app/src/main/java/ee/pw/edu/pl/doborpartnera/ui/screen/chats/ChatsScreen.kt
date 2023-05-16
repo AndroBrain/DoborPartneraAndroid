@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.doborpartnera.ui.screen.chat
+package ee.pw.edu.pl.doborpartnera.ui.screen.chats
 
 import android.widget.Toast
 import androidx.compose.animation.Crossfade
@@ -18,7 +18,7 @@ import ee.pw.edu.pl.doborpartnera.ui.components.RefreshBox
 @Composable
 fun ChatScreen(
     modifier: Modifier = Modifier,
-    viewModel: ChatViewModel,
+    viewModel: ChatsViewModel,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     state.value.errorMsg?.let { errorMsg ->

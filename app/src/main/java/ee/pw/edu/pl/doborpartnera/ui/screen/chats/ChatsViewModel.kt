@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.doborpartnera.ui.screen.chat
+package ee.pw.edu.pl.doborpartnera.ui.screen.chats
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class ChatViewModel @Inject constructor(
+class ChatsViewModel @Inject constructor(
     private val getChatsUseCase: GetChatsUseCase,
     savedStateHandle: SavedStateHandle,
-) : SingleStateViewModel<ChatState>(savedStateHandle, ChatState()) {
+) : SingleStateViewModel<ChatsState>(savedStateHandle, ChatsState()) {
     init {
         getChats()
     }

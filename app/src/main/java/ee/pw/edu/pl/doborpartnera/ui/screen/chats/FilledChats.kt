@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.doborpartnera.ui.screen.chat
+package ee.pw.edu.pl.doborpartnera.ui.screen.chats
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
