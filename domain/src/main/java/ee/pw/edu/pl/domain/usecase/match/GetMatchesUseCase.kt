@@ -1,6 +1,5 @@
 package ee.pw.edu.pl.domain.usecase.match
 
-import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import javax.inject.Inject
 import kotlinx.coroutines.delay
@@ -12,31 +11,35 @@ class GetMatchesUseCase @Inject constructor(
 ) {
     operator fun invoke(): Flow<UseCaseResult<List<MatchProfile>>> = flow {
         delay(2000L)
-        if (counter % 2 == 1) {
-            emit(
-                UseCaseResult.Ok(
-                    listOf(
-                        MatchProfile(
-                            name = "Ala",
-                            age = "Kowalska",
-                            shortDescription = "Krótki opis mam",
-                            profilePhotoUrl = "https://cdn.pixabay.com/photo/2018/01/13/19/39/fashion-3080644_1280.jpg",
-                            galleryImages = listOf(
-                                "https://cdn.pixabay.com/photo/2020/12/13/16/37/woman-5828786_960_720.jpg",
-                                "https://cdn.pixabay.com/photo/2014/12/06/19/46/girl-559307_960_720.jpg",
-                                "https://cdn.pixabay.com/photo/2015/01/12/10/44/woman-597173_960_720.jpg",
-                            )
+        emit(
+            UseCaseResult.Ok(
+                listOf(
+                    MatchProfile(
+                        name = "Ala",
+                        age = "20",
+                        shortDescription = "Krótki opis mam",
+                        profilePhotoUrl = "https://images.pexels.com/photos/619981/pexels-photo-619981.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                        galleryImages = listOf(
+                            "https://images.pexels.com/photos/620075/pexels-photo-620075.jpeg",
+                            "https://images.pexels.com/photos/620074/pexels-photo-620074.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                            "https://images.pexels.com/photos/618701/pexels-photo-618701.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
                         )
-                    )
+                    ),
+                    MatchProfile(
+                        name = "Maja",
+                        age = "30",
+                        shortDescription = "Krótki opis mam",
+                        profilePhotoUrl = "https://images.pexels.com/photos/9223149/pexels-photo-9223149.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                        galleryImages = listOf(
+                            "https://images.pexels.com/photos/9223151/pexels-photo-9223151.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                            "https://images.pexels.com/photos/9223153/pexels-photo-9223153.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                            "https://images.pexels.com/photos/9223148/pexels-photo-9223148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                            "https://images.pexels.com/photos/9223155/pexels-photo-9223155.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                            "https://images.pexels.com/photos/10591370/pexels-photo-10591370.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                        )
+                    ),
                 )
             )
-        } else {
-            emit(UseCaseResult.Error(ResultErrorType.NETWORK))
-        }
-        counter++
-    }
-
-    companion object {
-        private var counter = 0
+        )
     }
 }

@@ -9,6 +9,7 @@ import kotlinx.parcelize.Parcelize
 data class FindMatchState(
     val isLoading: Boolean = false,
     val profiles: List<MatchProfile> = emptyList(),
+    val profileIndex: Int = 0,
     @StringRes val errorMsg: Int? = null,
     val isInError: Boolean = false,
 ) : UiState

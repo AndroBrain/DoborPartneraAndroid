@@ -36,6 +36,8 @@ import ee.pw.edu.pl.domain.usecase.match.MatchProfile
 fun Match(
     modifier: Modifier = Modifier,
     profile: MatchProfile,
+    onAccept: () -> Unit,
+    onDecline: () -> Unit,
 ) {
     ConstraintLayout(modifier = modifier) {
         val (background, profileImage, name, shortDescription, choicesContainer) = createRefs()
@@ -72,7 +74,7 @@ fun Match(
                     bottom.linkTo(profileImage.bottom)
                     start.linkTo(profileImage.end)
                 },
-            text = "${profile.name}, ${profile.age}",
+            text = stringResource(id = R.string.match_find_name, profile.name, profile.age),
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.surface,
         )
@@ -120,7 +122,7 @@ fun Match(
         ) {
             FloatingActionButton(
                 modifier = Modifier.align(Alignment.BottomStart),
-                onClick = { /*TODO*/ },
+                onClick = onDecline,
                 containerColor = MaterialTheme.colorScheme.errorContainer,
             ) {
                 Row(
@@ -142,7 +144,7 @@ fun Match(
             }
             FloatingActionButton(
                 modifier = Modifier.align(Alignment.BottomEnd),
-                onClick = { /*TODO*/ },
+                onClick = onAccept,
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
             ) {
                 Row(

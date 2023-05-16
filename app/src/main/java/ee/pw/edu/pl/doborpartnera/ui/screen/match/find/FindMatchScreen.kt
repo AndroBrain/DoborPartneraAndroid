@@ -42,8 +42,17 @@ fun FindMatchScreen(
                     }
 
                     state.profiles.isNotEmpty() -> {
-                        val profile = state.profiles.first()
-                        Match(modifier = Modifier.fillMaxSize(), profile = profile)
+                        val profile = state.profiles.getOrNull(state.profileIndex)
+                        if (profile == null) {
+                            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                        } else {
+                            Match(
+                                modifier = Modifier.fillMaxSize(),
+                                profile = profile,
+                                onAccept = viewModel::accept,
+                                onDecline = viewModel::decline,
+                            )
+                        }
                     }
 
                     state.isLoading -> {

@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
+private const val LOAD_MORE_INDICATOR = 3
+
 @HiltViewModel
 class FindMatchViewModel @Inject constructor(
     private val getMatchesUseCase: GetMatchesUseCase,
@@ -27,7 +29,7 @@ class FindMatchViewModel @Inject constructor(
             getMatchesUseCase().onEach { result ->
                 result.fold(
                     onOk = {
-                        updateState { state -> state.copy(profiles = it.value) }
+                        updateState { state -> state.copy(profiles = state.profiles + it.value) }
                     }, onError = { error ->
                         updateState { state ->
                             state.copy(
@@ -44,5 +46,23 @@ class FindMatchViewModel @Inject constructor(
 
     fun clearErrorMsg() {
         updateState { state -> state.copy(errorMsg = null) }
+    }
+
+    fun accept() {
+        updateState { state ->
+            if (state.profiles.size - state.profileIndex < LOAD_MORE_INDICATOR) {
+                findMatches()
+            }
+            state.copy(profileIndex = state.profileIndex + 1)
+        }
+    }
+
+    fun decline() {
+        updateState { state ->
+            if (state.profiles.size - state.profileIndex < LOAD_MORE_INDICATOR) {
+                findMatches()
+            }
+            state.copy(profileIndex = state.profileIndex + 1)
+        }
     }
 }
