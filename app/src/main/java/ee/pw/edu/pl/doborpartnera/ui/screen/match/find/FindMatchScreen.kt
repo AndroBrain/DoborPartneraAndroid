@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.match.find
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Block
@@ -30,6 +32,7 @@ import com.skydoves.landscapist.glide.GlideImage
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FindMatchScreen(
     modifier: Modifier = Modifier,
@@ -38,19 +41,22 @@ fun FindMatchScreen(
     val state = viewModel.state.collectAsStateWithLifecycle()
     Scaffold(modifier = modifier) { insets ->
         Box(modifier = Modifier.padding(insets)) {
+            val profile = state.value.profiles.firstOrNull() ?: return@Box
             ConstraintLayout(
                 modifier = Modifier.fillMaxSize(),
             ) {
                 val (background, profileImage, name, shortDescription, choicesContainer) = createRefs()
-                GlideImage(
-                    modifier = Modifier.fillMaxSize(),
-                    imageModel = { "https://cdn.pixabay.com/photo/2020/12/13/16/37/woman-5828786_960_720.jpg" },
-                    loading = {
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                HorizontalPager(pageCount = profile.galleryImages.size) { imageIndex ->
+                    GlideImage(
+                        modifier = Modifier.fillMaxSize(),
+                        imageModel = { profile.galleryImages[imageIndex] },
+                        loading = {
+                            Box(modifier = Modifier.fillMaxSize()) {
+                                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                            }
                         }
-                    }
-                )
+                    )
+                }
 
                 Box(
                     modifier = Modifier
@@ -73,7 +79,7 @@ fun FindMatchScreen(
                             bottom.linkTo(profileImage.bottom)
                             start.linkTo(profileImage.end)
                         },
-                    text = "Imie, 26 lat",
+                    text = "${profile.name}, ${profile.age}",
                     style = MaterialTheme.typography.headlineSmall,
                     color = MaterialTheme.colorScheme.surface,
                 )
@@ -87,7 +93,7 @@ fun FindMatchScreen(
                             start.linkTo(parent.start)
                             bottom.linkTo(shortDescription.top)
                         },
-                    imageModel = { "https://cdn.pixabay.com/photo/2018/01/13/19/39/fashion-3080644_1280.jpg" },
+                    imageModel = { profile.profilePhotoUrl },
                     loading = {
                         Box(modifier = Modifier.fillMaxSize()) {
                             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
@@ -103,7 +109,7 @@ fun FindMatchScreen(
                         }
                         .padding(bottom = App.dimens.views_spacing_medium)
                         .padding(horizontal = App.dimens.screen_spacing_medium),
-                    text = "Krótki Opis",
+                    text = profile.shortDescription,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.surface,
                 )
