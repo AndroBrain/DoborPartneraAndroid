@@ -7,11 +7,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GetChatsUseCase @Inject constructor(
+class GetChatPeopleUseCase @Inject constructor(
 
 ) {
     //    TODO replace with real value instead of mock
-    operator fun invoke(): Flow<UseCaseResult<List<Chat>>> = flow {
+    operator fun invoke(): Flow<UseCaseResult<List<ChatPerson>>> = flow {
         delay(2000L)
         if (count % 2 == 1) {
             emit(UseCaseResult.Ok(emptyList()))
@@ -19,17 +19,17 @@ class GetChatsUseCase @Inject constructor(
             emit(
                 UseCaseResult.Ok(
                     listOf(
-                        Chat(
+                        ChatPerson(
                             name = "Ania Spysińska",
                             imageUrl = "https://cdn.pixabay.com/photo/2017/01/03/09/18/woman-1948939_960_720.jpg"
                         ),
-                        Chat(
+                        ChatPerson(
                             name = "Agnieszka Nowak",
                             imageUrl = "https://cdn.pixabay.com/photo/2016/12/23/22/19/photoshoot-1928086_960_720.jpg"
                         ),
-                        Chat(
+                        ChatPerson(
                             name = "Baśka Kowalska",
-                            imageUrl = "https://cdn.pixabay.com/photo/2017/03/23/20/57/girl-2169467_960_720.jpg"
+                            imageUrl = "https://cdn.pixabay.com/photo/2018/01/13/19/39/fashion-3080644_1280.jpg"
                         ),
                     )
                 )

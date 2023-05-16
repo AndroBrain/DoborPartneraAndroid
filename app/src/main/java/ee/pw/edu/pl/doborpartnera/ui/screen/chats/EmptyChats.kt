@@ -17,7 +17,7 @@ import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
 @Composable
-fun EmptyChat(modifier: Modifier = Modifier) {
+fun EmptyChats(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.padding(App.dimens.screen_spacing_medium),
         horizontalAlignment = Alignment.CenterHorizontally,

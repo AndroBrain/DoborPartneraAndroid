@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
-import ee.pw.edu.pl.domain.usecase.chat.GetChatsUseCase
+import ee.pw.edu.pl.domain.usecase.chat.GetChatPeopleUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ChatsViewModel @Inject constructor(
-    private val getChatsUseCase: GetChatsUseCase,
+    private val getChatPeopleUseCase: GetChatPeopleUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<ChatsState>(savedStateHandle, ChatsState()) {
     init {
@@ -24,10 +24,15 @@ class ChatsViewModel @Inject constructor(
     fun getChats() {
         viewModelScope.launch {
             updateState { state -> state.copy(isLoading = true, isInError = false) }
-            getChatsUseCase().onEach { result ->
+            getChatPeopleUseCase().onEach { result ->
                 result.fold(
                     onOk = {
-                        updateState { state -> state.copy(chats = it.value, isLoading = false) }
+                        updateState { state ->
+                            state.copy(
+                                chatPeople = it.value,
+                                isLoading = false
+                            )
+                        }
                     }, onError = { error ->
                         updateState { state ->
                             state.copy(

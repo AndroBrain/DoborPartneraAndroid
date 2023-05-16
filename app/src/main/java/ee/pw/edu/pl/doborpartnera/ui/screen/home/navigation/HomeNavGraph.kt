@@ -9,19 +9,21 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.chats.chatsScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.chats.navigateToChats
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.matchScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.profileScreen
+import ee.pw.edu.pl.domain.usecase.chat.ChatPerson
 
 @Composable
 fun HomeNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController,
     navigateToFindMatch: () -> Unit,
+    navigateToChat: (ChatPerson) -> Unit,
 ) {
     AnimatedNavHost(
         modifier = modifier,
         navController = navController,
         startDestination = CHATS_ROUTE,
     ) {
-        chatsScreen()
+        chatsScreen(navigateToChat = navigateToChat)
         matchScreen(
             navigateToChats = {
                 navController.navigateToChats()

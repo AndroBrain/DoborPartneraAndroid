@@ -7,11 +7,13 @@ import androidx.compose.ui.Modifier
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigation.HomeNavGraph
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigation.HomeNavigationBar
+import ee.pw.edu.pl.domain.usecase.chat.ChatPerson
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navigateToFindMatch: () -> Unit,
+    navigateToChat: (ChatPerson) -> Unit,
 ) {
     val navController = rememberAnimatedNavController()
     Scaffold(
@@ -24,6 +26,7 @@ fun HomeScreen(
             modifier = Modifier.padding(insets),
             navController = navController,
             navigateToFindMatch = navigateToFindMatch,
+            navigateToChat = navigateToChat,
         )
     }
 }

@@ -14,11 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.ui.components.RefreshBox
+import ee.pw.edu.pl.domain.usecase.chat.ChatPerson
 
 @Composable
-fun ChatScreen(
+fun ChatsScreen(
     modifier: Modifier = Modifier,
     viewModel: ChatsViewModel,
+    navigateToChat: (ChatPerson) -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     state.value.errorMsg?.let { errorMsg ->
@@ -50,16 +52,19 @@ fun ChatScreen(
                         )
                     }
 
-                    state.chats == null -> {
+                    state.chatPeople == null -> {
                         CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                     }
 
-                    state.chats.isEmpty() -> {
-                        EmptyChat(modifier = Modifier.align(Alignment.Center))
+                    state.chatPeople.isEmpty() -> {
+                        EmptyChats(modifier = Modifier.align(Alignment.Center))
                     }
 
                     else -> {
-                        FilledChat(chats = state.chats, onChatClick = {/*TODO*/ })
+                        FilledChats(
+                            chatPeople = state.chatPeople,
+                            onChatClick = navigateToChat,
+                        )
                     }
                 }
             }
