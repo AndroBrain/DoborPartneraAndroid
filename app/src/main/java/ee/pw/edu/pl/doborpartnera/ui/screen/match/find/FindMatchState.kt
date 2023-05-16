@@ -10,4 +10,5 @@ data class FindMatchState(
     val isLoading: Boolean = false,
     val profiles: List<MatchProfile> = emptyList(),
     @StringRes val errorMsg: Int? = null,
+    val isInError: Boolean = false,
 ) : UiState

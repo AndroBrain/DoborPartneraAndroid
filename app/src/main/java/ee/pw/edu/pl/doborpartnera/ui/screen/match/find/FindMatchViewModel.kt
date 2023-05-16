@@ -23,7 +23,7 @@ class FindMatchViewModel @Inject constructor(
 
     fun findMatches() {
         viewModelScope.launch {
-            updateState { state -> state.copy(isLoading = true) }
+            updateState { state -> state.copy(isLoading = true, isInError = false) }
             getMatchesUseCase().onEach { result ->
                 result.fold(
                     onOk = {
@@ -32,6 +32,7 @@ class FindMatchViewModel @Inject constructor(
                         updateState { state ->
                             state.copy(
                                 isLoading = false,
+                                isInError = true,
                                 errorMsg = error.type.getMessage(),
                             )
                         }
@@ -39,5 +40,9 @@ class FindMatchViewModel @Inject constructor(
                 )
             }.launchIn(this)
         }
+    }
+
+    fun clearErrorMsg() {
+        updateState { state -> state.copy(errorMsg = null) }
     }
 }
