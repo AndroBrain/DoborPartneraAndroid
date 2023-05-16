@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -38,6 +39,11 @@ fun FindMatchScreen(
                 GlideImage(
                     modifier = Modifier.fillMaxSize(),
                     imageModel = { "https://cdn.pixabay.com/photo/2020/12/13/16/37/woman-5828786_960_720.jpg" },
+                    loading = {
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                        }
+                    }
                 )
 
                 Box(
@@ -75,7 +81,12 @@ fun FindMatchScreen(
                             start.linkTo(parent.start)
                             bottom.linkTo(shortDescription.top)
                         },
-                    imageModel = { "https://cdn.pixabay.com/photo/2018/01/13/19/39/fashion-3080644_1280.jpg" }
+                    imageModel = { "https://cdn.pixabay.com/photo/2018/01/13/19/39/fashion-3080644_1280.jpg" },
+                    loading = {
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                        }
+                    },
                 )
 
                 Text(
