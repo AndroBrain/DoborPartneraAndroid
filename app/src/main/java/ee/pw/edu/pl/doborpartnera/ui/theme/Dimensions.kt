@@ -17,6 +17,8 @@ class Dimensions(
 
     val loading_button_indicator_size: Dp = 24.dp,
 
+    val fab_text_padding: Dp = 20.dp,
+
     val main_icon_size: Dp = 175.dp,
 
     val logo_size: Dp = 250.dp,
