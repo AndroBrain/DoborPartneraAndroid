@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.ui.components.RefreshBox
-import ee.pw.edu.pl.doborpartnera.ui.screen.match.find.Match
+import ee.pw.edu.pl.doborpartnera.ui.components.match.Match
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
 @Composable

@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.ui.components.RefreshBox
+import ee.pw.edu.pl.doborpartnera.ui.components.match.Match
 
 @Composable
 fun FindMatchScreen(
@@ -34,20 +35,20 @@ fun FindMatchScreen(
             modifier = Modifier.padding(insets),
             targetState = state.value.profileIndex
         ) { index ->
-            val state = state.value
+            val stateValue = state.value
 
             Box(modifier = Modifier.fillMaxSize()) {
                 when {
-                    state.isInError -> {
+                    stateValue.isInError -> {
                         RefreshBox(
                             modifier = Modifier.align(Alignment.Center),
-                            isLoading = state.isLoading,
+                            isLoading = stateValue.isLoading,
                             onClick = viewModel::findMatches,
                         )
                     }
 
-                    state.profiles.isNotEmpty() -> {
-                        val profile = state.profiles.getOrNull(index)
+                    stateValue.profiles.isNotEmpty() -> {
+                        val profile = stateValue.profiles.getOrNull(index)
                         if (profile == null) {
                             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                         } else {
@@ -60,7 +61,7 @@ fun FindMatchScreen(
                         }
                     }
 
-                    state.isLoading -> {
+                    stateValue.isLoading -> {
                         CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                     }
                 }
