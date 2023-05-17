@@ -62,7 +62,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             navigateToFindMatch = { navController.navigateToFindMatch() },
             navigateToChat = { person -> navController.navigateToChat(person = person) },
         )
-        findMatchScreen()
+        findMatchScreen(navigateToChat = { person -> navController.navigateToChat(person = person) })
         chatScreen(
             navigateUp = { navController.navigateUp() },
             navigateToProfile = { id -> navController.navigateToMatchProfile(id = id) },

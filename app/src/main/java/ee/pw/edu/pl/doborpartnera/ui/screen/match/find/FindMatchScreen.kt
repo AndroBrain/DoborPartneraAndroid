@@ -15,11 +15,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.ui.components.RefreshBox
 import ee.pw.edu.pl.doborpartnera.ui.components.match.Match
+import ee.pw.edu.pl.domain.usecase.chat.people.ChatPerson
 
 @Composable
 fun FindMatchScreen(
     modifier: Modifier = Modifier,
     viewModel: FindMatchViewModel,
+    navigateToChat: (ChatPerson) -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     state.value.errorMsg?.let { errorMsg ->
@@ -55,7 +57,16 @@ fun FindMatchScreen(
                             Match(
                                 modifier = Modifier.fillMaxSize(),
                                 profile = profile,
-                                onAccept = viewModel::accept,
+                                onAccept = {
+                                    viewModel.accept()
+                                    navigateToChat(
+                                        ChatPerson(
+                                            id = profile.id,
+                                            name = profile.name,
+                                            imageUrl = profile.profilePhotoUrl,
+                                        )
+                                    )
+                                },
                                 onDecline = viewModel::decline,
                             )
                         }

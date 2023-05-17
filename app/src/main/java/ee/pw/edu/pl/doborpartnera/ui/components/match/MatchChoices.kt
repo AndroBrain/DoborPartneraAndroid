@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Block
-import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Message
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -68,7 +68,7 @@ fun MatchChoices(
                 ) {
                     Icon(
                         modifier = Modifier.padding(end = App.dimens.views_spacing_small),
-                        imageVector = Icons.Default.Check,
+                        imageVector = Icons.Default.Message,
                         contentDescription = null,
                     )
                     Text(text = stringResource(id = R.string.match_accept))
