@@ -28,6 +28,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -42,8 +43,8 @@ import kotlinx.coroutines.launch
 fun Match(
     modifier: Modifier = Modifier,
     profile: MatchProfile,
-    onAccept: () -> Unit,
-    onDecline: () -> Unit,
+    onAccept: (() -> Unit)? = null,
+    onDecline: (() -> Unit)? = null,
 ) {
     val pagerState = rememberPagerState()
     ConstraintLayout(modifier = modifier) {
@@ -76,7 +77,7 @@ fun Match(
                 Icon(
                     imageVector = Icons.Default.ArrowBackIos,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.surface,
+                    tint = Color.White,
                 )
             }
         }
@@ -96,7 +97,7 @@ fun Match(
                 Icon(
                     imageVector = Icons.Default.ArrowForwardIos,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.surface,
+                    tint = Color.White,
                 )
             }
         }
@@ -168,48 +169,52 @@ fun Match(
                 .padding(bottom = App.dimens.screen_spacing_medium)
                 .padding(horizontal = App.dimens.screen_spacing_medium)
         ) {
-            FloatingActionButton(
-                modifier = Modifier.align(Alignment.BottomStart),
-                onClick = onDecline,
-                containerColor = MaterialTheme.colorScheme.errorContainer,
-            ) {
-                Row(
-                    modifier = Modifier
-                        .padding(
-                            start = App.dimens.fab_text_padding,
-                            end = App.dimens.views_spacing_medium,
-                        ),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
+            onDecline?.let {
+                FloatingActionButton(
+                    modifier = Modifier.align(Alignment.BottomStart),
+                    onClick = onDecline,
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
                 ) {
-                    Text(text = stringResource(id = R.string.match_decline))
-                    Icon(
-                        modifier = Modifier.padding(start = App.dimens.views_spacing_small),
-                        imageVector = Icons.Default.Block,
-                        contentDescription = null,
-                    )
+                    Row(
+                        modifier = Modifier
+                            .padding(
+                                start = App.dimens.fab_text_padding,
+                                end = App.dimens.views_spacing_medium,
+                            ),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(text = stringResource(id = R.string.match_decline))
+                        Icon(
+                            modifier = Modifier.padding(start = App.dimens.views_spacing_small),
+                            imageVector = Icons.Default.Block,
+                            contentDescription = null,
+                        )
+                    }
                 }
             }
-            FloatingActionButton(
-                modifier = Modifier.align(Alignment.BottomEnd),
-                onClick = onAccept,
-                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-            ) {
-                Row(
-                    modifier = Modifier
-                        .padding(
-                            start = App.dimens.views_spacing_medium,
-                            end = App.dimens.fab_text_padding,
-                        ),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
+            onAccept?.let {
+                FloatingActionButton(
+                    modifier = Modifier.align(Alignment.BottomEnd),
+                    onClick = onAccept,
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                 ) {
-                    Icon(
-                        modifier = Modifier.padding(end = App.dimens.views_spacing_small),
-                        imageVector = Icons.Default.Check,
-                        contentDescription = null,
-                    )
-                    Text(text = stringResource(id = R.string.match_accept))
+                    Row(
+                        modifier = Modifier
+                            .padding(
+                                start = App.dimens.views_spacing_medium,
+                                end = App.dimens.fab_text_padding,
+                            ),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(
+                            modifier = Modifier.padding(end = App.dimens.views_spacing_small),
+                            imageVector = Icons.Default.Check,
+                            contentDescription = null,
+                        )
+                        Text(text = stringResource(id = R.string.match_accept))
+                    }
                 }
             }
         }

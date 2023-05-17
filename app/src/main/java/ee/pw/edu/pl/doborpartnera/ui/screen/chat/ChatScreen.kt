@@ -2,6 +2,8 @@ package ee.pw.edu.pl.doborpartnera.ui.screen.chat
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,6 +19,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -32,8 +35,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -49,6 +54,7 @@ fun ChatScreen(
     modifier: Modifier = Modifier,
     viewModel: ChatViewModel,
     navigateUp: () -> Unit,
+    navigateToProfile: (Long) -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     state.value.errorMsg?.let { errorMsg ->
@@ -79,8 +85,24 @@ fun ChatScreen(
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
                     }
                 },
-                title = { Text(text = state.value.name) },
-                actions = { ChatPersonImage(url = state.value.imageUrl) },
+                title = {
+                    Text(
+                        modifier = Modifier.clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                            onClick = { navigateToProfile(state.value.id) },
+                        ),
+                        text = state.value.name,
+                    )
+                },
+                actions = {
+                    ChatPersonImage(
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .clickable { navigateToProfile(state.value.id) },
+                        url = state.value.imageUrl,
+                    )
+                },
             )
         },
     ) { insets ->

@@ -13,4 +13,5 @@ data class ChatState(
     @StringRes val errorMsg: Int? = null,
     val name: String = "",
     val imageUrl: String = "",
+    val id: Long = -1,
 ) : UiState
