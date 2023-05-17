@@ -7,6 +7,7 @@
     <string name="refresh">Odśwież</string>
     <string name="cancel">Anuluj</string>
     <string name="save">Zapisz</string>
+    <string name="set">Ustaw</string>
 
     <!-- Auth -->
     <string name="email_label">Email</string>
@@ -19,6 +20,7 @@
     <string name="login">ZALOGUJ SIĘ</string>
 
     <string name="register_title">Rejestracja</string>
+    <string name="register_birthdate">Data urodzenia</string>
     <string name="register">ZAREJESTRUJ SIĘ</string>
     <string name="register_successful">Zarejestrowano pomyślnie</string>
 
@@ -55,6 +57,7 @@
     <string name="validation_err_password">Hasło musi zawierać minimum 8 znaków, dużą literę, małą literę i liczbę.</string>
     <string name="validation_err_repeat_password">Hasła muszą być identyczne.</string>
     <string name="validation_err_short_description_length">Krótki opis musi zawierać od 20 do 120 znaków.</string>
+    <string name="validation_err_date_cannot_be_empty">Data urodzenia musi zostawć wybrana</string>
 
     <!-- Result Errors -->
     <string name="result_err_invalid_credentials">Nieprawidłowe dane.</string>

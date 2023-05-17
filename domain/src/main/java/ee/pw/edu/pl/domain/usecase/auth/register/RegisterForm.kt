@@ -5,4 +5,5 @@ data class RegisterForm(
     val name: String,
     val surname: String,
     val password: String,
+    val birthdate: Long,
 )

@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.components.LoadingButton
+import ee.pw.edu.pl.doborpartnera.ui.components.date.DateTextField
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
 @Composable
@@ -162,6 +163,21 @@ fun RegisterScreen(
                 },
                 isError = state.value.repeatPasswordError != null,
             )
+            DateTextField(
+                modifier = textFieldModifier,
+                date = state.value.birthdate,
+                onDateTimestampChanged = viewModel::changeBirthdate,
+                label = stringResource(id = R.string.register_birthdate),
+                supportingText = {
+                    state.value.birthdateError?.let { error ->
+                        Text(text = stringResource(id = error))
+                    }
+                },
+                isError = state.value.birthdateError != null,
+            )
+
+//            TODO add gender picker
+//              gender: consider using dropdown
             LoadingButton(
                 modifier = Modifier
                     .fillMaxWidth()

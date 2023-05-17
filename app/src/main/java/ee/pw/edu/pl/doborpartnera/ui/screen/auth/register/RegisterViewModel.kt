@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
+import ee.pw.edu.pl.doborpartnera.core.validation.BirthdateValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.EmailValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.NameLengthValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.PasswordValidator
@@ -42,7 +43,16 @@ class RegisterViewModel @Inject constructor(
     }
 
     fun changeRepeatPassword(repeatPassword: String) {
-        updateState { state -> state.copy(repeatPassword = repeatPassword) }
+        updateState { state ->
+            state.copy(
+                repeatPassword = repeatPassword,
+                repeatPasswordError = null
+            )
+        }
+    }
+
+    fun changeBirthdate(timeStamp: Long) {
+        updateState { state -> state.copy(birthdate = timeStamp, birthdateError = null) }
     }
 
     fun clearErrorMsg() {
@@ -86,7 +96,14 @@ class RegisterViewModel @Inject constructor(
             if (repeatPasswordError != null) {
                 updateState { state -> state.copy(repeatPasswordError = repeatPasswordError) }
             }
-            if (emailError != null || nameError != null || surnameError != null || passwordError != null || repeatPasswordError != null) {
+            val birthdateError = Validator.validate(
+                currentState.birthdate,
+                BirthdateValidator,
+            )
+            if (birthdateError != null) {
+                updateState { state -> state.copy(birthdateError = birthdateError) }
+            }
+            if (emailError != null || nameError != null || surnameError != null || passwordError != null || repeatPasswordError != null || birthdateError != null || currentState.birthdate == null) {
                 updateState { state -> state.copy(isLoading = false) }
                 return@launch
             }
@@ -96,6 +113,7 @@ class RegisterViewModel @Inject constructor(
                     name = currentState.name,
                     surname = currentState.surname,
                     password = currentState.password,
+                    birthdate = currentState.birthdate,
                 )
             ).onEach { result ->
                 result.fold(
