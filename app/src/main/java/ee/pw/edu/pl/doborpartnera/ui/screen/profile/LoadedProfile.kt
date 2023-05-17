@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -29,6 +30,7 @@ fun LoadedProfile(
     modifier: Modifier = Modifier,
     state: ProfileState,
     onProfileImageChanged: (Uri) -> Unit,
+    onEditProfileClicked: () -> Unit,
 ) {
     var galleryImages by remember {
         mutableStateOf<List<Uri>>(emptyList())
@@ -64,6 +66,14 @@ fun LoadedProfile(
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
             )
+        }
+        item {
+            OutlinedButton(
+                modifier = Modifier.padding(top = App.dimens.views_spacing_small),
+                onClick = onEditProfileClicked,
+            ) {
+                Text(text = stringResource(id = R.string.profile_edit))
+            }
         }
         item {
             TextButton(
