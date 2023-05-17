@@ -21,7 +21,7 @@
     <string name="register_successful">Zarejestrowano pomyślnie</string>
 
     <!-- Chats -->
-    <string name="chats_title">Czat</string>
+    <string name="chats_title">Czaty</string>
     <string name="chats_empty">Jest tu pusto…</string>
     <string name="chats_empty_description">Wyszukaj partnera i napisz do niego, aby wypełnić to miejsce!</string>
 
