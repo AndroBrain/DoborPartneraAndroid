@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.domain.usecase.chat
+package ee.pw.edu.pl.domain.usecase.chat.people
 
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult

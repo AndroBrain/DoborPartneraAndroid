@@ -9,7 +9,7 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.chats.chatsScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.chats.navigateToChats
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.matchScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.profileScreen
-import ee.pw.edu.pl.domain.usecase.chat.ChatPerson
+import ee.pw.edu.pl.domain.usecase.chat.people.ChatPerson
 
 @Composable
 fun HomeNavGraph(

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.ui.components.RefreshBox
-import ee.pw.edu.pl.domain.usecase.chat.ChatPerson
+import ee.pw.edu.pl.domain.usecase.chat.people.ChatPerson
 
 @Composable
 fun ChatsScreen(
@@ -63,7 +63,8 @@ fun ChatsScreen(
                     else -> {
                         FilledChats(
                             chatPeople = state.chatPeople,
-                            onChatClick = navigateToChat,
+                            onChatClick = { navigateToChat(it.person) },
+                            onRemoveClick = viewModel::removeChatPerson,
                         )
                     }
                 }

@@ -5,6 +5,7 @@
     <!-- Common -->
     <string name="connection_lost">Stracono połączenie</string>
     <string name="refresh">Odśwież</string>
+    <string name="cancel">Anuluj</string>
 
     <!-- Auth -->
     <string name="email_label">Email</string>
@@ -24,6 +25,8 @@
     <string name="chats_title">Czaty</string>
     <string name="chats_empty">Jest tu pusto…</string>
     <string name="chats_empty_description">Wyszukaj partnera i napisz do niego, aby wypełnić to miejsce!</string>
+    <string name="chats_delete_confirm">Odrzuć</string>
+    <string name="chats_delete_title">Czy na pewno chcesz odrzucić %1$s?</string>
 
     <!-- Chat -->
     <string name="chat_message_placeholder">Napisz wiadomość…</string>

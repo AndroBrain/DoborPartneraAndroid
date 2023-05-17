@@ -8,7 +8,7 @@ import androidx.navigation.NavOptions
 import ee.pw.edu.pl.doborpartnera.ui.navigation.NavigationDecoder
 import ee.pw.edu.pl.doborpartnera.ui.navigation.NavigationEncoder
 import ee.pw.edu.pl.doborpartnera.ui.navigation.composable
-import ee.pw.edu.pl.domain.usecase.chat.ChatPerson
+import ee.pw.edu.pl.domain.usecase.chat.people.ChatPerson
 
 const val CHAT_ROUTE = "CHAT"
 private const val NAME_ARG = "NAME"

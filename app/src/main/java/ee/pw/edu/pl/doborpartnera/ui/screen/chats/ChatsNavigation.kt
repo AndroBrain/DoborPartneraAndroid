@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import ee.pw.edu.pl.doborpartnera.ui.navigation.composable
-import ee.pw.edu.pl.domain.usecase.chat.ChatPerson
+import ee.pw.edu.pl.domain.usecase.chat.people.ChatPerson
 
 const val CHATS_ROUTE = "CHATS"
 

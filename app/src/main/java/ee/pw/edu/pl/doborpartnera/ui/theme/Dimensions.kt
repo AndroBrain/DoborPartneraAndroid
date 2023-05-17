@@ -22,6 +22,7 @@ class Dimensions(
     val main_icon_size: Dp = 175.dp,
 
     val logo_size: Dp = 250.dp,
+    val chat_delete_loading_indicator_size: Dp = 32.dp,
     val chat_image_size: Dp = 48.dp,
     val chat_message_min_width: Dp = 24.dp,
     val chat_message_vertical_padding: Dp = 4.dp,

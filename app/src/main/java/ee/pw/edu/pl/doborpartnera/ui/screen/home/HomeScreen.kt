@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigation.HomeNavGraph
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigation.HomeNavigationBar
-import ee.pw.edu.pl.domain.usecase.chat.ChatPerson
+import ee.pw.edu.pl.domain.usecase.chat.people.ChatPerson
 
 @Composable
 fun HomeScreen(
