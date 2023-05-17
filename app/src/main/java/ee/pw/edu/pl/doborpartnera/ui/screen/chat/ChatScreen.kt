@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -57,6 +58,15 @@ fun ChatScreen(
             viewModel.clearErrorMsg()
         }
     }
+    val lazyListState = rememberLazyListState()
+    state.value.chats.let { chats ->
+        LaunchedEffect(chats) {
+            val lastChat = chats.lastOrNull() ?: return@LaunchedEffect
+            if (!lastChat.isYour) {
+                lazyListState.animateScrollToItem(chats.lastIndex.coerceAtLeast(0))
+            }
+        }
+    }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -81,6 +91,7 @@ fun ChatScreen(
                 .padding(insets),
         ) {
             LazyColumn(
+                state = lazyListState,
                 modifier = Modifier.weight(1F),
                 contentPadding = PaddingValues(bottom = App.dimens.views_spacing_medium),
             ) {
