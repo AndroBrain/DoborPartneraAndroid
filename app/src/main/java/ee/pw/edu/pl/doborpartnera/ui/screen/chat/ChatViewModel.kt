@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
+import ee.pw.edu.pl.domain.usecase.chat.Chat
 import ee.pw.edu.pl.domain.usecase.chat.SubscribeToChatUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
@@ -26,6 +27,19 @@ class ChatViewModel @Inject constructor(
 
     fun clearErrorMsg() {
         updateState { state -> state.copy(errorMsg = null) }
+    }
+
+    fun updateMessage(message: String) {
+        updateState { state -> state.copy(message = message) }
+    }
+
+    fun sendMessage() {
+        updateState { state ->
+            state.copy(
+                chats = state.chats + Chat(text = state.message, isYour = true),
+                message = "",
+            )
+        }
     }
 
     private fun subscribeToChat() {

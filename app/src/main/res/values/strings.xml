@@ -25,6 +25,9 @@
     <string name="chats_empty">Jest tu pusto…</string>
     <string name="chats_empty_description">Wyszukaj partnera i napisz do niego, aby wypełnić to miejsce!</string>
 
+    <!-- Chat -->
+    <string name="chat_message_placeholder">Napisz wiadomość…</string>
+
     <!-- Match -->
     <string name="match_title">Szukaj</string>
     <string name="match_profile_unfilled">Dodaj zdjęcie profilowe, 2 zdjęcia do galerii i krótki opis, aby zacząć szukać swojej Drugiej Połówki</string>

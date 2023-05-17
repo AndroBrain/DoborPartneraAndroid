@@ -23,6 +23,9 @@ class Dimensions(
 
     val logo_size: Dp = 250.dp,
     val chat_image_size: Dp = 48.dp,
+    val chat_message_min_width: Dp = 24.dp,
+    val chat_message_vertical_padding: Dp = 4.dp,
+    val chat_message_horizontal_padding: Dp = 12.dp,
 
     val profile_image_size: Dp = 150.dp,
     val profile_gallery_image_size: Dp = 120.dp,
