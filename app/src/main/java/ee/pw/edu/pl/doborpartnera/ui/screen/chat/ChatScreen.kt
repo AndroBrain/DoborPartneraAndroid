@@ -21,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -37,7 +38,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.components.ChatPersonImage
@@ -90,9 +90,9 @@ fun ChatScreen(
                             modifier = Modifier
                                 .align(if (chat.isYour) Alignment.CenterEnd else Alignment.CenterStart)
                                 .padding(
-                                    start = if (chat.isYour) 0.dp else App.dimens.screen_spacing_small,
+                                    start = if (chat.isYour) App.dimens.views_spacing_extra_large else App.dimens.screen_spacing_small,
                                     top = App.dimens.views_spacing_extra_small,
-                                    end = if (chat.isYour) App.dimens.screen_spacing_small else 0.dp,
+                                    end = if (chat.isYour) App.dimens.screen_spacing_small else App.dimens.views_spacing_extra_large,
                                 )
                                 .background(
                                     color = if (chat.isYour) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary,
@@ -106,6 +106,23 @@ fun ChatScreen(
                                 text = chat.text,
                                 color = if (chat.isYour) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onPrimary,
                                 textAlign = if (chat.isYour) TextAlign.End else TextAlign.Start,
+                            )
+                        }
+                    }
+                }
+                if (state.value.messagesBeingSent > 0) {
+                    item {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    end = App.dimens.screen_spacing_small,
+                                    top = App.dimens.views_spacing_small,
+                                )
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.align(Alignment.CenterEnd),
+                                color = MaterialTheme.colorScheme.secondary,
                             )
                         }
                     }

@@ -7,6 +7,7 @@ import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
 import ee.pw.edu.pl.domain.usecase.chat.Chat
+import ee.pw.edu.pl.domain.usecase.chat.SendMessageUseCase
 import ee.pw.edu.pl.domain.usecase.chat.SubscribeToChatUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
+    private val sendMessageUseCase: SendMessageUseCase,
     private val subscribeToChatUseCase: SubscribeToChatUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<ChatState>(savedStateHandle, ChatState()) {
@@ -34,9 +36,30 @@ class ChatViewModel @Inject constructor(
     }
 
     fun sendMessage() {
+        viewModelScope.launch {
+            sendMessageUseCase(state.value.message).onEach { result ->
+                result.fold(
+                    onOk = {
+                        updateState { state ->
+                            state.copy(
+                                chats = state.chats + Chat(text = it.value, isYour = true),
+                                messagesBeingSent = state.messagesBeingSent - 1,
+                            )
+                        }
+                    }, onError = { error ->
+                        updateState { state ->
+                            state.copy(
+                                errorMsg = error.type.getMessage(),
+                                messagesBeingSent = state.messagesBeingSent - 1,
+                            )
+                        }
+                    }
+                )
+            }.launchIn(this)
+        }
         updateState { state ->
             state.copy(
-                chats = state.chats + Chat(text = state.message, isYour = true),
+                messagesBeingSent = state.messagesBeingSent + 1,
                 message = "",
             )
         }

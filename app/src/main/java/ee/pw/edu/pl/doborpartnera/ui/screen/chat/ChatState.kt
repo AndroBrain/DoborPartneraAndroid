@@ -9,6 +9,7 @@ import kotlinx.parcelize.Parcelize
 data class ChatState(
     val chats: List<Chat> = emptyList(),
     val message: String = "",
+    val messagesBeingSent: Int = 0,
     @StringRes val errorMsg: Int? = null,
     val name: String = "",
     val imageUrl: String = "",
