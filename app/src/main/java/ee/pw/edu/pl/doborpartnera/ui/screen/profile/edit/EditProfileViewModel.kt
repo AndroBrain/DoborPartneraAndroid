@@ -39,15 +39,15 @@ class EditProfileViewModel @Inject constructor(
     }
 
     fun updateName(name: String) {
-        updateState { state -> state.copy(name = name) }
+        updateState { state -> state.copy(name = name, nameError = null) }
     }
 
     fun updateSurname(surname: String) {
-        updateState { state -> state.copy(surname = surname) }
+        updateState { state -> state.copy(surname = surname, surnameError = null) }
     }
 
     fun updateDescription(description: String) {
-        updateState { state -> state.copy(description = description) }
+        updateState { state -> state.copy(description = description, descriptionError = null) }
     }
 
     fun save() {
