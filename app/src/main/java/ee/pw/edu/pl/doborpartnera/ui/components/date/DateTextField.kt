@@ -6,9 +6,7 @@ import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -55,20 +53,13 @@ fun DateTextField(
             },
         value = dateText,
         onValueChange = {},
-        enabled = false,
+        readOnly = true,
+        isError = isError,
         trailingIcon = {
             Icon(imageVector = Icons.Default.CalendarToday, contentDescription = null)
         },
         interactionSource = dateInteractionSource,
-        colors = OutlinedTextFieldDefaults.colors(
-            disabledTextColor = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
-            disabledTrailingIconColor = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
-            disabledBorderColor = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outline,
-            disabledLabelColor = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
-            disabledSupportingTextColor = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
-        ),
         label = { Text(text = label) },
         supportingText = supportingText,
     )
-
 }
