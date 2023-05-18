@@ -74,47 +74,37 @@ class RegisterViewModel @Inject constructor(
             updateState { state -> state.copy(isLoading = true) }
             val currentState = state.value
             val emailError = Validator.validate(currentState.email, EmailValidator)
-            if (emailError != null) {
-                updateState { state -> state.copy(emailError = emailError) }
-            }
             val nameError = Validator.validate(
                 currentState.name,
                 NameLengthValidator(R.string.validation_err_name_length)
             )
-            if (nameError != null) {
-                updateState { state -> state.copy(nameError = nameError) }
-            }
             val surnameError = Validator.validate(
                 currentState.surname,
                 NameLengthValidator(R.string.validation_err_surname_length)
             )
-            if (surnameError != null) {
-                updateState { state -> state.copy(surnameError = surnameError) }
-            }
             val passwordError = Validator.validate(currentState.password, PasswordValidator)
-            if (passwordError != null) {
-                updateState { state -> state.copy(passwordError = passwordError) }
-            }
             val repeatPasswordError = Validator.validate(
                 currentState.repeatPassword,
                 RepeatPasswordValidator(currentState.password),
             )
-            if (repeatPasswordError != null) {
-                updateState { state -> state.copy(repeatPasswordError = repeatPasswordError) }
-            }
             val birthdateError = Validator.validate(
                 currentState.birthdate,
                 BirthdateValidator,
             )
-            if (birthdateError != null) {
-                updateState { state -> state.copy(birthdateError = birthdateError) }
-            }
             val genderError = Validator.validate(currentState.gender, GenderValidation)
-            if (genderError != null) {
-                updateState { state -> state.copy(genderError = genderError) }
-            }
             if (emailError != null || nameError != null || surnameError != null || passwordError != null || repeatPasswordError != null || birthdateError != null || currentState.birthdate == null || genderError != null || currentState.gender == null) {
-                updateState { state -> state.copy(isLoading = false) }
+                updateState { state ->
+                    state.copy(
+                        isLoading = false,
+                        emailError = emailError,
+                        nameError = nameError,
+                        surnameError = surnameError,
+                        passwordError = passwordError,
+                        repeatPasswordError = repeatPasswordError,
+                        birthdateError = birthdateError,
+                        genderError = genderError,
+                    )
+                }
                 return@launch
             }
             registerUseCase(
