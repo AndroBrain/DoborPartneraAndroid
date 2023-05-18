@@ -2,6 +2,7 @@ package ee.pw.edu.pl.doborpartnera.ui.screen.auth.register
 
 import androidx.annotation.StringRes
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.UiState
+import ee.pw.edu.pl.domain.usecase.profile.Gender
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -19,6 +20,8 @@ data class RegisterState(
     @StringRes val repeatPasswordError: Int? = null,
     val birthdate: Long? = null,
     @StringRes val birthdateError: Int? = null,
+    val gender: Gender? = null,
+    @StringRes val genderError: Int? = null,
     @StringRes val errorMsg: Int? = null,
     val isRegistered: Boolean = false,
 ) : UiState

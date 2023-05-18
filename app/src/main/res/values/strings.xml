@@ -3,6 +3,7 @@
     <string name="app_description">Witaj w naszej aplikacji wspierającej dobór partnera. Została ona stworzona specjalnie dla osób poszukujących miłości i partnerów na dłużej. Szybko i skutecznie wyszukaj swojego kolejnego partnera!</string>
 
     <!-- Common -->
+    <string name="empty" />
     <string name="connection_lost">Stracono połączenie</string>
     <string name="refresh">Odśwież</string>
     <string name="cancel">Anuluj</string>
@@ -49,6 +50,11 @@
     <string name="profile_empty_images">Dodaj swoje pierwsze zdjęcia</string>
     <string name="profile_edit">Edytuj profil</string>
     <string name="short_description_label">Krótki opis</string>
+
+    <!-- Gender Picker -->
+    <string name="gender_label">Płeć</string>
+    <string name="gender_male">Mężczyzna</string>
+    <string name="gender_female">Kobieta</string>
 
     <!-- Validation -->
     <string name="validation_err_email">Wpisz poprawny email</string>

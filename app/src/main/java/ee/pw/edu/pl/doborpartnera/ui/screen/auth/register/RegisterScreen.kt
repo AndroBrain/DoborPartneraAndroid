@@ -27,6 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.R
+import ee.pw.edu.pl.doborpartnera.ui.components.GenderPicker
 import ee.pw.edu.pl.doborpartnera.ui.components.LoadingButton
 import ee.pw.edu.pl.doborpartnera.ui.components.date.DateTextField
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
@@ -175,7 +176,11 @@ fun RegisterScreen(
                 },
                 isError = state.value.birthdateError != null,
             )
-
+            GenderPicker(
+                modifier = textFieldModifier,
+                selectedOption = state.value.gender,
+                onSelectedOptionChanged = viewModel::changeGender,
+            )
 //            TODO add gender picker
 //              gender: consider using dropdown
             LoadingButton(

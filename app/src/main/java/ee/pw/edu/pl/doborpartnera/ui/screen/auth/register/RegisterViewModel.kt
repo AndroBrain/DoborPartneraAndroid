@@ -15,6 +15,7 @@ import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
 import ee.pw.edu.pl.domain.usecase.auth.register.RegisterForm
 import ee.pw.edu.pl.domain.usecase.auth.register.RegisterUseCase
+import ee.pw.edu.pl.domain.usecase.profile.Gender
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -53,6 +54,10 @@ class RegisterViewModel @Inject constructor(
 
     fun changeBirthdate(timeStamp: Long) {
         updateState { state -> state.copy(birthdate = timeStamp, birthdateError = null) }
+    }
+
+    fun changeGender(gender: Gender) {
+        updateState { state -> state.copy(gender = gender) }
     }
 
     fun clearErrorMsg() {
