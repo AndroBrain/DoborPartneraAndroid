@@ -18,6 +18,8 @@ fun GenderPicker(
     modifier: Modifier = Modifier,
     selectedOption: Gender?,
     onSelectedOptionChanged: (Gender) -> Unit,
+    isError: Boolean,
+    supportingText: @Composable (() -> Unit)? = null,
 ) {
     val isExpanded = remember { mutableStateOf(false) }
     ExposedDropdownMenuBox(
@@ -34,6 +36,8 @@ fun GenderPicker(
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded.value)
             },
             colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
+            supportingText = supportingText,
+            isError = isError,
         )
         ExposedDropdownMenu(
             expanded = isExpanded.value,

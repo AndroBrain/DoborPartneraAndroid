@@ -180,9 +180,13 @@ fun RegisterScreen(
                 modifier = textFieldModifier,
                 selectedOption = state.value.gender,
                 onSelectedOptionChanged = viewModel::changeGender,
+                supportingText = {
+                    state.value.genderError?.let { error ->
+                        Text(text = stringResource(id = error))
+                    }
+                },
+                isError = state.value.genderError != null,
             )
-//            TODO add gender picker
-//              gender: consider using dropdown
             LoadingButton(
                 modifier = Modifier
                     .fillMaxWidth()

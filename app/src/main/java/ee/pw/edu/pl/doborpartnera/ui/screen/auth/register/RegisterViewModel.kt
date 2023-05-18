@@ -7,6 +7,7 @@ import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.validation.BirthdateValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.EmailValidator
+import ee.pw.edu.pl.doborpartnera.core.validation.GenderValidation
 import ee.pw.edu.pl.doborpartnera.core.validation.NameLengthValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.PasswordValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.RepeatPasswordValidator
@@ -57,7 +58,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     fun changeGender(gender: Gender) {
-        updateState { state -> state.copy(gender = gender) }
+        updateState { state -> state.copy(gender = gender, genderError = null) }
     }
 
     fun clearErrorMsg() {
@@ -108,7 +109,11 @@ class RegisterViewModel @Inject constructor(
             if (birthdateError != null) {
                 updateState { state -> state.copy(birthdateError = birthdateError) }
             }
-            if (emailError != null || nameError != null || surnameError != null || passwordError != null || repeatPasswordError != null || birthdateError != null || currentState.birthdate == null) {
+            val genderError = Validator.validate(currentState.gender, GenderValidation)
+            if (genderError != null) {
+                updateState { state -> state.copy(genderError = genderError) }
+            }
+            if (emailError != null || nameError != null || surnameError != null || passwordError != null || repeatPasswordError != null || birthdateError != null || currentState.birthdate == null || genderError != null || currentState.gender == null) {
                 updateState { state -> state.copy(isLoading = false) }
                 return@launch
             }
@@ -119,6 +124,7 @@ class RegisterViewModel @Inject constructor(
                     surname = currentState.surname,
                     password = currentState.password,
                     birthdate = currentState.birthdate,
+                    gender = currentState.gender
                 )
             ).onEach { result ->
                 result.fold(
