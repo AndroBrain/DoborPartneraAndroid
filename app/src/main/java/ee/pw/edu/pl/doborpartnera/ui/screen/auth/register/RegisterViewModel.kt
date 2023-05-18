@@ -5,9 +5,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
-import ee.pw.edu.pl.doborpartnera.core.validation.BirthdateValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.EmailValidator
-import ee.pw.edu.pl.doborpartnera.core.validation.GenderValidation
+import ee.pw.edu.pl.doborpartnera.core.validation.FieldNotNullValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.NameLengthValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.PasswordValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.RepeatPasswordValidator
@@ -87,11 +86,8 @@ class RegisterViewModel @Inject constructor(
                 currentState.repeatPassword,
                 RepeatPasswordValidator(currentState.password),
             )
-            val birthdateError = Validator.validate(
-                currentState.birthdate,
-                BirthdateValidator,
-            )
-            val genderError = Validator.validate(currentState.gender, GenderValidation)
+            val birthdateError = Validator.validate(currentState.birthdate, FieldNotNullValidator)
+            val genderError = Validator.validate(currentState.gender, FieldNotNullValidator)
             if (emailError != null || nameError != null || surnameError != null || passwordError != null || repeatPasswordError != null || birthdateError != null || currentState.birthdate == null || genderError != null || currentState.gender == null) {
                 updateState { state ->
                     state.copy(

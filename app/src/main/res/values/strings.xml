@@ -63,8 +63,7 @@
     <string name="validation_err_password">Hasło musi zawierać minimum 8 znaków, dużą literę, małą literę i liczbę.</string>
     <string name="validation_err_repeat_password">Hasła muszą być identyczne.</string>
     <string name="validation_err_short_description_length">Krótki opis musi zawierać od 20 do 120 znaków.</string>
-    <string name="validation_err_date_cannot_be_empty">Data urodzenia musi zostać wybrana</string>
-    <string name="validation_err_gender_cannot_be_empty">Płec musi zostać wybrana</string>
+    <string name="validation_err_field_cannot_be_empty">Pole musi zostać wypełnione</string>
 
     <!-- Result Errors -->
     <string name="result_err_invalid_credentials">Nieprawidłowe dane.</string>
