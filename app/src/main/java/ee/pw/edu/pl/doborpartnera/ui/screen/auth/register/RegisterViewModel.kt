@@ -99,6 +99,7 @@ class RegisterViewModel @Inject constructor(
                         repeatPasswordError = repeatPasswordError,
                         birthdateError = birthdateError,
                         genderError = genderError,
+                        errorMsg = R.string.result_err_invalid_data,
                     )
                 }
                 return@launch

@@ -3,6 +3,7 @@ package ee.pw.edu.pl.doborpartnera.ui.screen.auth.login
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.validation.EmailValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.Validator
@@ -43,7 +44,13 @@ class LoginViewModel @Inject constructor(
             val currentState = state.value
             val emailError = Validator.validate(currentState.email, EmailValidator)
             if (emailError != null) {
-                updateState { state -> state.copy(emailError = emailError, isLoading = false) }
+                updateState { state ->
+                    state.copy(
+                        emailError = emailError,
+                        isLoading = false,
+                        errorMsg = R.string.result_err_invalid_data,
+                    )
+                }
                 return@launch
             }
             loginUseCase(

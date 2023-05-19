@@ -6,7 +6,7 @@ import ee.pw.edu.pl.domain.core.result.ResultErrorType
 
 @StringRes
 fun ResultErrorType.getMessage() = when (this) {
-    ResultErrorType.INVALID_CREDENTIALS -> R.string.result_err_invalid_credentials
+    ResultErrorType.INVALID_CREDENTIALS -> R.string.result_err_invalid_data
     ResultErrorType.EMAIL_TAKEN -> R.string.result_err_email_taken
     ResultErrorType.NETWORK -> R.string.result_err_network
     ResultErrorType.UNKNOWN -> R.string.result_err_unknown

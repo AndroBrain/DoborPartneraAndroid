@@ -66,7 +66,7 @@
     <string name="validation_err_field_cannot_be_empty">Pole musi zostać wypełnione</string>
 
     <!-- Result Errors -->
-    <string name="result_err_invalid_credentials">Nieprawidłowe dane.</string>
+    <string name="result_err_invalid_data">Nieprawidłowe dane.</string>
     <string name="result_err_email_taken">Podany email jest już zajęty.</string>
     <string name="result_err_network">Błąd połączenia.</string>
     <string name="result_err_unknown">Wystąpił nieznany błąd.</string>
