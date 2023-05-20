@@ -16,6 +16,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
+private const val DESCRIPTION_MIN_LENGTH = 60
+private const val DESCRIPTION_MAX_LENGTH = 240
+
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
     private val editProfileUseCase: EditProfileUseCase,
@@ -69,7 +72,11 @@ class EditProfileViewModel @Inject constructor(
         }
         val descriptionError = Validator.validate(
             currentState.description,
-            NameLengthValidator(R.string.validation_err_short_description_length)
+            NameLengthValidator(
+                errorMessage = R.string.validation_err_short_description_length,
+                min = DESCRIPTION_MIN_LENGTH,
+                max = DESCRIPTION_MAX_LENGTH,
+            )
         )
         if (descriptionError != null) {
             updateState { state -> state.copy(descriptionError = descriptionError) }
