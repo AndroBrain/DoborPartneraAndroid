@@ -1,6 +1,6 @@
 package ee.pw.edu.pl.doborpartnera.ui.navigation
 
-import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -18,7 +18,7 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
-import com.google.accompanist.navigation.animation.composable
+import androidx.navigation.compose.composable
 
 const val ENTER_ANIM_MILLIS = 250
 const val EXIT_ANIM_MILLIS = 150
@@ -28,7 +28,7 @@ fun NavGraphBuilder.composable(
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
     transitions: Transitions = Transitions(),
-    content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit
+    content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit,
 ) {
     composable(
         route = route,
@@ -43,10 +43,10 @@ fun NavGraphBuilder.composable(
 }
 
 data class Transitions(
-    val enterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)? = null,
-    val exitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = null,
-    val popEnterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)? = enterTransition,
-    val popExitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = exitTransition,
+    val enterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = null,
+    val exitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = null,
+    val popEnterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = enterTransition,
+    val popExitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = exitTransition,
 )
 
 val fadeTransitions = Transitions(

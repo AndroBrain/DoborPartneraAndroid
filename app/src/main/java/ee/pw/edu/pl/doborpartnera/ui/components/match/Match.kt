@@ -41,20 +41,23 @@ fun Match(
     onAccept: (() -> Unit)? = null,
     onDecline: (() -> Unit)? = null,
 ) {
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState { profile.galleryImages.size }
     ConstraintLayout(modifier = modifier) {
         val (background, profileImage, name, shortDescription, choicesContainer, nextButton, previousButton) = createRefs()
-        HorizontalPager(pageCount = profile.galleryImages.size, state = pagerState) { imageIndex ->
-            GlideImage(
-                modifier = Modifier.fillMaxSize(),
-                imageModel = { profile.galleryImages[imageIndex] },
-                loading = {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        HorizontalPager(
+            state = pagerState,
+            pageContent = { imageIndex ->
+                GlideImage(
+                    modifier = Modifier.fillMaxSize(),
+                    imageModel = { profile.galleryImages[imageIndex] },
+                    loading = {
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                        }
                     }
-                }
-            )
-        }
+                )
+            }
+        )
         val coroutineScope = rememberCoroutineScope()
 
         if (pagerState.currentPage > 0) {
