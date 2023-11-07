@@ -2,6 +2,7 @@ package ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit
 
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dokar.chiptextfield.Chip
+import com.dokar.chiptextfield.ChipTextFieldState
 import com.dokar.chiptextfield.m3.ChipTextFieldDefaults
 import com.dokar.chiptextfield.m3.OutlinedChipTextField
 import com.dokar.chiptextfield.rememberChipTextFieldState
@@ -102,44 +104,18 @@ fun EditProfileScreen(
                 Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))
             }
             item {
-                OutlinedTextField(
+                DescriptionTextField(
                     modifier = textFieldModifier,
-                    value = state.value.description,
-                    onValueChange = viewModel::updateDescription,
-                    label = { Text(text = stringResource(id = R.string.short_description_label)) },
-                    supportingText = {
-                        val descriptionError = state.value.descriptionError
-                        if (descriptionError == null) {
-                            Text(
-                                modifier = Modifier.fillMaxWidth(),
-                                text = "${state.value.description.length} / $DESCRIPTION_MAX_LENGTH",
-                                textAlign = TextAlign.End,
-                            )
-                        } else {
-                            Text(text = stringResource(id = descriptionError))
-                        }
-                    },
-                    isError = state.value.descriptionError != null,
-                    minLines = 4,
+                    description = state.value.description,
+                    descriptionError = state.value.descriptionError,
+                    updateDescription = viewModel::updateDescription,
                 )
             }
             item {
                 Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))
             }
             item {
-                OutlinedChipTextField(
-                    modifier = textFieldModifier,
-                    state = interestsState,
-                    onSubmit = ::Chip,
-                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
-                    label = { Text(text = stringResource(id = R.string.profile_interests)) },
-                    chipStyle = ChipTextFieldDefaults.chipStyle(
-                        focusedBackgroundColor = MaterialTheme.colorScheme.primary,
-                        unfocusedBackgroundColor = MaterialTheme.colorScheme.primary,
-                        focusedTextColor = MaterialTheme.colorScheme.onPrimary,
-                        unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
-                    )
-                )
+                InterestsTextField(textFieldModifier, interestsState)
             }
             item {
                 LoadingButton(
@@ -154,4 +130,52 @@ fun EditProfileScreen(
             }
         }
     }
+}
+
+@Composable
+private fun InterestsTextField(
+    modifier: Modifier,
+    state: ChipTextFieldState<Chip>,
+) {
+    OutlinedChipTextField(
+        modifier = modifier,
+        state = state,
+        onSubmit = ::Chip,
+        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
+        label = { Text(text = stringResource(id = R.string.profile_interests)) },
+        chipStyle = ChipTextFieldDefaults.chipStyle(
+            focusedBackgroundColor = MaterialTheme.colorScheme.primary,
+            unfocusedBackgroundColor = MaterialTheme.colorScheme.primary,
+            focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+            unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+        )
+    )
+}
+
+@Composable
+private fun DescriptionTextField(
+    modifier: Modifier,
+    description: String,
+    @StringRes descriptionError: Int?,
+    updateDescription: (String) -> Unit,
+) {
+    OutlinedTextField(
+        modifier = modifier,
+        value = description,
+        onValueChange = updateDescription,
+        label = { Text(text = stringResource(id = R.string.short_description_label)) },
+        supportingText = {
+            if (descriptionError == null) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "${description.length} / $DESCRIPTION_MAX_LENGTH",
+                    textAlign = TextAlign.End,
+                )
+            } else {
+                Text(text = stringResource(id = descriptionError))
+            }
+        },
+        isError = descriptionError != null,
+        minLines = 4,
+    )
 }
