@@ -33,11 +33,11 @@ fun LoadedProfile(
     onEditProfileClicked: () -> Unit,
 ) {
     var galleryImages by remember {
-        mutableStateOf<List<Uri>>(emptyList())
+        mutableStateOf<List<String>>(emptyList())
     }
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
-        onResult = { uris -> galleryImages = uris }
+        onResult = { uris -> galleryImages = uris.map { it.toString() } }
     )
     LazyColumn(
         modifier = modifier,
@@ -45,7 +45,11 @@ fun LoadedProfile(
         contentPadding = PaddingValues(bottom = App.dimens.screen_spacing_large),
     ) {
         item {
-            ProfileImage(url = state.imageUrl, onImageChanged = onProfileImageChanged)
+            ProfileImage(
+                url = state.imageUrl,
+                onImageChanged = onProfileImageChanged,
+                enabled = false,
+            )
         }
         item {
             Text(
@@ -88,7 +92,7 @@ fun LoadedProfile(
                 },
             ) {
                 Text(
-                    text = stringResource(id = R.string.profile_your_images),
+                    text = stringResource(id = R.string.profile_change_pictures),
                     style = MaterialTheme.typography.titleLarge,
                     textAlign = TextAlign.Center,
                 )
@@ -100,7 +104,7 @@ fun LoadedProfile(
         item {
             ProfileImagesGallery(
                 modifier = Modifier.padding(top = App.dimens.views_spacing_small),
-                uris = galleryImages,
+                urls = galleryImages,
                 pickImages = {
                     multiplePhotoPickerLauncher.launch(
                         PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)

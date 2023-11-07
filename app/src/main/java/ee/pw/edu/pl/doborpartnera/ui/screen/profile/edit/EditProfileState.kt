@@ -10,6 +10,7 @@ data class EditProfileState(
     val description: String = "",
     val interests: List<String> = emptyList(),
     @StringRes val descriptionError: Int? = null,
+    val pictures: List<String> = emptyList(),
     @StringRes val errorMsg: Int? = null,
     val isLoading: Boolean = false,
     val isSaved: Boolean = false,

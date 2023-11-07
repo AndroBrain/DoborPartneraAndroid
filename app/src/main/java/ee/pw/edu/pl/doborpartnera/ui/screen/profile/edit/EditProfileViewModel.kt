@@ -48,6 +48,10 @@ class EditProfileViewModel @Inject constructor(
         updateState { state -> state.copy(description = description, descriptionError = null) }
     }
 
+    fun setGallery(pictures: List<Uri>) {
+        updateState { state -> state.copy(pictures = pictures.map { it.toString() }) }
+    }
+
     fun save(interests: List<String>) {
         updateState { state -> state.copy(isLoading = true) }
         val currentState = state.value
