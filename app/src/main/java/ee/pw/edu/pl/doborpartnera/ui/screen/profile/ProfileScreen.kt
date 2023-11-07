@@ -28,7 +28,7 @@ fun ProfileScreen(
             modifier = Modifier
                 .padding(insets)
                 .fillMaxSize(),
-            targetState = state.value,
+            targetState = state.value, label = "profileCrossfade",
         ) { state ->
             if (state.isInError) {
                 RefreshBox(
@@ -52,8 +52,6 @@ fun ProfileScreen(
                             onEditProfileClicked = {
                                 navigateToEdit(
                                     EditProfileForm(
-                                        name = state.name,
-                                        surname = state.surname,
                                         description = state.shortDescription,
                                     )
                                 )
