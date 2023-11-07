@@ -7,6 +7,7 @@ import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.usecase.auth.AuthRepository
 import ee.pw.edu.pl.domain.usecase.auth.register.RegisterForm
+import java.util.*
 
 class AuthRepositoryImpl(
     private val authRemoteDataSource: AuthRemoteDataSource,
@@ -18,6 +19,7 @@ class AuthRepositoryImpl(
                 name = form.name,
                 surname = form.surname,
                 gender = form.gender.name,
+                birthdate = Date(form.birthdate),
                 password = form.password,
             )
         )
