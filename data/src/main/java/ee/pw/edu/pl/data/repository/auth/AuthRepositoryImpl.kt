@@ -50,4 +50,6 @@ class AuthRepositoryImpl(
             }
         }
     }
+
+    override suspend fun getToken() = authLocalDataSource.getToken()
 }

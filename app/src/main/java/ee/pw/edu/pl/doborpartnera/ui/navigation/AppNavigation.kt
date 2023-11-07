@@ -14,6 +14,7 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.auth.register.navigateToRegister
 import ee.pw.edu.pl.doborpartnera.ui.screen.auth.register.registerScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.chat.chatScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.chat.navigateToChat
+import ee.pw.edu.pl.doborpartnera.ui.screen.home.HOME_ROUTE
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.homeScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigateToHome
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.find.findMatchScreen
@@ -22,12 +23,12 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.match.profile.matchProfileScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.profile.navigateToMatchProfile
 
 @Composable
-fun AppNavigation(modifier: Modifier = Modifier) {
+fun AppNavigation(modifier: Modifier = Modifier, isLoggedIn: Boolean) {
     val navController = rememberNavController()
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = AUTH_ROUTE,
+        startDestination = if (isLoggedIn) HOME_ROUTE else AUTH_ROUTE,
     ) {
         authScreen(
             navigateToLogin = { navController.navigateToLogin() },
