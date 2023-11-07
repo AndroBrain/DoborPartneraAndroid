@@ -43,7 +43,7 @@ class EditProfileViewModel @Inject constructor(
         updateState { state -> state.copy(description = description, descriptionError = null) }
     }
 
-    fun save() {
+    fun save(interests: List<String>) {
         updateState { state -> state.copy(isLoading = true) }
         val currentState = state.value
         val descriptionError = Validator.validate(

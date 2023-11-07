@@ -49,6 +49,7 @@
     <string name="profile_your_images">Zmień swoje zdjęcia</string>
     <string name="profile_empty_images">Dodaj swoje pierwsze zdjęcia</string>
     <string name="profile_edit">Wypełnij profil</string>
+    <string name="profile_interests">Zainteresowania</string>
     <string name="short_description_label">Krótki opis</string>
 
     <!-- Gender Picker -->

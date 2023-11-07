@@ -1,14 +1,19 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit
 
+import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -17,8 +22,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dokar.chiptextfield.Chip
+import com.dokar.chiptextfield.m3.ChipTextFieldDefaults
+import com.dokar.chiptextfield.m3.OutlinedChipTextField
+import com.dokar.chiptextfield.rememberChipTextFieldState
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.components.LoadingButton
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
@@ -42,6 +52,9 @@ fun EditProfileScreen(
             navigateUp()
         }
     }
+    LaunchedEffect(key1 = state.value, block = { Log.d("STATE", state.value.toString()) })
+    val interestsState =
+        rememberChipTextFieldState(chips = state.value.interests.map { Chip(it) })
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -90,11 +103,29 @@ fun EditProfileScreen(
                 )
             }
             item {
+                Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))
+            }
+            item {
+                OutlinedChipTextField(
+                    modifier = textFieldModifier,
+                    state = interestsState,
+                    onSubmit = ::Chip,
+                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
+                    label = { Text(text = stringResource(id = R.string.profile_interests)) },
+                    chipStyle = ChipTextFieldDefaults.chipStyle(
+                        focusedBackgroundColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBackgroundColor = MaterialTheme.colorScheme.primary,
+                        focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                    )
+                )
+            }
+            item {
                 LoadingButton(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = App.dimens.views_spacing_small),
-                    onClick = viewModel::save,
+                    onClick = { viewModel.save(interests = interestsState.chips.map { it.text }) },
                     isLoading = state.value.isLoading,
                 ) {
                     Text(text = stringResource(id = R.string.save))
