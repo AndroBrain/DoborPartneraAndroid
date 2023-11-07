@@ -2,6 +2,7 @@ package ee.pw.edu.pl.data.datasource.auth
 
 import ee.pw.edu.pl.data.core.remote.ApiService
 import ee.pw.edu.pl.data.model.apiCallWithHeaders
+import ee.pw.edu.pl.data.model.auth.LoginRequest
 import ee.pw.edu.pl.data.model.auth.RegisterRequest
 
 class RetrofitAuthRemoteDataSource(
@@ -9,5 +10,9 @@ class RetrofitAuthRemoteDataSource(
 ) : AuthRemoteDataSource {
     override suspend fun register(request: RegisterRequest) = apiCallWithHeaders {
         api.register(request)
+    }
+
+    override suspend fun login(request: LoginRequest) = apiCallWithHeaders {
+        api.login(request)
     }
 }
