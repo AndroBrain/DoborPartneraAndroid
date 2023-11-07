@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -31,6 +32,7 @@ import com.dokar.chiptextfield.m3.OutlinedChipTextField
 import com.dokar.chiptextfield.rememberChipTextFieldState
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.components.LoadingButton
+import ee.pw.edu.pl.doborpartnera.ui.screen.profile.ProfileImage
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
 @Composable
@@ -78,8 +80,27 @@ fun EditProfileScreen(
             modifier = Modifier
                 .padding(insets)
                 .padding(horizontal = App.dimens.screen_spacing_medium)
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            item {
+                Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))
+            }
+            item {
+                ProfileImage(
+                    url = state.value.profileImageUrl,
+                    onImageChanged = viewModel::updateProfileImage,
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))
+            }
+            item {
+                Text(text = stringResource(id = R.string.profile_edit_avatar))
+            }
+            item {
+                Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))
+            }
             item {
                 OutlinedTextField(
                     modifier = textFieldModifier,

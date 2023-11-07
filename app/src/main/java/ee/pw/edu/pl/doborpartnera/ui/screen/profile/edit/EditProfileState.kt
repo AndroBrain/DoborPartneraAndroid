@@ -6,6 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class EditProfileState(
+    val profileImageUrl: String? = null,
     val description: String = "",
     val interests: List<String> = emptyList(),
     @StringRes val descriptionError: Int? = null,

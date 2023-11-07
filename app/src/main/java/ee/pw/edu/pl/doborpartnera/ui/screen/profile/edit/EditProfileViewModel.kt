@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit
 
+import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +23,7 @@ const val DESCRIPTION_MAX_LENGTH = 240
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
     private val editProfileUseCase: EditProfileUseCase,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<EditProfileState>(savedStateHandle, EditProfileState()) {
     private val args = EditProfileArgs(savedStateHandle)
 
@@ -37,6 +38,10 @@ class EditProfileViewModel @Inject constructor(
 
     fun clearErrorMsg() {
         updateState { state -> state.copy(errorMsg = null) }
+    }
+
+    fun updateProfileImage(uri: Uri) {
+        updateState { state -> state.copy(profileImageUrl = uri.toString()) }
     }
 
     fun updateDescription(description: String) {

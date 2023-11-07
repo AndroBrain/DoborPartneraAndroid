@@ -45,7 +45,7 @@ fun LoadedProfile(
         contentPadding = PaddingValues(bottom = App.dimens.screen_spacing_large),
     ) {
         item {
-            ProfileImage(state.imageUrl, onProfileImageChanged)
+            ProfileImage(url = state.imageUrl, onImageChanged = onProfileImageChanged)
         }
         item {
             Text(
