@@ -49,10 +49,14 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         )
         registerScreen(
             navigateUp = { navController.navigateUp() },
-            navigateToLogin = {
-                navController.navigateToLogin(
+            navigateToHome = {
+                navController.navigateToHome(
                     navOptions = navOptions {
-                        popUpTo(AUTH_ROUTE)
+                        popUpTo(
+                            navController.graph.findStartDestination().id
+                        ) {
+                            inclusive = true
+                        }
                     }
                 )
             }
