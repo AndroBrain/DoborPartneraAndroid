@@ -7,5 +7,5 @@ object PasswordValidator : FieldValidator {
         get() = R.string.validation_err_password
 
     override fun validate(field: Any?) =
-        field is String && field.length > 8 && field.any { it.isUpperCase() } && field.any { it.isLowerCase() } && field.any { it.isDigit() }
+        field is String && field.length >= 8 && field.any { it.isUpperCase() } && field.any { it.isLowerCase() } && field.any { it.isDigit() }
 }
