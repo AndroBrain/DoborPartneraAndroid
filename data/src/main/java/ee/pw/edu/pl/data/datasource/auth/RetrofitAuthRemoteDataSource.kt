@@ -1,6 +1,6 @@
 package ee.pw.edu.pl.data.datasource.auth
 
-import ee.pw.edu.pl.data.core.ApiService
+import ee.pw.edu.pl.data.core.remote.ApiService
 import ee.pw.edu.pl.data.model.apiCallWithHeaders
 import ee.pw.edu.pl.data.model.auth.RegisterRequest
 

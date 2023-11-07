@@ -9,7 +9,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ee.pw.edu.pl.data.BuildConfig
 import ee.pw.edu.pl.data.R
-import ee.pw.edu.pl.data.core.ApiService
+import ee.pw.edu.pl.data.core.remote.ApiService
+import ee.pw.edu.pl.data.core.remote.interceptor.AuthInterceptor
+import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 import kotlinx.serialization.json.Json
@@ -31,9 +33,14 @@ object ApiModule {
     }
 
     @Provides
+    fun provideAuthInterceptor(authLocalDataSource: AuthLocalDataSource) =
+        AuthInterceptor(authLocalDataSource)
+
+    @Provides
     @Singleton
     fun provideOkHttpClient(
         @ApplicationContext context: Context,
+        authInterceptor: AuthInterceptor,
     ): OkHttpClient =
         OkHttpClient.Builder()
             .connectTimeout(
@@ -44,6 +51,7 @@ object ApiModule {
                 context.resources.getInteger(R.integer.api_read_timeout_seconds).toLong(),
                 TimeUnit.SECONDS
             )
+            .addInterceptor(authInterceptor)
             .apply {
                 if (BuildConfig.DEBUG) {
                     addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))

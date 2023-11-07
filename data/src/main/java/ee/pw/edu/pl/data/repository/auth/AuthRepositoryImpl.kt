@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.data.repository.auth
 
+import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.AuthRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
 import ee.pw.edu.pl.data.model.auth.RegisterRequest
@@ -11,6 +12,7 @@ import java.util.*
 
 class AuthRepositoryImpl(
     private val authRemoteDataSource: AuthRemoteDataSource,
+    private val authLocalDataSource: AuthLocalDataSource,
 ) : AuthRepository {
     override suspend fun register(form: RegisterForm): UseCaseResult<Unit> {
         val response = authRemoteDataSource.register(
@@ -26,7 +28,10 @@ class AuthRepositoryImpl(
         return when (response) {
             is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.EMAIL_TAKEN)
             is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
-            is ApiResponseWithHeaders.Ok -> UseCaseResult.Ok(Unit)
+            is ApiResponseWithHeaders.Ok -> {
+                authLocalDataSource.setToken(response.body.token)
+                UseCaseResult.Ok(Unit)
+            }
         }
     }
 }

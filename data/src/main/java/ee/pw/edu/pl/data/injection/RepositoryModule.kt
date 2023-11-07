@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.AuthRemoteDataSource
 import ee.pw.edu.pl.data.repository.auth.AuthRepositoryImpl
 import ee.pw.edu.pl.domain.usecase.auth.AuthRepository
@@ -15,5 +16,9 @@ object RepositoryModule {
     @Provides
     fun provideAuthRepository(
         authRemoteDataSource: AuthRemoteDataSource,
-    ): AuthRepository = AuthRepositoryImpl(authRemoteDataSource)
+        authLocalDataSource: AuthLocalDataSource,
+    ): AuthRepository = AuthRepositoryImpl(
+        authRemoteDataSource = authRemoteDataSource,
+        authLocalDataSource = authLocalDataSource,
+    )
 }

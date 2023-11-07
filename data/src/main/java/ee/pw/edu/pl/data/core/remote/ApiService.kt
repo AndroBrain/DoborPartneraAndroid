@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.core
+package ee.pw.edu.pl.data.core.remote
 
 import ee.pw.edu.pl.data.model.auth.RegisterRequest
 import ee.pw.edu.pl.data.model.auth.RegisterResponse
