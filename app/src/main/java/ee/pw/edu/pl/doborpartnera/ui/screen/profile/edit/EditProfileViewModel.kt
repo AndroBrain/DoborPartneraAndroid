@@ -14,6 +14,8 @@ import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
 import ee.pw.edu.pl.domain.usecase.profile.EditProfileForm
 import ee.pw.edu.pl.domain.usecase.profile.EditProfileUseCase
+import ee.pw.edu.pl.domain.usecase.profile.ProfileAvatar
+import ee.pw.edu.pl.domain.usecase.profile.ProfileImage
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -122,11 +124,19 @@ class EditProfileViewModel @Inject constructor(
 
     private fun editProfile(state: EditProfileState, interests: List<String>) {
         viewModelScope.launch {
+            val format = "jpg"
             editProfileUseCase(
                 EditProfileForm(
-                    profileImage = bitmapManager.compress(state.profileImage ?: return@launch),
+                    profileAvatar = ProfileAvatar(
+                        bytes = bitmapManager.compress(state.profileImage ?: return@launch),
+                        format = format,
+                    ),
                     description = state.description,
-                    images = state.images.map { bitmapManager.compress(it) },
+                    images = state.images.mapIndexed { index, uri ->
+                        ProfileImage(
+                            order = index, bytes = bitmapManager.compress(uri), format = format
+                        )
+                    },
                     interests = interests,
                 )
             ).onEach { result ->

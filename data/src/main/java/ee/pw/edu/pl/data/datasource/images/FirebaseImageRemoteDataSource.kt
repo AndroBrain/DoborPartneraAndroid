@@ -8,9 +8,8 @@ import kotlinx.coroutines.flow.callbackFlow
 
 class FirebaseImageRemoteDataSource(firebaseStorage: FirebaseStorage) : ImageRemoteDataSource {
     private val imageRef = firebaseStorage.reference.child("images")
-    override fun uploadImage(bytes: ByteArray): Flow<String?> = callbackFlow {
-//        TODO return url to image
-        val ref = imageRef.child("${UUID.randomUUID()}.jpg")
+    override fun uploadImage(bytes: ByteArray, format: String): Flow<String?> = callbackFlow {
+        val ref = imageRef.child("${UUID.randomUUID()}.$format")
         ref.putBytes(bytes).continueWithTask { task ->
             if (!task.isSuccessful) {
                 task.exception?.let {
