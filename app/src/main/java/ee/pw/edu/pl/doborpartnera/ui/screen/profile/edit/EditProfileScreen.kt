@@ -120,7 +120,7 @@ fun EditProfileScreen(
             }
             item {
                 ProfileImage(
-                    url = state.value.profileImageUrl,
+                    url = state.value.profileImage.toString(),
                     onImageChanged = viewModel::updateProfileImage,
                     enabled = true
                 )
@@ -138,9 +138,9 @@ fun EditProfileScreen(
                     horizontalArrangement = Arrangement.SpaceAround,
                     verticalArrangement = Arrangement.spacedBy(App.dimens.views_spacing_small),
                 ) {
-                    state.value.images.forEach { url ->
+                    state.value.images.forEach { uri ->
                         PhotoImage(
-                            url = url,
+                            url = uri.toString(),
                             icon = {
                                 Box(
                                     modifier = Modifier
@@ -152,7 +152,7 @@ fun EditProfileScreen(
                                         )
                                         .semantics { role = Role.Button }
                                         .clickable(
-                                            onClick = { viewModel.deleteImage(url) }
+                                            onClick = { viewModel.deleteImage(uri) }
                                         ),
                                     contentAlignment = Alignment.Center
                                 ) {

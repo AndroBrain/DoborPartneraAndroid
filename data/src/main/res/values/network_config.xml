@@ -4,4 +4,6 @@
 
     <integer name="api_connect_timeout_seconds">60</integer>
     <integer name="api_read_timeout_seconds">60</integer>
+
+    <string name="firebase_cloud_storage_url">gs://dobor-partnera.appspot.com</string>
 </resources>

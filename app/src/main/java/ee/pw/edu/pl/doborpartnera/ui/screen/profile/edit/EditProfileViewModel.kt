@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.R
+import ee.pw.edu.pl.doborpartnera.core.bitmap.BitmapManager
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.validation.NameLengthValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.Validator
@@ -30,6 +31,7 @@ const val MAX_IMAGES = 8
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
     private val editProfileUseCase: EditProfileUseCase,
+    private val bitmapManager: BitmapManager,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<EditProfileState>(savedStateHandle, EditProfileState()) {
 
@@ -42,7 +44,7 @@ class EditProfileViewModel @Inject constructor(
     }
 
     fun updateProfileImage(uri: Uri) {
-        updateState { state -> state.copy(profileImageUrl = uri.toString()) }
+        updateState { state -> state.copy(profileImage = uri) }
     }
 
     fun updateDescription(description: String) {
@@ -56,7 +58,7 @@ class EditProfileViewModel @Inject constructor(
                 images = state.images.toMutableSet().apply {
                     images.forEach { image ->
                         if (size < MAX_IMAGES) {
-                            add(image.toString())
+                            add(image)
                         } else {
                             error = R.string.profile_err_too_many_images
                         }
@@ -67,14 +69,14 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
-    fun deleteImage(image: String) {
+    fun deleteImage(image: Uri) {
         updateState { state -> state.copy(images = state.images - image) }
     }
 
     fun save(interests: List<String>) {
         updateState { state -> state.copy(isLoading = true) }
         val currentState = state.value
-        if (currentState.profileImageUrl == null) {
+        if (currentState.profileImage == null) {
             updateState { state ->
                 state.copy(
                     errorMsg = R.string.profile_err_no_avatar,
@@ -112,16 +114,21 @@ class EditProfileViewModel @Inject constructor(
             updateState { state -> state.copy(interestsError = interestsError) }
         }
         if (descriptionError == null && interestsError == null) {
-            editProfile(currentState)
+            editProfile(currentState, interests)
         } else {
             updateState { state -> state.copy(isLoading = false) }
         }
     }
 
-    private fun editProfile(state: EditProfileState) {
+    private fun editProfile(state: EditProfileState, interests: List<String>) {
         viewModelScope.launch {
             editProfileUseCase(
-                EditProfileForm(description = state.description)
+                EditProfileForm(
+                    profileImage = bitmapManager.compress(state.profileImage ?: return@launch),
+                    description = state.description,
+                    images = state.images.map { bitmapManager.compress(it) },
+                    interests = interests,
+                )
             ).onEach { result ->
                 result.fold(
                     onOk = {

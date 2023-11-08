@@ -12,13 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.ui.components.RefreshBox
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
-import ee.pw.edu.pl.domain.usecase.profile.EditProfileForm
 
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel,
-    navigateToEdit: (EditProfileForm) -> Unit,
+    navigateToEdit: () -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     Scaffold(
@@ -50,11 +49,7 @@ fun ProfileScreen(
                             state = state,
                             onProfileImageChanged = viewModel::changeProfileImage,
                             onEditProfileClicked = {
-                                navigateToEdit(
-                                    EditProfileForm(
-                                        description = state.shortDescription,
-                                    )
-                                )
+                                navigateToEdit()
                             },
                         )
                     }
@@ -63,4 +58,3 @@ fun ProfileScreen(
         }
     }
 }
-

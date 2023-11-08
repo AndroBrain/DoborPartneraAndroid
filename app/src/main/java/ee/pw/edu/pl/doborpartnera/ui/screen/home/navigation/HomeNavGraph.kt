@@ -31,6 +31,6 @@ fun HomeNavGraph(
             },
             navigateToFindMatch = navigateToFindMatch,
         )
-        profileScreen(navigateToEdit = { form -> navigateToEditProfile() })
+        profileScreen(navigateToEdit = { navigateToEditProfile() })
     }
 }
