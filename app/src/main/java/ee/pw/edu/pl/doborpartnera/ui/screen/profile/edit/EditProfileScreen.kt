@@ -113,8 +113,9 @@ fun EditProfileScreen(
             }
             item {
                 Text(
+                    modifier = Modifier.fillMaxWidth(),
                     text = stringResource(id = R.string.profile_avatar),
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.titleMedium,
                 )
             }
             item {
@@ -132,8 +133,9 @@ fun EditProfileScreen(
             }
             item {
                 Text(
+                    modifier = Modifier.fillMaxWidth(),
                     text = stringResource(id = R.string.profile_your_pictures),
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.titleMedium,
                 )
             }
             item {
@@ -198,6 +200,16 @@ fun EditProfileScreen(
             }
             item {
                 InterestsTextField(textFieldModifier, interestsState)
+            }
+            item {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = App.dimens.views_spacing_medium),
+                    text = "${interestsState.chips.size} / $MAX_INTERESTS",
+                    textAlign = TextAlign.End,
+                    style = MaterialTheme.typography.bodySmall,
+                )
             }
             item {
                 Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))

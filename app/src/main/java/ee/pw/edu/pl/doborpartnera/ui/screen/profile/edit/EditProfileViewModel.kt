@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 
 private const val DESCRIPTION_MIN_LENGTH = 60
 const val DESCRIPTION_MAX_LENGTH = 240
+const val MAX_INTERESTS = 5
 
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
