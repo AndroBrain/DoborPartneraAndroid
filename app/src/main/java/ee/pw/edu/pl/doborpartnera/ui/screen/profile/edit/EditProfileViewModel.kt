@@ -38,8 +38,12 @@ class EditProfileViewModel @Inject constructor(
         updateState { state -> state.copy(description = description, descriptionError = null) }
     }
 
-    fun setGallery(pictures: List<Uri>) {
-        updateState { state -> state.copy(pictures = pictures.map { it.toString() }) }
+    fun addImages(images: List<Uri>) {
+        updateState { state -> state.copy(images = state.images + images.map { it.toString() }) }
+    }
+
+    fun deleteImage(image: String) {
+        updateState { state -> state.copy(images = state.images - image) }
     }
 
     fun save(interests: List<String>) {

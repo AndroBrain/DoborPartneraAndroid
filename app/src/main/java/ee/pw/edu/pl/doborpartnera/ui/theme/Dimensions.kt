@@ -15,6 +15,9 @@ class Dimensions(
     val views_spacing_large: Dp = 24.dp,
     val views_spacing_extra_large: Dp = 32.dp,
 
+    val border_width: Dp = 1.dp,
+    val icon_button_container_size: Dp = 40.dp,
+
     val loading_button_indicator_size: Dp = 24.dp,
 
     val fab_text_padding: Dp = 20.dp,
@@ -28,9 +31,10 @@ class Dimensions(
     val chat_message_vertical_padding: Dp = 4.dp,
     val chat_message_horizontal_padding: Dp = 12.dp,
 
-    val profile_image_size: Dp = 150.dp,
+    val profile_image_size: Dp = 145.dp,
     val profile_gallery_image_size: Dp = 120.dp,
-    val profile_gallery_empty_image_size: Dp = 150.dp,
+    val profile_gallery_image_width: Dp = 90.dp,
+    val profile_gallery_image_height: Dp = 160.dp,
 
     val find_match_profile_image_size: Dp = 80.dp,
 )

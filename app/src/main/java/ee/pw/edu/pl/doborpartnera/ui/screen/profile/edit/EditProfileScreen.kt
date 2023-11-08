@@ -6,8 +6,13 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,22 +20,26 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -41,10 +50,12 @@ import com.dokar.chiptextfield.m3.OutlinedChipTextField
 import com.dokar.chiptextfield.rememberChipTextFieldState
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.components.LoadingButton
+import ee.pw.edu.pl.doborpartnera.ui.components.image.PhotoImage
+import ee.pw.edu.pl.doborpartnera.ui.components.image.PhotoImageButton
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.ProfileImage
-import ee.pw.edu.pl.doborpartnera.ui.screen.profile.ProfileImagesGallery
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun EditProfileScreen(
     modifier: Modifier = Modifier,
@@ -69,7 +80,7 @@ fun EditProfileScreen(
         rememberChipTextFieldState(chips = state.value.interests.map { Chip(it) })
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
-        onResult = viewModel::setGallery,
+        onResult = viewModel::addImages,
     )
     Scaffold(
         modifier = modifier,
@@ -86,10 +97,9 @@ fun EditProfileScreen(
             )
         }
     ) { insets ->
-        val textFieldModifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(top = App.dimens.views_spacing_small)
+        val textFieldModifier = Modifier
+            .fillMaxWidth()
+            .padding(top = App.dimens.views_spacing_small)
         LazyColumn(
             modifier = Modifier
                 .padding(insets)
@@ -102,27 +112,13 @@ fun EditProfileScreen(
                 Spacer(modifier = Modifier.size(App.dimens.screen_spacing_small))
             }
             item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        modifier = Modifier.weight(1F),
-                        text = stringResource(id = R.string.profile_avatar),
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    TextButton(
-                        onClick = {
-                            multiplePhotoPickerLauncher.launch(
-                                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                            )
-                        },
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.profile_edit_avatar)
-                        )
-                    }
-                }
+                Text(
+                    text = stringResource(id = R.string.profile_avatar),
+                    style = MaterialTheme.typography.headlineSmall
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.size(App.dimens.screen_spacing_small))
             }
             item {
                 ProfileImage(
@@ -132,48 +128,59 @@ fun EditProfileScreen(
                 )
             }
             item {
-                Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))
+                Spacer(modifier = Modifier.size(App.dimens.views_spacing_medium))
             }
             item {
-                Divider()
+                Text(
+                    text = stringResource(id = R.string.profile_your_pictures),
+                    style = MaterialTheme.typography.headlineSmall
+                )
             }
             item {
-                Row(
+                Spacer(modifier = Modifier.size(App.dimens.screen_spacing_small))
+            }
+            item {
+                FlowRow(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    verticalArrangement = Arrangement.spacedBy(App.dimens.views_spacing_small),
                 ) {
-                    Text(
-                        modifier = Modifier.weight(1F),
-                        text = stringResource(id = R.string.profile_your_pictures),
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    TextButton(
+                    state.value.images.forEach { url ->
+                        PhotoImage(
+                            url = url,
+                            icon = {
+                                Box(
+                                    modifier = Modifier
+                                        .align(Alignment.TopEnd)
+                                        .size(App.dimens.icon_button_container_size)
+                                        .background(
+                                            color = MaterialTheme.colorScheme.error,
+                                            shape = MaterialTheme.shapes.small,
+                                        )
+                                        .semantics { role = Role.Button }
+                                        .clickable(
+                                            onClick = { viewModel.deleteImage(url) }
+                                        ),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Delete,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.onError,
+                                    )
+                                }
+                            }
+                        )
+                    }
+                    PhotoImageButton(
+                        painter = rememberVectorPainter(image = Icons.Default.AddCircle),
                         onClick = {
                             multiplePhotoPickerLauncher.launch(
                                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                             )
                         },
-                    ) {
-                        Text(
-                            text = if (state.value.pictures.isEmpty()) {
-                                stringResource(id = R.string.profile_add_pictures)
-                            } else {
-                                stringResource(id = R.string.profile_change_pictures)
-                            }
-                        )
-                    }
+                    )
                 }
-            }
-            item {
-                ProfileImagesGallery(
-                    modifier = Modifier.padding(top = App.dimens.views_spacing_small),
-                    urls = state.value.pictures,
-                    pickImages = {
-                        multiplePhotoPickerLauncher.launch(
-                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                        )
-                    }
-                )
             }
             item {
                 Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))

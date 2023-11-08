@@ -12,7 +12,6 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -77,25 +76,6 @@ fun LoadedProfile(
                 onClick = onEditProfileClicked,
             ) {
                 Text(text = stringResource(id = R.string.profile_edit))
-            }
-        }
-        item {
-            TextButton(
-                modifier = Modifier
-                    .padding(top = App.dimens.views_spacing_medium)
-                    .padding(bottom = App.dimens.views_spacing_small)
-                    .fillMaxWidth(),
-                onClick = {
-                    multiplePhotoPickerLauncher.launch(
-                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                    )
-                },
-            ) {
-                Text(
-                    text = stringResource(id = R.string.profile_change_pictures),
-                    style = MaterialTheme.typography.titleLarge,
-                    textAlign = TextAlign.Center,
-                )
             }
         }
         item {
