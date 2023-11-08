@@ -21,7 +21,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Icon
@@ -91,7 +91,7 @@ fun EditProfileScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+                        Icon(imageVector = Icons.Default.Close, contentDescription = null)
                     }
                 }
             )
@@ -221,6 +221,9 @@ fun EditProfileScreen(
                 ) {
                     Text(text = stringResource(id = R.string.save))
                 }
+            }
+            item {
+                Spacer(modifier = Modifier.size(App.dimens.screen_spacing_large))
             }
         }
     }
