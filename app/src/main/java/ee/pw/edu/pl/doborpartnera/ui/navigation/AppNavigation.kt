@@ -21,6 +21,8 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.match.find.findMatchScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.find.navigateToFindMatch
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.profile.matchProfileScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.profile.navigateToMatchProfile
+import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.editProfileScreen
+import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.navigateToEditProfile
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier, isLoggedIn: Boolean) {
@@ -65,6 +67,7 @@ fun AppNavigation(modifier: Modifier = Modifier, isLoggedIn: Boolean) {
         homeScreen(
             navigateToFindMatch = { navController.navigateToFindMatch() },
             navigateToChat = { person -> navController.navigateToChat(person = person) },
+            navigateToEditProfile = { navController.navigateToEditProfile() },
         )
         findMatchScreen(navigateToChat = { person -> navController.navigateToChat(person = person) })
         chatScreen(
@@ -72,5 +75,6 @@ fun AppNavigation(modifier: Modifier = Modifier, isLoggedIn: Boolean) {
             navigateToProfile = { id -> navController.navigateToMatchProfile(id = id) },
         )
         matchProfileScreen(navigateUp = { navController.navigateUp() })
+        editProfileScreen(navigateUp = { navController.navigateUp() })
     }
 }

@@ -25,16 +25,6 @@ class EditProfileViewModel @Inject constructor(
     private val editProfileUseCase: EditProfileUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<EditProfileState>(savedStateHandle, EditProfileState()) {
-    private val args = EditProfileArgs(savedStateHandle)
-
-    init {
-        val editProfile = args.editProfile
-        updateState { state ->
-            state.copy(
-                description = state.description.ifEmpty { editProfile.description },
-            )
-        }
-    }
 
     fun clearErrorMsg() {
         updateState { state -> state.copy(errorMsg = null) }

@@ -10,10 +10,15 @@ const val HOME_ROUTE = "HOME"
 
 fun NavGraphBuilder.homeScreen(
     navigateToFindMatch: () -> Unit,
+    navigateToEditProfile: () -> Unit,
     navigateToChat: (ChatPerson) -> Unit,
 ) {
     composable(HOME_ROUTE) {
-        HomeScreen(navigateToFindMatch = navigateToFindMatch, navigateToChat = navigateToChat)
+        HomeScreen(
+            navigateToFindMatch = navigateToFindMatch,
+            navigateToEditProfile = navigateToEditProfile,
+            navigateToChat = navigateToChat,
+        )
     }
 }
 

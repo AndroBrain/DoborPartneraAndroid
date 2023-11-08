@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import androidx.navigation.compose.rememberNavController
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigation.HomeNavGraph
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigation.HomeNavigationBar
 import ee.pw.edu.pl.domain.usecase.chat.people.ChatPerson
@@ -13,9 +13,10 @@ import ee.pw.edu.pl.domain.usecase.chat.people.ChatPerson
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navigateToFindMatch: () -> Unit,
+    navigateToEditProfile: () -> Unit,
     navigateToChat: (ChatPerson) -> Unit,
 ) {
-    val navController = rememberAnimatedNavController()
+    val navController = rememberNavController()
     Scaffold(
         modifier = modifier,
         bottomBar = {
@@ -26,6 +27,7 @@ fun HomeScreen(
             modifier = Modifier.padding(insets),
             navController = navController,
             navigateToFindMatch = navigateToFindMatch,
+            navigateToEditProfile = navigateToEditProfile,
             navigateToChat = navigateToChat,
         )
     }
