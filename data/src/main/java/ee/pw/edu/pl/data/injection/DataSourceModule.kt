@@ -13,6 +13,8 @@ import ee.pw.edu.pl.data.datasource.auth.PrefsAuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.RetrofitAuthRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.FirebaseImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.ImageRemoteDataSource
+import ee.pw.edu.pl.data.datasource.profile.ProfileRemoteDataSource
+import ee.pw.edu.pl.data.datasource.profile.RetrofitProfileRemoteDataSource
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -31,4 +33,9 @@ object DataSourceModule {
     fun provideImageRemoteDataSource(
         firebaseStorage: FirebaseStorage,
     ): ImageRemoteDataSource = FirebaseImageRemoteDataSource(firebaseStorage)
+
+    @Provides
+    fun provideProfileRemoteDataSource(
+        apiService: ApiService,
+    ): ProfileRemoteDataSource = RetrofitProfileRemoteDataSource(apiService)
 }
