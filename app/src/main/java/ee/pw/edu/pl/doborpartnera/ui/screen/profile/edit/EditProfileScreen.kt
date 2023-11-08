@@ -1,6 +1,5 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit
 
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -76,7 +75,6 @@ fun EditProfileScreen(
             navigateUp()
         }
     }
-    LaunchedEffect(key1 = state.value, block = { Log.d("STATE", state.value.toString()) })
     val interestsState =
         rememberChipTextFieldState(chips = state.value.interests.map { Chip(it) })
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult(
