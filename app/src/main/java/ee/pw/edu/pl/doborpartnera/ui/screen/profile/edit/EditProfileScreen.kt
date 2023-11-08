@@ -106,6 +106,7 @@ fun EditProfileScreen(
                 .padding(horizontal = App.dimens.screen_spacing_medium)
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(App.dimens.views_spacing_small),
             contentPadding = PaddingValues(bottom = App.dimens.views_spacing_large),
         ) {
             item {
@@ -119,9 +120,6 @@ fun EditProfileScreen(
                 )
             }
             item {
-                Spacer(modifier = Modifier.size(App.dimens.screen_spacing_small))
-            }
-            item {
                 ProfileImage(
                     url = state.value.profileImageUrl,
                     onImageChanged = viewModel::updateProfileImage,
@@ -129,17 +127,11 @@ fun EditProfileScreen(
                 )
             }
             item {
-                Spacer(modifier = Modifier.size(App.dimens.views_spacing_medium))
-            }
-            item {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(id = R.string.profile_your_pictures),
                     style = MaterialTheme.typography.titleMedium,
                 )
-            }
-            item {
-                Spacer(modifier = Modifier.size(App.dimens.screen_spacing_small))
             }
             item {
                 FlowRow(
@@ -185,7 +177,11 @@ fun EditProfileScreen(
                 }
             }
             item {
-                Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = stringResource(id = R.string.short_description_label),
+                    style = MaterialTheme.typography.titleMedium,
+                )
             }
             item {
                 DescriptionTextField(
@@ -196,7 +192,11 @@ fun EditProfileScreen(
                 )
             }
             item {
-                Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = stringResource(id = R.string.profile_interests),
+                    style = MaterialTheme.typography.titleMedium,
+                )
             }
             item {
                 InterestsTextField(textFieldModifier, interestsState)
@@ -210,9 +210,6 @@ fun EditProfileScreen(
                     textAlign = TextAlign.End,
                     style = MaterialTheme.typography.bodySmall,
                 )
-            }
-            item {
-                Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))
             }
             item {
                 LoadingButton(
@@ -239,7 +236,6 @@ private fun InterestsTextField(
         state = state,
         onSubmit = ::Chip,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
-        label = { Text(text = stringResource(id = R.string.profile_interests)) },
         chipStyle = ChipTextFieldDefaults.chipStyle(
             focusedBackgroundColor = MaterialTheme.colorScheme.primary,
             unfocusedBackgroundColor = MaterialTheme.colorScheme.primary,
@@ -260,7 +256,6 @@ private fun DescriptionTextField(
         modifier = modifier,
         value = description,
         onValueChange = updateDescription,
-        label = { Text(text = stringResource(id = R.string.short_description_label)) },
         supportingText = {
             if (descriptionError == null) {
                 Text(
