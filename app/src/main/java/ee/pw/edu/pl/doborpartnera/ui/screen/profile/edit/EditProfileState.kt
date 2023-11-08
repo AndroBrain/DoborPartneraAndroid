@@ -11,6 +11,7 @@ data class EditProfileState(
     val interests: List<String> = emptyList(),
     @StringRes val descriptionError: Int? = null,
     val images: Set<String> = emptySet(),
+    @StringRes val interestsError: Int? = null,
     @StringRes val errorMsg: Int? = null,
     val isLoading: Boolean = false,
     val isSaved: Boolean = false,

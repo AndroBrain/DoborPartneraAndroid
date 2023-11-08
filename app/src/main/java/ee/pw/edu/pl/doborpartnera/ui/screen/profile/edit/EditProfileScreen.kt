@@ -34,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -199,16 +200,30 @@ fun EditProfileScreen(
                 )
             }
             item {
-                InterestsTextField(textFieldModifier, interestsState)
+                InterestsTextField(
+                    modifier = textFieldModifier,
+                    onSubmit = viewModel::clearInterestsError,
+                    state = interestsState,
+                )
             }
             item {
+                val error = state.value.interestsError
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(end = App.dimens.views_spacing_medium),
-                    text = "${interestsState.chips.size} / $MAX_INTERESTS",
+                    text = if (error == null) {
+                        "${interestsState.chips.size} / $MAX_INTERESTS"
+                    } else {
+                        stringResource(id = error)
+                    },
                     textAlign = TextAlign.End,
                     style = MaterialTheme.typography.bodySmall,
+                    color = if (error != null) {
+                        MaterialTheme.colorScheme.error
+                    } else {
+                        Color.Unspecified
+                    }
                 )
             }
             item {
@@ -233,11 +248,15 @@ fun EditProfileScreen(
 private fun InterestsTextField(
     modifier: Modifier,
     state: ChipTextFieldState<Chip>,
+    onSubmit: () -> Unit,
 ) {
     OutlinedChipTextField(
         modifier = modifier,
         state = state,
-        onSubmit = ::Chip,
+        onSubmit = {
+            onSubmit()
+            Chip(it)
+        },
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
         chipStyle = ChipTextFieldDefaults.chipStyle(
             focusedBackgroundColor = MaterialTheme.colorScheme.primary,

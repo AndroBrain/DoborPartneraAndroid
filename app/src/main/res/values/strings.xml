@@ -52,6 +52,12 @@
     <string name="profile_interests">Twoje zainteresowania</string>
     <string name="short_description_label">Krótki opis</string>
 
+    <!-- Profile Errors -->
+    <string name="profile_err_no_avatar">Zdjęcie profilowe nie zostało wybrane.</string>
+    <string name="profile_err_images">Sekcja Twoje zdjęcia wymaga od 4 do 8 zdjęć.</string>
+    <string name="profile_err_too_many_images">Maksymalna liczba zdjęc wynosi 8.</string>
+    <string name="profile_err_interests">Twoje zainteresowania muszą zawierać od 2 do 5 zainteresowań.</string>
+
     <!-- Gender Picker -->
     <string name="gender_label">Płeć</string>
     <string name="gender_male">Mężczyzna</string>
