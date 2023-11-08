@@ -11,10 +11,12 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+private const val ISO_8601_PATTERN = "yyyy-MM-dd'T'HH:mm:ss"
+
 @Keep
 object DateSerializer : KSerializer<Date> {
 
-    private val dateVersionFormat = SimpleDateFormat("yyyy.MM.dd", Locale.US)
+    private val dateFormat = SimpleDateFormat(ISO_8601_PATTERN, Locale.US)
 
     override val descriptor: SerialDescriptor
         get() = PrimitiveSerialDescriptor("Date", PrimitiveKind.STRING)
@@ -22,14 +24,14 @@ object DateSerializer : KSerializer<Date> {
     override fun deserialize(decoder: Decoder): Date {
         val string = decoder.decodeString()
         return try {
-            dateVersionFormat.parse(string) ?: Date()
+            dateFormat.parse(string) ?: Date()
         } catch (pe: ParseException) {
             Date()
         }
     }
 
     override fun serialize(encoder: Encoder, value: Date) {
-        val string = dateVersionFormat.format(value)
+        val string = dateFormat.format(value)
         encoder.encodeString(string)
     }
 }
