@@ -15,6 +15,7 @@ import ee.pw.edu.pl.data.datasource.images.FirebaseImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.ImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.profile.ProfileRemoteDataSource
 import ee.pw.edu.pl.data.datasource.profile.RetrofitProfileRemoteDataSource
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,6 +26,7 @@ object DataSourceModule {
     ): AuthRemoteDataSource = RetrofitAuthRemoteDataSource(apiService)
 
     @Provides
+    @Singleton
     fun provideAuthLocalDataSource(
         prefs: SharedPreferences,
     ): AuthLocalDataSource = PrefsAuthLocalDataSource(prefs)

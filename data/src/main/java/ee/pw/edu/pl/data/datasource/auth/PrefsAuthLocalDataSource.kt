@@ -22,8 +22,10 @@ class PrefsAuthLocalDataSource(
         prefs.edit {
             if (token == null) {
                 remove(KEY_TOKEN)
+                authenticationToken.value = null
             } else {
                 putString(KEY_TOKEN, token)
+                authenticationToken.value = token
             }
         }
     }
