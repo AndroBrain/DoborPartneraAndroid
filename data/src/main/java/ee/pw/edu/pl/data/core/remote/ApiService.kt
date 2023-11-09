@@ -4,9 +4,11 @@ import ee.pw.edu.pl.data.model.auth.LoginRequest
 import ee.pw.edu.pl.data.model.auth.LoginResponse
 import ee.pw.edu.pl.data.model.auth.RegisterRequest
 import ee.pw.edu.pl.data.model.auth.RegisterResponse
+import ee.pw.edu.pl.data.model.profile.GetProfileInfoResponse
 import ee.pw.edu.pl.data.model.profile.SetProfileInfoRequest
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 private const val PATH_AUTH = "auth"
@@ -23,4 +25,7 @@ interface ApiService {
     // Account
     @POST("$PATH_ACCOUNT/info")
     suspend fun setInfo(@Body request: SetProfileInfoRequest): Response<Unit>
+
+    @GET("$PATH_ACCOUNT/info")
+    suspend fun getInfo(): Response<GetProfileInfoResponse>
 }
