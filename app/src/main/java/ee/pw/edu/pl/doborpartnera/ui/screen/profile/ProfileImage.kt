@@ -35,7 +35,7 @@ fun ProfileImage(
     modifier: Modifier = Modifier,
     url: String?,
     enabled: Boolean,
-    onImageChanged: (Uri) -> Unit,
+    onImageChanged: ((Uri) -> Unit)? = null,
     size: Dp = App.dimens.profile_image_size,
 ) {
     var selectedImageUri by remember {
@@ -45,7 +45,9 @@ fun ProfileImage(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
             selectedImageUri = uri
-            uri?.let { onImageChanged(it) }
+            if (uri != null && onImageChanged != null) {
+                onImageChanged(uri)
+            }
         }
     )
     GlideImage(

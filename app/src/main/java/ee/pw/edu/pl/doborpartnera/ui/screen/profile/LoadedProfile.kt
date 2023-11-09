@@ -1,9 +1,7 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.profile
 
-import android.net.Uri
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,42 +11,28 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import ee.pw.edu.pl.doborpartnera.R
+import ee.pw.edu.pl.doborpartnera.ui.components.image.PhotoImage
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun LoadedProfile(
     modifier: Modifier = Modifier,
     state: ProfileState,
-    onProfileImageChanged: (Uri) -> Unit,
     onEditProfileClicked: () -> Unit,
 ) {
-    var galleryImages by remember {
-        mutableStateOf<List<String>>(emptyList())
-    }
-    val multiplePhotoPickerLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.PickMultipleVisualMedia(),
-        onResult = { uris -> galleryImages = uris.map { it.toString() } }
-    )
     LazyColumn(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         contentPadding = PaddingValues(bottom = App.dimens.screen_spacing_large),
     ) {
         item {
-            ProfileImage(
-                url = state.imageUrl,
-                onImageChanged = onProfileImageChanged,
-                enabled = false,
-            )
+            ProfileImage(url = state.avatar, enabled = false)
         }
         item {
             Text(
@@ -65,7 +49,7 @@ fun LoadedProfile(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = App.dimens.views_spacing_medium),
-                text = state.shortDescription,
+                text = state.description,
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
             )
@@ -82,15 +66,13 @@ fun LoadedProfile(
             Divider()
         }
         item {
-            ProfileImagesGallery(
-                modifier = Modifier.padding(top = App.dimens.views_spacing_small),
-                urls = galleryImages,
-                pickImages = {
-                    multiplePhotoPickerLauncher.launch(
-                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                    )
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                state.images.forEach { url ->
+                    PhotoImage(url = url)
                 }
-            )
+            }
         }
     }
 }

@@ -47,10 +47,7 @@ fun ProfileScreen(
                         LoadedProfile(
                             modifier = Modifier.fillMaxSize(),
                             state = state,
-                            onProfileImageChanged = viewModel::changeProfileImage,
-                            onEditProfileClicked = {
-                                navigateToEdit()
-                            },
+                            onEditProfileClicked = { navigateToEdit() },
                         )
                     }
                 }

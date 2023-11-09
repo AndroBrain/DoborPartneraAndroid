@@ -9,6 +9,7 @@ import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.ProfileRepository
 import ee.pw.edu.pl.domain.usecase.profile.EditProfileForm
+import ee.pw.edu.pl.domain.usecase.profile.Profile
 import ee.pw.edu.pl.domain.usecase.profile.ProfileAvatar
 import ee.pw.edu.pl.domain.usecase.profile.ProfileImage
 import kotlinx.coroutines.channels.Channel
@@ -30,7 +31,10 @@ class ProfileRepositoryImpl(
         }
         val response = profileRemoteDataSource.setInfo(
             SetProfileInfoRequest(
-                avatarUrl = profileUrl, description = profileForm.description,
+                avatar = profileUrl,
+                description = profileForm.description,
+                images = allImages.map { it!!.url },
+                interests = profileForm.interests,
             )
         )
         return when (response) {
@@ -39,6 +43,25 @@ class ProfileRepositoryImpl(
             is ApiResponseWithHeaders.Ok -> UseCaseResult.Ok(Unit)
         }
     }
+
+    override suspend fun getProfile(): UseCaseResult<Profile> =
+        when (val response = profileRemoteDataSource.getInfo()) {
+            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponseWithHeaders.Ok -> {
+                val profile = response.body
+                UseCaseResult.Ok(
+                    Profile(
+                        name = profile.name,
+                        surname = profile.surname,
+                        avatar = profile.avatar,
+                        shortDescription = profile.description,
+                        images = profile.images,
+                        interests = profile.interests,
+                    )
+                )
+            }
+        }
 
     private suspend fun uploadImages(
         avatar: ProfileAvatar,

@@ -6,12 +6,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProfileState(
-    val email: String = "",
     val name: String = "",
     val surname: String = "",
-    val shortDescription: String = "",
-    val imageUrl: String? = null,
-    val imageGallery: List<String> = emptyList(),
+    val description: String = "",
+    val avatar: String? = null,
+    val images: List<String> = emptyList(),
+    val interests: List<String> = emptyList(),
     val isLoading: Boolean = true,
     @StringRes val errorMsg: Int? = null,
     val isInError: Boolean = false,
