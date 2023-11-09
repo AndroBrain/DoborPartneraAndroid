@@ -86,7 +86,7 @@ fun EditProfileScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = stringResource(id = R.string.profile_edit))
+                    Text(text = stringResource(id = R.string.profile_fill))
                 },
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {

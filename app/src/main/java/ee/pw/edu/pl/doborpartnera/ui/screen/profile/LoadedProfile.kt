@@ -1,21 +1,19 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.profile
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.components.image.PhotoImage
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
@@ -55,19 +53,36 @@ fun LoadedProfile(
             )
         }
         item {
-            OutlinedButton(
-                modifier = Modifier.padding(top = App.dimens.views_spacing_small),
-                onClick = onEditProfileClicked,
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = App.dimens.views_spacing_small),
+                horizontalArrangement = Arrangement.Center,
+                verticalArrangement = Arrangement.spacedBy(App.dimens.views_spacing_extra_small),
             ) {
-                Text(text = stringResource(id = R.string.profile_edit))
+                state.interests.forEach { interest ->
+                    Surface(
+                        modifier = Modifier.padding(horizontal = App.dimens.views_spacing_extra_small),
+                        shape = MaterialTheme.shapes.small,
+                        color = MaterialTheme.colorScheme.primary,
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(
+                                horizontal = App.dimens.views_spacing_small,
+                                vertical = App.dimens.views_spacing_extra_small,
+                            ),
+                            text = interest,
+                            style = MaterialTheme.typography.labelLarge,
+                        )
+                    }
+                }
             }
-        }
-        item {
-            Divider()
         }
         item {
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalArrangement = Arrangement.spacedBy(App.dimens.views_spacing_small),
             ) {
                 state.images.forEach { url ->
                     PhotoImage(url = url)

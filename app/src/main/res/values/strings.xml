@@ -47,7 +47,8 @@
     <!-- Profile -->
     <string name="profile_title">Profil</string>
     <string name="profile_your_pictures">Twoje zdjęcia</string>
-    <string name="profile_edit">Wypełnij profil</string>
+    <string name="profile_fill">Wypełnij profil</string>
+    <string name="profile_edit">Edytuj profil</string>
     <string name="profile_avatar">Zdjęcie profilowe</string>
     <string name="profile_interests">Twoje zainteresowania</string>
     <string name="short_description_label">Krótki opis</string>
