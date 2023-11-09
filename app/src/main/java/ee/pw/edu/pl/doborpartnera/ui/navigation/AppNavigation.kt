@@ -21,6 +21,7 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.match.find.findMatchScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.find.navigateToFindMatch
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.profile.matchProfileScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.profile.navigateToMatchProfile
+import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.FILL_PROFILE_ROUTE
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.editProfileScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.fillProfileScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.navigateToEditProfile
@@ -82,9 +83,7 @@ fun AppNavigation(modifier: Modifier = Modifier, isLoggedIn: Boolean) {
             navigateToHome = {
                 navController.navigateToHome(
                     navOptions = navOptions {
-                        popUpTo(
-                            navController.graph.findStartDestination().id
-                        ) {
+                        popUpTo(FILL_PROFILE_ROUTE) {
                             inclusive = true
                         }
                     }
