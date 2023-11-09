@@ -38,7 +38,7 @@ class ProfileRepositoryImpl(
             )
         )
         return when (response) {
-            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.EMAIL_TAKEN)
+            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
             is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponseWithHeaders.Ok -> UseCaseResult.Ok(Unit)
         }

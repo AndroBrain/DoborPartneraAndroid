@@ -14,10 +14,6 @@ class ProfileViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<ProfileState>(savedStateHandle, ProfileState()) {
-    init {
-        loadProfile()
-    }
-
     fun loadProfile() {
         viewModelScope.launch {
             updateState { state -> state.copy(isInError = false, isLoading = true) }

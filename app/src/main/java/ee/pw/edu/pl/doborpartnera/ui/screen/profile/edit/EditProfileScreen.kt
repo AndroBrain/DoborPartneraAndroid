@@ -20,11 +20,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -60,7 +58,9 @@ import ee.pw.edu.pl.doborpartnera.ui.theme.App
 fun EditProfileScreen(
     modifier: Modifier = Modifier,
     viewModel: EditProfileViewModel,
-    navigateUp: () -> Unit,
+    title: String,
+    navigationIcon: @Composable () -> Unit = {},
+    onSaved: () -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     state.value.errorMsg?.let { errorMsg ->
@@ -72,7 +72,7 @@ fun EditProfileScreen(
     }
     LaunchedEffect(state.value.isSaved) {
         if (state.value.isSaved) {
-            navigateUp()
+            onSaved()
         }
     }
     val interestsState =
@@ -86,13 +86,9 @@ fun EditProfileScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = stringResource(id = R.string.profile_fill))
+                    Text(text = title)
                 },
-                navigationIcon = {
-                    IconButton(onClick = navigateUp) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = null)
-                    }
-                }
+                navigationIcon = navigationIcon,
             )
         }
     ) { insets ->

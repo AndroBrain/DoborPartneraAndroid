@@ -22,7 +22,9 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.match.find.navigateToFindMatch
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.profile.matchProfileScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.profile.navigateToMatchProfile
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.editProfileScreen
+import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.fillProfileScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.navigateToEditProfile
+import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.navigateToFillProfile
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier, isLoggedIn: Boolean) {
@@ -52,8 +54,8 @@ fun AppNavigation(modifier: Modifier = Modifier, isLoggedIn: Boolean) {
         )
         registerScreen(
             navigateUp = { navController.navigateUp() },
-            navigateToHome = {
-                navController.navigateToHome(
+            navigateToFillProfile = {
+                navController.navigateToFillProfile(
                     navOptions = navOptions {
                         popUpTo(
                             navController.graph.findStartDestination().id
@@ -76,5 +78,18 @@ fun AppNavigation(modifier: Modifier = Modifier, isLoggedIn: Boolean) {
         )
         matchProfileScreen(navigateUp = { navController.navigateUp() })
         editProfileScreen(navigateUp = { navController.navigateUp() })
+        fillProfileScreen(
+            navigateToHome = {
+                navController.navigateToHome(
+                    navOptions = navOptions {
+                        popUpTo(
+                            navController.graph.findStartDestination().id
+                        ) {
+                            inclusive = true
+                        }
+                    }
+                )
+            },
+        )
     }
 }

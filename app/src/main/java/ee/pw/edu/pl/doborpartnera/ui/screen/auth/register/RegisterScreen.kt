@@ -37,7 +37,7 @@ fun RegisterScreen(
     modifier: Modifier = Modifier,
     viewModel: RegisterViewModel,
     navigateUp: () -> Unit,
-    navigateToHome: () -> Unit,
+    navigateToFillProfile: () -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -51,7 +51,7 @@ fun RegisterScreen(
     LaunchedEffect(isRegistered) {
         if (isRegistered) {
             Toast.makeText(context, R.string.register_successful, Toast.LENGTH_SHORT).show()
-            navigateToHome()
+            navigateToFillProfile()
             viewModel.registered()
         }
     }
