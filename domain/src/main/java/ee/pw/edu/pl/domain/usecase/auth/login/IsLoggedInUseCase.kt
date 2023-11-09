@@ -1,6 +1,6 @@
 package ee.pw.edu.pl.domain.usecase.auth.login
 
-import ee.pw.edu.pl.domain.usecase.auth.AuthRepository
+import ee.pw.edu.pl.domain.repository.AuthRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.map
 

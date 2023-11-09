@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.repository.auth
+package ee.pw.edu.pl.data.repository
 
 import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.AuthRemoteDataSource
@@ -7,7 +7,7 @@ import ee.pw.edu.pl.data.model.auth.LoginRequest
 import ee.pw.edu.pl.data.model.auth.RegisterRequest
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
-import ee.pw.edu.pl.domain.usecase.auth.AuthRepository
+import ee.pw.edu.pl.domain.repository.AuthRepository
 import ee.pw.edu.pl.domain.usecase.auth.login.LoginForm
 import ee.pw.edu.pl.domain.usecase.auth.register.RegisterForm
 import java.util.*

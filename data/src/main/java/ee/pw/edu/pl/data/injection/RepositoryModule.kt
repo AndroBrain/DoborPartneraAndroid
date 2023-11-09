@@ -8,10 +8,10 @@ import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.AuthRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.ImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.profile.ProfileRemoteDataSource
+import ee.pw.edu.pl.data.repository.AuthRepositoryImpl
 import ee.pw.edu.pl.data.repository.ProfileRepositoryImpl
-import ee.pw.edu.pl.data.repository.auth.AuthRepositoryImpl
+import ee.pw.edu.pl.domain.repository.AuthRepository
 import ee.pw.edu.pl.domain.repository.ProfileRepository
-import ee.pw.edu.pl.domain.usecase.auth.AuthRepository
 
 @Module
 @InstallIn(SingletonComponent::class)

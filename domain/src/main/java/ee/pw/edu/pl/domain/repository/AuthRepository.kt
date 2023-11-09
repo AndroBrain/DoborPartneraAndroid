@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.domain.usecase.auth
+package ee.pw.edu.pl.domain.repository
 
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.usecase.auth.login.LoginForm
