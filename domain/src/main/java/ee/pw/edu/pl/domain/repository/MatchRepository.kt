@@ -5,4 +5,5 @@ import ee.pw.edu.pl.domain.usecase.match.MatchProfile
 
 interface MatchRepository {
     suspend fun getMatches(): UseCaseResult<List<MatchProfile>>
+    suspend fun decline(id: Int): UseCaseResult<Unit>
 }

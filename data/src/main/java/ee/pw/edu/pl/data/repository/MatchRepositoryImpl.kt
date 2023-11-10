@@ -2,6 +2,7 @@ package ee.pw.edu.pl.data.repository
 
 import ee.pw.edu.pl.data.datasource.match.MatchRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
+import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.MatchRepository
@@ -32,6 +33,13 @@ class MatchRepositoryImpl(
                     }
                 )
             }
+        }
+
+    override suspend fun decline(id: Int): UseCaseResult<Unit> =
+        when (matchRemoteDataSource.decline(DeclineMatchRequest(id = id))) {
+            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponseWithHeaders.Ok -> UseCaseResult.Ok(Unit)
         }
 
     private fun inYearsToNow(startDate: Date): Long {

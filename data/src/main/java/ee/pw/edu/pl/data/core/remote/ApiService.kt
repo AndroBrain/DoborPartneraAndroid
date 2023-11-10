@@ -4,6 +4,7 @@ import ee.pw.edu.pl.data.model.auth.LoginRequest
 import ee.pw.edu.pl.data.model.auth.LoginResponse
 import ee.pw.edu.pl.data.model.auth.RegisterRequest
 import ee.pw.edu.pl.data.model.auth.RegisterResponse
+import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
 import ee.pw.edu.pl.data.model.match.MatchResponse
 import ee.pw.edu.pl.data.model.profile.GetProfileInfoResponse
 import ee.pw.edu.pl.data.model.profile.SetProfileInfoRequest
@@ -32,6 +33,9 @@ interface ApiService {
     suspend fun getInfo(): Response<GetProfileInfoResponse>
 
     // Match
+    @POST("$PATH_MATCH/decline")
+    suspend fun decline(@Body request: DeclineMatchRequest): Response<Unit>
+
     @GET("$PATH_MATCH/matches")
     suspend fun getMatches(): Response<List<MatchResponse>>
 }
