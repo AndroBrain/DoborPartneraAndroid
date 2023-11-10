@@ -10,4 +10,5 @@ fun ResultErrorType.getMessage() = when (this) {
     ResultErrorType.EMAIL_TAKEN -> R.string.result_err_email_taken
     ResultErrorType.NETWORK -> R.string.result_err_network
     ResultErrorType.UNKNOWN -> R.string.result_err_unknown
+    ResultErrorType.NOT_FOUND -> R.string.result_err_not_found
 }

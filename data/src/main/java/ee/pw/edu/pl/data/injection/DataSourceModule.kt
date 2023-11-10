@@ -13,6 +13,8 @@ import ee.pw.edu.pl.data.datasource.auth.PrefsAuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.RetrofitAuthRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.FirebaseImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.ImageRemoteDataSource
+import ee.pw.edu.pl.data.datasource.match.MatchRemoteDataSource
+import ee.pw.edu.pl.data.datasource.match.RetrofitMatchRemoteDataSource
 import ee.pw.edu.pl.data.datasource.profile.ProfileRemoteDataSource
 import ee.pw.edu.pl.data.datasource.profile.RetrofitProfileRemoteDataSource
 import javax.inject.Singleton
@@ -40,4 +42,9 @@ object DataSourceModule {
     fun provideProfileRemoteDataSource(
         apiService: ApiService,
     ): ProfileRemoteDataSource = RetrofitProfileRemoteDataSource(apiService)
+
+    @Provides
+    fun provideMatchRemoteDataSource(
+        apiService: ApiService,
+    ): MatchRemoteDataSource = RetrofitMatchRemoteDataSource(apiService)
 }

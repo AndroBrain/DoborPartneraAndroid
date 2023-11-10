@@ -7,10 +7,13 @@ import dagger.hilt.components.SingletonComponent
 import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.AuthRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.ImageRemoteDataSource
+import ee.pw.edu.pl.data.datasource.match.MatchRemoteDataSource
 import ee.pw.edu.pl.data.datasource.profile.ProfileRemoteDataSource
 import ee.pw.edu.pl.data.repository.AuthRepositoryImpl
+import ee.pw.edu.pl.data.repository.MatchRepositoryImpl
 import ee.pw.edu.pl.data.repository.ProfileRepositoryImpl
 import ee.pw.edu.pl.domain.repository.AuthRepository
+import ee.pw.edu.pl.domain.repository.MatchRepository
 import ee.pw.edu.pl.domain.repository.ProfileRepository
 
 @Module
@@ -33,5 +36,12 @@ object RepositoryModule {
     ): ProfileRepository = ProfileRepositoryImpl(
         imageRemoteDataSource = imageRemoteDataSource,
         profileRemoteDataSource = profileRemoteDataSource,
+    )
+
+    @Provides
+    fun provideMatchRepository(
+        matchRemoteDataSource: MatchRemoteDataSource,
+    ): MatchRepository = MatchRepositoryImpl(
+        matchRemoteDataSource = matchRemoteDataSource,
     )
 }

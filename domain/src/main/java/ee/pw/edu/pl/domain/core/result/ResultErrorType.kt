@@ -10,4 +10,5 @@ enum class ResultErrorType {
     //    Common
     NETWORK,
     UNKNOWN,
+    NOT_FOUND,
 }

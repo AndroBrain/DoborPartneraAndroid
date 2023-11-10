@@ -78,4 +78,5 @@
     <string name="result_err_email_taken">Podany email jest już zajęty.</string>
     <string name="result_err_network">Błąd połączenia.</string>
     <string name="result_err_unknown">Wystąpił nieznany błąd.</string>
+    <string name="result_err_not_found">Nie można znaleźć żądanej informacji</string>
 </resources>

@@ -35,7 +35,8 @@ fun FindMatchScreen(
 //        TODO remove crossfades when we load next profiles
         Crossfade(
             modifier = Modifier.padding(insets),
-            targetState = state.value.profileIndex
+            targetState = state.value.profileIndex,
+            label = "MatchCrossfade",
         ) { index ->
             val stateValue = state.value
 
@@ -63,7 +64,7 @@ fun FindMatchScreen(
                                         ChatPerson(
                                             id = profile.id,
                                             name = profile.name,
-                                            imageUrl = profile.profilePhotoUrl,
+                                            imageUrl = profile.avatar,
                                         )
                                     )
                                 },

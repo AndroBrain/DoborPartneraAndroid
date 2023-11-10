@@ -41,7 +41,7 @@ fun Match(
     onAccept: (() -> Unit)? = null,
     onDecline: (() -> Unit)? = null,
 ) {
-    val pagerState = rememberPagerState { profile.galleryImages.size }
+    val pagerState = rememberPagerState { profile.images.size }
     ConstraintLayout(modifier = modifier) {
         val (background, profileImage, name, shortDescription, choicesContainer, nextButton, previousButton) = createRefs()
         HorizontalPager(
@@ -49,7 +49,7 @@ fun Match(
             pageContent = { imageIndex ->
                 GlideImage(
                     modifier = Modifier.fillMaxSize(),
-                    imageModel = { profile.galleryImages[imageIndex] },
+                    imageModel = { profile.images[imageIndex] },
                     loading = {
                         Box(modifier = Modifier.fillMaxSize()) {
                             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
@@ -80,7 +80,7 @@ fun Match(
             }
         }
 
-        if (pagerState.currentPage < profile.galleryImages.lastIndex) {
+        if (pagerState.currentPage < profile.images.lastIndex) {
             IconButton(
                 modifier = Modifier
                     .constrainAs(nextButton) {
@@ -135,7 +135,7 @@ fun Match(
                     start.linkTo(parent.start)
                     bottom.linkTo(shortDescription.top)
                 },
-            imageModel = { profile.profilePhotoUrl },
+            imageModel = { profile.avatar },
             loading = {
                 Box(modifier = Modifier.fillMaxSize()) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
@@ -151,7 +151,7 @@ fun Match(
                 }
                 .padding(bottom = App.dimens.views_spacing_medium)
                 .padding(horizontal = App.dimens.screen_spacing_medium),
-            text = profile.shortDescription,
+            text = profile.description,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.surface,
         )
