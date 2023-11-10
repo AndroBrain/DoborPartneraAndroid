@@ -34,6 +34,7 @@ fun ProfileScreen(
     Scaffold(
         modifier = modifier,
         floatingActionButton = {
+            if (state.value.isLoading || state.value.isInError) return@Scaffold
             ExtendedFloatingActionButton(
                 onClick = navigateToEdit,
                 icon = { Icon(imageVector = Icons.Default.Edit, contentDescription = null) },
