@@ -34,12 +34,13 @@ fun ProfileScreen(
     Scaffold(
         modifier = modifier,
         floatingActionButton = {
-            if (state.value.isLoading || state.value.isInError) return@Scaffold
-            ExtendedFloatingActionButton(
-                onClick = navigateToEdit,
-                icon = { Icon(imageVector = Icons.Default.Edit, contentDescription = null) },
-                text = { Text(text = stringResource(id = R.string.profile_edit)) },
-            )
+            if (!state.value.isLoading && !state.value.isInError) {
+                ExtendedFloatingActionButton(
+                    onClick = navigateToEdit,
+                    icon = { Icon(imageVector = Icons.Default.Edit, contentDescription = null) },
+                    text = { Text(text = stringResource(id = R.string.profile_edit)) },
+                )
+            }
         }
     ) { insets ->
         Crossfade(
