@@ -31,7 +31,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -47,6 +46,7 @@ import com.dokar.chiptextfield.m3.ChipTextFieldDefaults
 import com.dokar.chiptextfield.m3.OutlinedChipTextField
 import com.dokar.chiptextfield.rememberChipTextFieldState
 import ee.pw.edu.pl.doborpartnera.R
+import ee.pw.edu.pl.doborpartnera.ui.components.ErrorText
 import ee.pw.edu.pl.doborpartnera.ui.components.LoadingButton
 import ee.pw.edu.pl.doborpartnera.ui.components.image.PhotoImage
 import ee.pw.edu.pl.doborpartnera.ui.components.image.PhotoImageButton
@@ -81,6 +81,7 @@ fun EditProfileScreen(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
         onResult = viewModel::addImages,
     )
+    val errorModifier = Modifier.fillMaxWidth()
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -116,10 +117,15 @@ fun EditProfileScreen(
             }
             item {
                 ProfileImage(
-                    url = state.value.profileImage.toString(),
+                    url = state.value.avatar.toString(),
                     onImageChanged = viewModel::updateProfileImage,
                     enabled = true
                 )
+            }
+            state.value.avatarError?.let { error ->
+                item {
+                    ErrorText(modifier = errorModifier, text = stringResource(id = error))
+                }
             }
             item {
                 Text(
@@ -171,6 +177,11 @@ fun EditProfileScreen(
                     )
                 }
             }
+            state.value.imagesError?.let { error ->
+                item {
+                    ErrorText(modifier = errorModifier, text = stringResource(id = error))
+                }
+            }
             item {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
@@ -202,23 +213,18 @@ fun EditProfileScreen(
             }
             item {
                 val error = state.value.interestsError
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = App.dimens.views_spacing_medium),
-                    text = if (error == null) {
-                        "${interestsState.chips.size} / $MAX_INTERESTS"
-                    } else {
-                        stringResource(id = error)
-                    },
-                    textAlign = TextAlign.End,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = if (error != null) {
-                        MaterialTheme.colorScheme.error
-                    } else {
-                        Color.Unspecified
-                    }
-                )
+                if (error == null) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = App.dimens.views_spacing_medium),
+                        text = "${interestsState.chips.size} / $MAX_INTERESTS",
+                        textAlign = TextAlign.End,
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                } else {
+                    ErrorText(text = stringResource(id = error))
+                }
             }
             item {
                 LoadingButton(

@@ -86,8 +86,8 @@ class RegisterViewModel @Inject constructor(
                 currentState.repeatPassword,
                 RepeatPasswordValidator(currentState.password),
             )
-            val birthdateError = Validator.validate(currentState.birthdate, FieldNotNullValidator)
-            val genderError = Validator.validate(currentState.gender, FieldNotNullValidator)
+            val birthdateError = Validator.validate(currentState.birthdate, FieldNotNullValidator())
+            val genderError = Validator.validate(currentState.gender, FieldNotNullValidator())
             if (emailError != null || nameError != null || surnameError != null || passwordError != null || repeatPasswordError != null || birthdateError != null || currentState.birthdate == null || genderError != null || currentState.gender == null) {
                 updateState { state ->
                     state.copy(

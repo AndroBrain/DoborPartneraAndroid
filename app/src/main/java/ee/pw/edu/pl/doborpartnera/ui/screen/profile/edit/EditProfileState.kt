@@ -7,11 +7,13 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class EditProfileState(
-    val profileImage: Uri? = null,
+    val avatar: Uri? = null,
+    @StringRes val avatarError: Int? = null,
     val description: String = "",
     val interests: List<String> = emptyList(),
     @StringRes val descriptionError: Int? = null,
     val images: Set<Uri> = emptySet(),
+    @StringRes val imagesError: Int? = null,
     @StringRes val interestsError: Int? = null,
     @StringRes val errorMsg: Int? = null,
     val isLoading: Boolean = false,

@@ -8,6 +8,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.core.bitmap.BitmapManager
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
+import ee.pw.edu.pl.doborpartnera.core.validation.CollectionSizeValidator
+import ee.pw.edu.pl.doborpartnera.core.validation.FieldNotNullValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.NameLengthValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.Validator
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
@@ -46,7 +48,7 @@ class EditProfileViewModel @Inject constructor(
     }
 
     fun updateProfileImage(uri: Uri) {
-        updateState { state -> state.copy(profileImage = uri) }
+        updateState { state -> state.copy(avatar = uri, avatarError = null) }
     }
 
     fun updateDescription(description: String) {
@@ -59,14 +61,19 @@ class EditProfileViewModel @Inject constructor(
             state.copy(
                 images = state.images.toMutableSet().apply {
                     images.forEach { image ->
-                        if (size < MAX_IMAGES) {
+                        error = Validator.validate(
+                            this,
+                            CollectionSizeValidator(
+                                errorMessage = R.string.profile_err_too_many_images,
+                                max = MAX_IMAGES,
+                            )
+                        )
+                        if (error == null) {
                             add(image)
-                        } else {
-                            error = R.string.profile_err_too_many_images
                         }
                     }
                 },
-                errorMsg = error,
+                imagesError = error,
             )
         }
     }
@@ -78,24 +85,18 @@ class EditProfileViewModel @Inject constructor(
     fun save(interests: List<String>) {
         updateState { state -> state.copy(isLoading = true) }
         val currentState = state.value
-        if (currentState.profileImage == null) {
-            updateState { state ->
-                state.copy(
-                    errorMsg = R.string.profile_err_no_avatar,
-                    isLoading = false
-                )
-            }
-            return
-        }
-        if (currentState.images.size < MIN_IMAGES || currentState.images.size > MAX_IMAGES) {
-            updateState { state ->
-                state.copy(
-                    errorMsg = R.string.profile_err_images,
-                    isLoading = false
-                )
-            }
-            return
-        }
+        val avatarError = Validator.validate(
+            currentState.avatar,
+            FieldNotNullValidator(errorMessage = R.string.profile_err_no_avatar),
+        )
+        val imagesError = Validator.validate(
+            currentState.images,
+            CollectionSizeValidator(
+                errorMessage = R.string.profile_err_images,
+                min = MIN_IMAGES,
+                max = MAX_IMAGES,
+            ),
+        )
         val descriptionError = Validator.validate(
             currentState.description,
             NameLengthValidator(
@@ -104,21 +105,26 @@ class EditProfileViewModel @Inject constructor(
                 max = DESCRIPTION_MAX_LENGTH,
             )
         )
-        if (descriptionError != null) {
-            updateState { state -> state.copy(descriptionError = descriptionError) }
-        }
-        val interestsError = if (interests.size < MIN_INTERESTS || interests.size > MAX_INTERESTS) {
-            R.string.profile_err_interests
-        } else {
-            null
-        }
-        if (interestsError != null) {
-            updateState { state -> state.copy(interestsError = interestsError) }
-        }
-        if (descriptionError == null && interestsError == null) {
+        val interestsError = Validator.validate(
+            interests,
+            NameLengthValidator(
+                errorMessage = R.string.profile_err_interests,
+                min = MIN_INTERESTS,
+                max = MAX_INTERESTS
+            )
+        )
+        if (avatarError == null && imagesError == null && descriptionError == null && interestsError == null) {
             editProfile(currentState, interests)
         } else {
-            updateState { state -> state.copy(isLoading = false) }
+            updateState { state ->
+                state.copy(
+                    isLoading = false,
+                    avatarError = avatarError,
+                    imagesError = imagesError,
+                    descriptionError = descriptionError,
+                    interestsError = interestsError,
+                )
+            }
         }
     }
 
@@ -128,7 +134,7 @@ class EditProfileViewModel @Inject constructor(
             editProfileUseCase(
                 EditProfileForm(
                     profileAvatar = ProfileAvatar(
-                        bytes = bitmapManager.compress(state.profileImage ?: return@launch),
+                        bytes = bitmapManager.compress(state.avatar ?: return@launch),
                         format = format,
                     ),
                     description = state.description,

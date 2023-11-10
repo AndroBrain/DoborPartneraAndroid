@@ -55,7 +55,7 @@
 
     <!-- Profile Errors -->
     <string name="profile_err_no_avatar">Zdjęcie profilowe nie zostało wybrane.</string>
-    <string name="profile_err_images">Sekcja Twoje zdjęcia wymaga od 4 do 8 zdjęć.</string>
+    <string name="profile_err_images">Wymagane jest od 4 do 8 zdjęć.</string>
     <string name="profile_err_too_many_images">Maksymalna liczba zdjęc wynosi 8.</string>
     <string name="profile_err_interests">Twoje zainteresowania muszą zawierać od 2 do 5 zainteresowań.</string>
 
