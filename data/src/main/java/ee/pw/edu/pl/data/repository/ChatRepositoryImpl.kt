@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.data.repository
 
+import android.util.Log
 import ee.pw.edu.pl.data.datasource.chat.local.ChatLocalDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
@@ -48,6 +49,7 @@ class ChatRepositoryImpl(
             is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponseWithHeaders.Ok -> {
                 val result = chatProfiles.body
+                Log.d("ResponseChats", result.toString())
                 chatLocalDataSource.insertChatProfiles(
                     result.map { response ->
                         ChatProfileEntity(
@@ -58,4 +60,8 @@ class ChatRepositoryImpl(
                 UseCaseResult.Ok(Unit)
             }
         }
+
+    override suspend fun removeChatProfile(id: Int) {
+        chatLocalDataSource.removeChatPerson(id)
+    }
 }

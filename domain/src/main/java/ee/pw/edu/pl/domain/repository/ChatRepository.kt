@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface ChatRepository {
     fun getChat(): Flow<String>
     fun sendMessage(form: SendMessageForm)
-
     fun getProfileChats(): Flow<List<ChatProfile>>
     suspend fun updateChatProfiles(): UseCaseResult<Unit>
+    suspend fun removeChatProfile(id: Int)
 }

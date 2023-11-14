@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.chats
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -56,29 +57,28 @@ class ChatsViewModel @Inject constructor(
                     }
                 )
             }
-            removeChatPersonUseCase(chatPerson.person).onEach { result ->
-                result.fold(
-                    onOk = { person ->
-                        updateState { state ->
-                            state.copy(
-                                chatPeople = state.chatPeople?.filterNot { it.person.id == person.value.id },
-                            )
-                        }
-                    }, onError = { error ->
-                        updateState { state ->
-                            state.copy(
-                                chatPeople = state.chatPeople?.toMutableList()?.apply {
-                                    val personIndex = indexOf(chatPerson)
-                                    if (personIndex >= 0) {
-                                        this[personIndex] = chatPerson.copy(isLoading = false)
-                                    }
-                                },
-                                errorMsg = error.type.getMessage()
-                            )
-                        }
+            Log.d("RemoveChat", chatPerson.toString())
+            removeChatPersonUseCase(chatPerson.person.id).fold(
+                onOk = { person ->
+                    updateState { state ->
+                        state.copy(
+                            chatPeople = state.chatPeople?.filterNot { it.person.id == chatPerson.person.id },
+                        )
                     }
-                )
-            }.launchIn(this)
+                }, onError = { error ->
+                    updateState { state ->
+                        state.copy(
+                            chatPeople = state.chatPeople?.toMutableList()?.apply {
+                                val personIndex = indexOf(chatPerson)
+                                if (personIndex >= 0) {
+                                    this[personIndex] = chatPerson.copy(isLoading = false)
+                                }
+                            },
+                            errorMsg = error.type.getMessage()
+                        )
+                    }
+                }
+            )
         }
     }
 

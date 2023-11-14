@@ -17,4 +17,8 @@ class RoomChatLocalDataSource(
             chatDao.insertChatProfile(profile)
         }
     }
+
+    override suspend fun removeChatPerson(id: Int) {
+        chatDao.remove(id)
+    }
 }
