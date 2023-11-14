@@ -4,7 +4,7 @@ import android.util.Log
 import com.microsoft.signalr.HubConnection
 import com.microsoft.signalr.HubConnectionBuilder
 import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
-import ee.pw.edu.pl.data.model.chat.SendMessageRequest
+import ee.pw.edu.pl.data.model.chat.remote.SendMessageRequest
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
