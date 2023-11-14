@@ -8,6 +8,7 @@ import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
 import ee.pw.edu.pl.domain.usecase.chat.profile.GetChatProfilesUseCase
 import ee.pw.edu.pl.domain.usecase.chat.profile.RemoveChatPersonUseCase
+import ee.pw.edu.pl.domain.usecase.chat.profile.UpdateChatProfilesUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -17,25 +18,25 @@ import kotlinx.coroutines.launch
 class ChatsViewModel @Inject constructor(
     private val removeChatPersonUseCase: RemoveChatPersonUseCase,
     private val getChatProfilesUseCase: GetChatProfilesUseCase,
+    private val updateChatProfilesUseCase: UpdateChatProfilesUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<ChatsState>(savedStateHandle, ChatsState()) {
     init {
         getChats()
     }
 
-    fun getChats() {
+    fun updateChats() {
         viewModelScope.launch {
-            updateState { state -> state.copy(isLoading = true, isInError = false) }
-            getChatProfilesUseCase().onEach { result ->
-                updateState { state ->
-                    state.copy(
-                        chatPeople = result.map { person ->
-                            ChatPersonDisplayable(person = person)
-                        },
-                        isLoading = false
-                    )
+            updateState { state -> state.copy(isLoading = state.chatPeople?.isEmpty() == true) }
+            updateChatProfilesUseCase().fold(
+                onOk = {
+                    updateState { state -> state.copy(isLoading = false) }
+                }, onError = { error ->
+                    updateState { state ->
+                        state.copy(errorMsg = error.type.getMessage(), isLoading = false)
+                    }
                 }
-            }.launchIn(this)
+            )
         }
     }
 
@@ -77,6 +78,20 @@ class ChatsViewModel @Inject constructor(
                         }
                     }
                 )
+            }.launchIn(this)
+        }
+    }
+
+    private fun getChats() {
+        viewModelScope.launch {
+            getChatProfilesUseCase().onEach { result ->
+                updateState { state ->
+                    state.copy(
+                        chatPeople = result.map { person ->
+                            ChatPersonDisplayable(person = person)
+                        },
+                    )
+                }
             }.launchIn(this)
         }
     }

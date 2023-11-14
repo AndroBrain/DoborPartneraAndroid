@@ -2,7 +2,11 @@ package ee.pw.edu.pl.data.repository
 
 import ee.pw.edu.pl.data.datasource.chat.local.ChatLocalDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
+import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
+import ee.pw.edu.pl.data.model.chat.local.ChatProfileEntity
 import ee.pw.edu.pl.data.model.chat.remote.SendMessageRequest
+import ee.pw.edu.pl.domain.core.result.ResultErrorType
+import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.ChatRepository
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageForm
 import ee.pw.edu.pl.domain.usecase.chat.profile.ChatMessage
@@ -35,6 +39,23 @@ class ChatRepositoryImpl(
                         ChatMessage(id = message.id, ownerId = message.ownerId, text = message.text)
                     },
                 )
+            }
+        }
+
+    override suspend fun updateChatProfiles(): UseCaseResult<Unit> =
+        when (val chatProfiles = chatRemoteDataSource.getChats()) {
+            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponseWithHeaders.Ok -> {
+                val result = chatProfiles.body
+                chatLocalDataSource.insertChatProfiles(
+                    result.map { response ->
+                        ChatProfileEntity(
+                            id = response.id, name = response.name, avatar = response.avatar,
+                        )
+                    }
+                )
+                UseCaseResult.Ok(Unit)
             }
         }
 }

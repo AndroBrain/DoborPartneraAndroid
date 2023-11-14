@@ -4,6 +4,7 @@ import ee.pw.edu.pl.data.model.auth.LoginRequest
 import ee.pw.edu.pl.data.model.auth.LoginResponse
 import ee.pw.edu.pl.data.model.auth.RegisterRequest
 import ee.pw.edu.pl.data.model.auth.RegisterResponse
+import ee.pw.edu.pl.data.model.chat.remote.ChatProfileResponse
 import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
 import ee.pw.edu.pl.data.model.match.MatchResponse
 import ee.pw.edu.pl.data.model.profile.GetProfileInfoResponse
@@ -16,6 +17,7 @@ import retrofit2.http.POST
 private const val PATH_AUTH = "auth"
 private const val PATH_ACCOUNT = "account"
 private const val PATH_MATCH = "partner"
+private const val PATH_MESSAGE = "message"
 
 interface ApiService {
     //    Auth
@@ -38,4 +40,8 @@ interface ApiService {
 
     @GET("$PATH_MATCH/matches")
     suspend fun getMatches(): Response<List<MatchResponse>>
+
+    // Message
+    @GET("$PATH_MESSAGE/conversations")
+    suspend fun getConversations(): Response<List<ChatProfileResponse>>
 }

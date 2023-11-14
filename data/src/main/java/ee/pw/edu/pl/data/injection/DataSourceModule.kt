@@ -55,8 +55,11 @@ object DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideChatRemoteDataSource(authLocalDataSource: AuthLocalDataSource): ChatRemoteDataSource =
-        SignalRChatRemoteDataSource(authLocalDataSource)
+    fun provideChatRemoteDataSource(
+        authLocalDataSource: AuthLocalDataSource,
+        api: ApiService
+    ): ChatRemoteDataSource =
+        SignalRChatRemoteDataSource(authLocalDataSource, api)
 
     @Provides
     fun provideChatLocalDataSource(chatDao: ChatDao): ChatLocalDataSource =

@@ -30,6 +30,9 @@ fun ChatsScreen(
             viewModel.clearErrorMsg()
         }
     }
+    LaunchedEffect(Unit) {
+        viewModel.updateChats()
+    }
     Scaffold(
         modifier = modifier,
 //        TODO add search bar?
@@ -48,7 +51,7 @@ fun ChatsScreen(
                         RefreshBox(
                             modifier = Modifier.fillMaxSize(),
                             isLoading = state.isLoading,
-                            onClick = viewModel::getChats,
+                            onClick = viewModel::updateChats,
                         )
                     }
 
