@@ -27,5 +27,5 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideChatProfileDao(database: AppDatabase) = database.chatProfileDao()
+    fun provideChatDao(database: AppDatabase) = database.chatDao()
 }
