@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
-import ee.pw.edu.pl.domain.usecase.chat.people.GetChatPeopleUseCase
-import ee.pw.edu.pl.domain.usecase.chat.people.RemoveChatPersonUseCase
+import ee.pw.edu.pl.domain.usecase.chat.profile.GetChatProfilesUseCase
+import ee.pw.edu.pl.domain.usecase.chat.profile.RemoveChatPersonUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class ChatsViewModel @Inject constructor(
     private val removeChatPersonUseCase: RemoveChatPersonUseCase,
-    private val getChatPeopleUseCase: GetChatPeopleUseCase,
+    private val getChatProfilesUseCase: GetChatProfilesUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<ChatsState>(savedStateHandle, ChatsState()) {
     init {
@@ -26,27 +26,15 @@ class ChatsViewModel @Inject constructor(
     fun getChats() {
         viewModelScope.launch {
             updateState { state -> state.copy(isLoading = true, isInError = false) }
-            getChatPeopleUseCase().onEach { result ->
-                result.fold(
-                    onOk = {
-                        updateState { state ->
-                            state.copy(
-                                chatPeople = it.value.map { person ->
-                                    ChatPersonDisplayable(person = person)
-                                },
-                                isLoading = false
-                            )
-                        }
-                    }, onError = { error ->
-                        updateState { state ->
-                            state.copy(
-                                errorMsg = error.type.getMessage(),
-                                isInError = true,
-                                isLoading = false,
-                            )
-                        }
-                    }
-                )
+            getChatProfilesUseCase().onEach { result ->
+                updateState { state ->
+                    state.copy(
+                        chatPeople = result.map { person ->
+                            ChatPersonDisplayable(person = person)
+                        },
+                        isLoading = false
+                    )
+                }
             }.launchIn(this)
         }
     }

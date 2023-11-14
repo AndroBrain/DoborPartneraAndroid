@@ -11,6 +11,9 @@ import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.AuthRemoteDataSource
 import ee.pw.edu.pl.data.datasource.auth.PrefsAuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.RetrofitAuthRemoteDataSource
+import ee.pw.edu.pl.data.datasource.chat.local.ChatDao
+import ee.pw.edu.pl.data.datasource.chat.local.ChatLocalDataSource
+import ee.pw.edu.pl.data.datasource.chat.local.RoomChatLocalDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.SignalRChatRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.FirebaseImageRemoteDataSource
@@ -54,4 +57,8 @@ object DataSourceModule {
     @Singleton
     fun provideChatRemoteDataSource(authLocalDataSource: AuthLocalDataSource): ChatRemoteDataSource =
         SignalRChatRemoteDataSource(authLocalDataSource)
+
+    @Provides
+    fun provideChatLocalDataSource(chatDao: ChatDao): ChatLocalDataSource =
+        RoomChatLocalDataSource(chatDao)
 }

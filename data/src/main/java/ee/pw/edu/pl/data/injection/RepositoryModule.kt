@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.AuthRemoteDataSource
+import ee.pw.edu.pl.data.datasource.chat.local.ChatLocalDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.ImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.match.MatchRemoteDataSource
@@ -50,6 +51,10 @@ object RepositoryModule {
 
     @Provides
     fun provideChatRepository(
-        chatRemoteDataSource: ChatRemoteDataSource
-    ): ChatRepository = ChatRepositoryImpl(chatRemoteDataSource = chatRemoteDataSource)
+        chatRemoteDataSource: ChatRemoteDataSource,
+        chatLocalDataSource: ChatLocalDataSource,
+    ): ChatRepository = ChatRepositoryImpl(
+        chatRemoteDataSource = chatRemoteDataSource,
+        chatLocalDataSource = chatLocalDataSource,
+    )
 }

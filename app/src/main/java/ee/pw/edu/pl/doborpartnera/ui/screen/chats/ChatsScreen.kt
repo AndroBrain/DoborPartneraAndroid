@@ -14,13 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.ui.components.RefreshBox
-import ee.pw.edu.pl.domain.usecase.chat.people.ChatPerson
+import ee.pw.edu.pl.domain.usecase.chat.profile.ChatProfile
 
 @Composable
 fun ChatsScreen(
     modifier: Modifier = Modifier,
     viewModel: ChatsViewModel,
-    navigateToChat: (ChatPerson) -> Unit,
+    navigateToChat: (ChatProfile) -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     state.value.errorMsg?.let { errorMsg ->

@@ -55,7 +55,7 @@ fun FilledChats(
                     .padding(App.dimens.screen_spacing_small),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                ChatPersonImage(url = chat.person.imageUrl)
+                ChatPersonImage(url = chat.person.avatar)
                 Text(
                     modifier = Modifier
                         .weight(1F)

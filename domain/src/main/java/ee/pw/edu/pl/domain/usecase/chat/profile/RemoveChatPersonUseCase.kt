@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.domain.usecase.chat.people
+package ee.pw.edu.pl.domain.usecase.chat.profile
 
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import javax.inject.Inject
@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.flow
 class RemoveChatPersonUseCase @Inject constructor(
 
 ) {
-    operator fun invoke(chatPerson: ChatPerson): Flow<UseCaseResult<ChatPerson>> = flow {
+    operator fun invoke(chatProfile: ChatProfile): Flow<UseCaseResult<ChatProfile>> = flow {
         delay(2000L)
-        emit(UseCaseResult.Ok(chatPerson))
+        emit(UseCaseResult.Ok(chatProfile))
     }
 }
