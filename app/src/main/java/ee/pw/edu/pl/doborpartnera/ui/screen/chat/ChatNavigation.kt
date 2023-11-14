@@ -5,7 +5,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
-import ee.pw.edu.pl.doborpartnera.ui.navigation.NavigationDecoder
 import ee.pw.edu.pl.doborpartnera.ui.navigation.NavigationEncoder
 import ee.pw.edu.pl.doborpartnera.ui.navigation.composable
 import ee.pw.edu.pl.domain.usecase.chat.profile.ChatProfile
@@ -40,6 +39,6 @@ internal class ChatArgs(val id: Int, val name: String, val imageUrl: String) {
     constructor(savedStateHandle: SavedStateHandle) : this(
         id = (checkNotNull(savedStateHandle[ID_ARG]) as String).toInt(),
         name = checkNotNull(savedStateHandle[NAME_ARG]),
-        imageUrl = NavigationDecoder.decode(checkNotNull(savedStateHandle[IMAGE_URL_ARG]) as String),
+        imageUrl = checkNotNull(savedStateHandle[IMAGE_URL_ARG]) as String,
     )
 }
