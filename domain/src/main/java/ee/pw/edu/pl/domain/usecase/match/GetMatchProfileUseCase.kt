@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 class GetMatchProfileUseCase @Inject constructor(
 
 ) {
-    operator fun invoke(id: Long): Flow<UseCaseResult<MatchProfile>> = flow {
+    operator fun invoke(id: Int): Flow<UseCaseResult<MatchProfile>> = flow {
         delay(2000L)
         emit(
             UseCaseResult.Ok(

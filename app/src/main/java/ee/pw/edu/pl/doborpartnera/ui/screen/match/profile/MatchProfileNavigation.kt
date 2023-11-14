@@ -22,15 +22,15 @@ fun NavGraphBuilder.matchProfileScreen(
     }
 }
 
-fun NavController.navigateToMatchProfile(navOptions: NavOptions? = null, id: Long) {
+fun NavController.navigateToMatchProfile(navOptions: NavOptions? = null, id: Int) {
     navigate(
         "$MATCH_PROFILE_ROUTE/$id",
         navOptions
     )
 }
 
-internal class MatchProfileArgs(val id: Long) {
+internal class MatchProfileArgs(val id: Int) {
     constructor(savedStateHandle: SavedStateHandle) : this(
-        id = (checkNotNull(savedStateHandle[ID_ARG]) as String).toLong(),
+        id = (checkNotNull(savedStateHandle[ID_ARG]) as String).toInt(),
     )
 }

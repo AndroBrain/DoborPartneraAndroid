@@ -54,7 +54,7 @@ fun ChatScreen(
     modifier: Modifier = Modifier,
     viewModel: ChatViewModel,
     navigateUp: () -> Unit,
-    navigateToProfile: (Long) -> Unit,
+    navigateToProfile: (Int) -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     state.value.errorMsg?.let { errorMsg ->

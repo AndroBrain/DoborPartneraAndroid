@@ -17,7 +17,7 @@ private const val IMAGE_URL_ARG = "IMAGE_URL"
 
 fun NavGraphBuilder.chatScreen(
     navigateUp: () -> Unit,
-    navigateToProfile: (Long) -> Unit,
+    navigateToProfile: (Int) -> Unit,
 ) {
     composable("$CHAT_ROUTE/{$ID_ARG}/{$NAME_ARG}/{$IMAGE_URL_ARG}") {
         val viewModel: ChatViewModel = hiltViewModel()
@@ -36,9 +36,9 @@ fun NavController.navigateToChat(navOptions: NavOptions? = null, person: ChatPer
     )
 }
 
-internal class ChatArgs(val id: Long, val name: String, val imageUrl: String) {
+internal class ChatArgs(val id: Int, val name: String, val imageUrl: String) {
     constructor(savedStateHandle: SavedStateHandle) : this(
-        id = (checkNotNull(savedStateHandle[ID_ARG]) as String).toLong(),
+        id = (checkNotNull(savedStateHandle[ID_ARG]) as String).toInt(),
         name = checkNotNull(savedStateHandle[NAME_ARG]),
         imageUrl = NavigationDecoder.decodeText(checkNotNull(savedStateHandle[IMAGE_URL_ARG]) as String),
     )

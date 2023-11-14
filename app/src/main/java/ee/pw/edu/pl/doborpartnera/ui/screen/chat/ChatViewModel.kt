@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
+import ee.pw.edu.pl.domain.usecase.chat.SendMessageForm
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageUseCase
 import ee.pw.edu.pl.domain.usecase.chat.SubscribeToChatUseCase
 import javax.inject.Inject
@@ -22,7 +23,13 @@ class ChatViewModel @Inject constructor(
     private val args = ChatArgs(savedStateHandle)
 
     init {
-        updateState { state -> state.copy(name = args.name, imageUrl = args.imageUrl) }
+        updateState { state ->
+            state.copy(
+                id = args.id,
+                name = args.name,
+                imageUrl = args.imageUrl
+            )
+        }
         subscribeToChat()
     }
 
@@ -36,7 +43,13 @@ class ChatViewModel @Inject constructor(
 
     fun sendMessage() {
         viewModelScope.launch {
-            sendMessageUseCase(state.value.message)
+            val currentState = state.value
+            sendMessageUseCase(
+                SendMessageForm(
+                    receiverId = currentState.id,
+                    message = currentState.message,
+                )
+            )
 //                .onEach { result ->
 //                result.fold(
 //                    onOk = {

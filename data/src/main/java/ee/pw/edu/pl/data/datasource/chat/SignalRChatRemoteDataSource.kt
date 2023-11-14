@@ -4,6 +4,7 @@ import android.util.Log
 import com.microsoft.signalr.HubConnection
 import com.microsoft.signalr.HubConnectionBuilder
 import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
+import ee.pw.edu.pl.data.model.chat.SendMessageRequest
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -22,12 +23,12 @@ class SignalRChatRemoteDataSource(
             .build()
         connection.on(
             "ReceiveMessage",
-            { receiver, sender, message ->
-                Log.d("Message", message)
+            { receiverId, senderId, message ->
+                Log.d("Message", "receiver $receiverId sender $senderId message $message")
                 trySend(message)
             },
-            String::class.java,
-            String::class.java,
+            Int::class.java,
+            Int::class.java,
             String::class.java,
         )
         connection.start()
@@ -36,7 +37,8 @@ class SignalRChatRemoteDataSource(
         }
     }
 
-    override fun sendMessage(message: String) {
-        connection.invoke("SendMessage", "alicja@gmail.com", "testowa wiadomość hubowa")
+    override fun sendMessage(request: SendMessageRequest) {
+        Log.d("MessageRequest", request.toString())
+        connection.invoke("SendMessage", request.receiverId, request.message)
     }
 }
