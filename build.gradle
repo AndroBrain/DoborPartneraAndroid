@@ -34,6 +34,8 @@ buildscript {
         api_ok_http_version = '4.7.2'
         api_signalr_version = '7.0.0'
 
+        room_version = '2.6.0'
+
         firebase_bom_version = '32.4.0'
     }
 

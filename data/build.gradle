@@ -62,4 +62,10 @@ dependencies {
 
     // Chat
     implementation "com.microsoft.signalr:signalr:$api_signalr_version"
+
+    // Local storage
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+//    TODO replace with ksp if the app crashes
+    kapt "androidx.room:room-compiler:$room_version"
 }
