@@ -6,7 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.AuthRemoteDataSource
-import ee.pw.edu.pl.data.datasource.chat.ChatRemoteDataSource
+import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.ImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.match.MatchRemoteDataSource
 import ee.pw.edu.pl.data.datasource.profile.ProfileRemoteDataSource

@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.datasource.chat
+package ee.pw.edu.pl.data.datasource.chat.remote
 
 import android.util.Log
 import com.microsoft.signalr.HubConnection

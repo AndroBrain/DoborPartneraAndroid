@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.datasource.chat
+package ee.pw.edu.pl.data.datasource.chat.remote
 
 import ee.pw.edu.pl.data.model.chat.SendMessageRequest
 import kotlinx.coroutines.flow.Flow
