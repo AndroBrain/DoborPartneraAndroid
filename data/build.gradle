@@ -63,4 +63,7 @@ dependencies {
 
     // Security
     implementation "androidx.security:security-crypto:1.0.0"
+
+    // Chat
+    implementation 'com.microsoft.signalr:signalr:7.0.0'
 }

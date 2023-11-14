@@ -11,6 +11,8 @@ import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.AuthRemoteDataSource
 import ee.pw.edu.pl.data.datasource.auth.PrefsAuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.RetrofitAuthRemoteDataSource
+import ee.pw.edu.pl.data.datasource.chat.ChatRemoteDataSource
+import ee.pw.edu.pl.data.datasource.chat.SignalRChatRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.FirebaseImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.ImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.match.MatchRemoteDataSource
@@ -47,4 +49,8 @@ object DataSourceModule {
     fun provideMatchRemoteDataSource(
         apiService: ApiService,
     ): MatchRemoteDataSource = RetrofitMatchRemoteDataSource(apiService)
+
+    @Provides
+    fun provideChatRemoteDataSource(): ChatRemoteDataSource =
+        SignalRChatRemoteDataSource()
 }
