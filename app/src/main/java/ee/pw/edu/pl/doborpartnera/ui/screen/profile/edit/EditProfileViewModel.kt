@@ -1,7 +1,6 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit
 
 import android.net.Uri
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -39,6 +38,18 @@ class EditProfileViewModel @Inject constructor(
     private val bitmapManager: BitmapManager,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<EditProfileState>(savedStateHandle, EditProfileState()) {
+    private val args = EditProfileArgs(savedStateHandle)
+
+    init {
+        updateState { state ->
+            state.copy(
+                avatar = args.avatar,
+                images = args.images?.toSet().orEmpty(),
+                description = args.description.orEmpty(),
+                interests = args.interests.orEmpty(),
+            )
+        }
+    }
 
     fun clearErrorMsg() {
         updateState { state -> state.copy(errorMsg = null) }
@@ -49,7 +60,7 @@ class EditProfileViewModel @Inject constructor(
     }
 
     fun updateProfileImage(uri: Uri) {
-        updateState { state -> state.copy(avatar = uri, avatarError = null) }
+        updateState { state -> state.copy(avatar = uri.toString(), avatarError = null) }
     }
 
     fun updateDescription(description: String) {
@@ -70,7 +81,7 @@ class EditProfileViewModel @Inject constructor(
                             )
                         )
                         if (error == null) {
-                            add(image)
+                            add(image.toString())
                         }
                     }
                 },
@@ -79,12 +90,11 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
-    fun deleteImage(image: Uri) {
+    fun deleteImage(image: String) {
         updateState { state -> state.copy(images = state.images - image) }
     }
 
     fun save(interests: List<String>) {
-        Log.d("Interests", interests.toString())
         updateState { state -> state.copy(isLoading = true) }
         val currentState = state.value
         val avatarError = Validator.validate(
@@ -132,17 +142,24 @@ class EditProfileViewModel @Inject constructor(
 
     private fun editProfile(state: EditProfileState, interests: List<String>) {
         viewModelScope.launch {
+            val avatarUri = Uri.parse(state.avatar) ?: return@launch
             val format = "jpg"
+            val profileBytes = bitmapManager.compress(avatarUri)
             editProfileUseCase(
                 EditProfileForm(
                     profileAvatar = ProfileAvatar(
-                        bytes = bitmapManager.compress(state.avatar ?: return@launch),
+                        bytes = profileBytes,
+                        url = if (profileBytes == null) state.avatar else null,
                         format = format,
                     ),
                     description = state.description,
                     images = state.images.mapIndexed { index, uri ->
+                        val bytes = bitmapManager.compress(Uri.parse(uri))
                         ProfileImage(
-                            order = index, bytes = bitmapManager.compress(uri), format = format
+                            order = index,
+                            bytes = bytes,
+                            url = if (bytes == null) uri else null,
+                            format = format,
                         )
                     },
                     interests = interests,

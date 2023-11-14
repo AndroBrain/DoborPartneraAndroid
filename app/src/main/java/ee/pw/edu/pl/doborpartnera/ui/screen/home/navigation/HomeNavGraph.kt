@@ -8,6 +8,7 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.chats.CHATS_ROUTE
 import ee.pw.edu.pl.doborpartnera.ui.screen.chats.chatsScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.chats.navigateToChats
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.matchScreen
+import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.EditProfileArgs
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.profileScreen
 import ee.pw.edu.pl.domain.usecase.chat.people.ChatPerson
 
@@ -16,7 +17,7 @@ fun HomeNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController,
     navigateToFindMatch: () -> Unit,
-    navigateToEditProfile: () -> Unit,
+    navigateToEditProfile: (EditProfileArgs) -> Unit,
     navigateToChat: (ChatPerson) -> Unit,
 ) {
     NavHost(
@@ -31,6 +32,6 @@ fun HomeNavGraph(
             },
             navigateToFindMatch = navigateToFindMatch,
         )
-        profileScreen(navigateToEdit = { navigateToEditProfile() })
+        profileScreen(navigateToEdit = navigateToEditProfile)
     }
 }

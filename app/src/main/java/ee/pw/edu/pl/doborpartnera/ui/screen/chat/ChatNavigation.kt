@@ -31,7 +31,7 @@ fun NavGraphBuilder.chatScreen(
 
 fun NavController.navigateToChat(navOptions: NavOptions? = null, person: ChatPerson) {
     navigate(
-        "${CHAT_ROUTE}/${person.id}/${person.name}/${NavigationEncoder.encodeText(person.imageUrl)}",
+        "${CHAT_ROUTE}/${person.id}/${person.name}/${NavigationEncoder.encode(person.imageUrl)}",
         navOptions
     )
 }
@@ -40,6 +40,6 @@ internal class ChatArgs(val id: Int, val name: String, val imageUrl: String) {
     constructor(savedStateHandle: SavedStateHandle) : this(
         id = (checkNotNull(savedStateHandle[ID_ARG]) as String).toInt(),
         name = checkNotNull(savedStateHandle[NAME_ARG]),
-        imageUrl = NavigationDecoder.decodeText(checkNotNull(savedStateHandle[IMAGE_URL_ARG]) as String),
+        imageUrl = NavigationDecoder.decode(checkNotNull(savedStateHandle[IMAGE_URL_ARG]) as String),
     )
 }

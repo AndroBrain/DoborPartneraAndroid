@@ -70,7 +70,7 @@ fun AppNavigation(modifier: Modifier = Modifier, isLoggedIn: Boolean) {
         homeScreen(
             navigateToFindMatch = { navController.navigateToFindMatch() },
             navigateToChat = { person -> navController.navigateToChat(person = person) },
-            navigateToEditProfile = { navController.navigateToEditProfile() },
+            navigateToEditProfile = { args -> navController.navigateToEditProfile(args = args) },
         )
         findMatchScreen(navigateToChat = { person -> navController.navigateToChat(person = person) })
         chatScreen(

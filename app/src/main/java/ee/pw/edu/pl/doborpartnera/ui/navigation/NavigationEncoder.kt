@@ -4,6 +4,13 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 object NavigationEncoder {
-    fun encodeText(text: String): String =
+    fun encode(text: String): String =
         URLEncoder.encode(text, StandardCharsets.UTF_8.displayName())
+
+    fun encodeNullable(text: String?): String? =
+        if (text == null) {
+            null
+        } else {
+            encode(text)
+        }
 }

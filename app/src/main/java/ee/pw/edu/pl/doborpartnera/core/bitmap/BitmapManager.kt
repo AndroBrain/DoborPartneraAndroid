@@ -8,6 +8,7 @@ import android.os.Build
 import android.provider.MediaStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.ByteArrayOutputStream
+import java.io.FileNotFoundException
 import javax.inject.Inject
 
 private val DEFAULT_COMPRESSION_FORMAT = Bitmap.CompressFormat.JPEG
@@ -20,11 +21,13 @@ class BitmapManager @Inject constructor(
         uri: Uri,
         format: Bitmap.CompressFormat = DEFAULT_COMPRESSION_FORMAT,
         quality: Int = DEFAULT_COMPRESSION_QUALITY,
-    ): ByteArray {
+    ): ByteArray? = try {
         val bitmap = get(uri)
         val baos = ByteArrayOutputStream()
         bitmap.compress(format, quality, baos)
-        return baos.toByteArray()
+        baos.toByteArray()
+    } catch (e: FileNotFoundException) {
+        null
     }
 
     fun get(uri: Uri): Bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

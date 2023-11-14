@@ -69,24 +69,32 @@ class ProfileRepositoryImpl(
     ): Pair<String?, List<ProfileImageUrl?>> = coroutineScope {
         val profileChannel = Channel<String?>()
         launch {
-            val profileUrl = imageRemoteDataSource.uploadImage(
-                bytes = avatar.bytes,
-                format = avatar.format,
-            ).first()
-            profileChannel.send(profileUrl)
+            if (avatar.url != null) {
+                profileChannel.send(avatar.url)
+            } else if (avatar.bytes != null) {
+                val profileUrl = imageRemoteDataSource.uploadImage(
+                    bytes = avatar.bytes!!,
+                    format = avatar.format,
+                ).first()
+                profileChannel.send(profileUrl)
+            }
         }
 
         val imagesChannel = Channel<ProfileImageUrl?>()
         for (image in images) {
             launch {
-                val imageUrl = imageRemoteDataSource.uploadImage(
-                    bytes = image.bytes,
-                    format = image.format,
-                ).first()
-                if (imageUrl == null) {
-                    imagesChannel.send(null)
-                } else {
-                    imagesChannel.send(ProfileImageUrl(url = imageUrl, order = image.order))
+                if (image.url != null) {
+                    imagesChannel.send(ProfileImageUrl(url = image.url!!, order = image.order))
+                } else if (image.bytes != null) {
+                    val imageUrl = imageRemoteDataSource.uploadImage(
+                        bytes = image.bytes!!,
+                        format = image.format,
+                    ).first()
+                    if (imageUrl == null) {
+                        imagesChannel.send(null)
+                    } else {
+                        imagesChannel.send(ProfileImageUrl(url = imageUrl, order = image.order))
+                    }
                 }
             }
         }

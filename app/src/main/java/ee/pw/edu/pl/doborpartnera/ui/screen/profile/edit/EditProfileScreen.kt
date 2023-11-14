@@ -142,7 +142,7 @@ fun EditProfileScreen(
                 ) {
                     state.value.images.forEach { uri ->
                         PhotoImage(
-                            url = uri.toString(),
+                            url = uri,
                             icon = {
                                 Box(
                                     modifier = Modifier

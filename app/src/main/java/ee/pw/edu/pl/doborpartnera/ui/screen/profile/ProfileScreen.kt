@@ -19,13 +19,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.components.RefreshBox
+import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.EditProfileArgs
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel,
-    navigateToEdit: () -> Unit,
+    navigateToEdit: (EditProfileArgs) -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
@@ -36,7 +37,16 @@ fun ProfileScreen(
         floatingActionButton = {
             if (!state.value.isLoading && !state.value.isInError) {
                 ExtendedFloatingActionButton(
-                    onClick = navigateToEdit,
+                    onClick = {
+                        navigateToEdit(
+                            EditProfileArgs(
+                                avatar = state.value.avatar,
+                                images = state.value.images,
+                                description = state.value.description,
+                                interests = state.value.interests,
+                            )
+                        )
+                    },
                     icon = { Icon(imageVector = Icons.Default.Edit, contentDescription = null) },
                     text = { Text(text = stringResource(id = R.string.profile_edit)) },
                 )
@@ -67,7 +77,6 @@ fun ProfileScreen(
                         LoadedProfile(
                             modifier = Modifier.fillMaxSize(),
                             state = state,
-                            onEditProfileClicked = { navigateToEdit() },
                         )
                     }
                 }

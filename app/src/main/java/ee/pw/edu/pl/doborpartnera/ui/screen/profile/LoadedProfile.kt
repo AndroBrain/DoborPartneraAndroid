@@ -22,7 +22,6 @@ import ee.pw.edu.pl.doborpartnera.ui.theme.App
 fun LoadedProfile(
     modifier: Modifier = Modifier,
     state: ProfileState,
-    onEditProfileClicked: () -> Unit,
 ) {
     LazyColumn(
         modifier = modifier,

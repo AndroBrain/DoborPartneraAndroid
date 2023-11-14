@@ -4,6 +4,6 @@ import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 
 object NavigationDecoder {
-    fun decodeText(text: String): String =
+    fun decode(text: String): String =
         URLDecoder.decode(text, StandardCharsets.UTF_8.displayName())
 }
