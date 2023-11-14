@@ -11,5 +11,5 @@ data class LoginState(
     @StringRes val emailError: Int? = null,
     val password: String = "",
     @StringRes val errorMsg: Int? = null,
-    val isLoggedIn: Boolean = false,
+    val result: LoginResultDisplayable? = null,
 ) : UiState

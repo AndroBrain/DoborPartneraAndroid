@@ -36,6 +36,7 @@ fun LoginScreen(
     viewModel: LoginViewModel,
     navigateUp: () -> Unit,
     navigateToHome: () -> Unit,
+    navigateToFillProfile: () -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     state.value.errorMsg?.let { errorMsg ->
@@ -45,11 +46,20 @@ fun LoginScreen(
             viewModel.clearErrorMsg()
         }
     }
-    val isLoggedIn = state.value.isLoggedIn
-    LaunchedEffect(isLoggedIn) {
-        if (isLoggedIn) {
-            navigateToHome()
-            viewModel.loggedIn()
+    val result = state.value.result
+    LaunchedEffect(result) {
+        when (result) {
+            LoginResultDisplayable.PROFILE_FILLED -> {
+                navigateToHome()
+                viewModel.loggedIn()
+            }
+
+            LoginResultDisplayable.PROFILE_UNFILLED -> {
+                navigateToFillProfile()
+                viewModel.loggedIn()
+            }
+
+            null -> Unit
         }
     }
     Scaffold(

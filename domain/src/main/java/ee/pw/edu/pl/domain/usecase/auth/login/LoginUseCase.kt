@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class LoginUseCase @Inject constructor(private val authRepository: AuthRepository) {
-    operator fun invoke(form: LoginForm): Flow<UseCaseResult<Unit>> = flow {
+    operator fun invoke(form: LoginForm): Flow<UseCaseResult<Boolean>> = flow {
         emit(authRepository.login(form))
     }
 }

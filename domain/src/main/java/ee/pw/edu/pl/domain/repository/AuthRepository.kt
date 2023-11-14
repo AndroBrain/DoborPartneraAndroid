@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
     suspend fun register(form: RegisterForm): UseCaseResult<Unit>
-    suspend fun login(form: LoginForm): UseCaseResult<Unit>
+    suspend fun login(form: LoginForm): UseCaseResult<Boolean>
     suspend fun getToken(): Flow<String?>
 }

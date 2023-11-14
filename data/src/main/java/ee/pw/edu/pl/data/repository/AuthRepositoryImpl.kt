@@ -37,7 +37,7 @@ class AuthRepositoryImpl(
         }
     }
 
-    override suspend fun login(form: LoginForm): UseCaseResult<Unit> {
+    override suspend fun login(form: LoginForm): UseCaseResult<Boolean> {
         val response = authRemoteDataSource.login(
             LoginRequest(email = form.email, password = form.password)
         )
@@ -46,7 +46,7 @@ class AuthRepositoryImpl(
             is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponseWithHeaders.Ok -> {
                 authLocalDataSource.setToken(response.body.token)
-                UseCaseResult.Ok(Unit)
+                UseCaseResult.Ok(response.body.isProfileFilled)
             }
         }
     }

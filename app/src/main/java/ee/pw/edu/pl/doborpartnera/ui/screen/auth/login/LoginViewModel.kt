@@ -35,7 +35,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun loggedIn() {
-        updateState { state -> state.copy(isLoggedIn = false) }
+        updateState { state -> state.copy(result = null) }
     }
 
     fun login() {
@@ -57,8 +57,17 @@ class LoginViewModel @Inject constructor(
                 LoginForm(email = currentState.email, password = currentState.password)
             ).onEach { result ->
                 result.fold(
-                    onOk = {
-                        updateState { state -> state.copy(isLoggedIn = true, isLoading = false) }
+                    onOk = { isFilled ->
+                        updateState { state ->
+                            state.copy(
+                                result = if (isFilled.value) {
+                                    LoginResultDisplayable.PROFILE_FILLED
+                                } else {
+                                    LoginResultDisplayable.PROFILE_UNFILLED
+                                },
+                                isLoading = false,
+                            )
+                        }
                     }, onError = { error ->
                         updateState { state ->
                             state.copy(

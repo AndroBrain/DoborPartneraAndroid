@@ -51,6 +51,17 @@ fun AppNavigation(modifier: Modifier = Modifier, isLoggedIn: Boolean) {
                         }
                     }
                 )
+            },
+            navigateToFillProfile = {
+                navController.navigateToFillProfile(
+                    navOptions = navOptions {
+                        popUpTo(
+                            navController.graph.findStartDestination().id
+                        ) {
+                            inclusive = true
+                        }
+                    }
+                )
             }
         )
         registerScreen(
