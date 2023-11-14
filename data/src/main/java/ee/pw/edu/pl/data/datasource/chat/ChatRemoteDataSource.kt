@@ -4,4 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ChatRemoteDataSource {
     fun connectToChat(): Flow<String>
+    fun sendMessage(message: String)
 }

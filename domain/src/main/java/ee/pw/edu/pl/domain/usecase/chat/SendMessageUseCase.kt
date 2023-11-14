@@ -1,16 +1,12 @@
 package ee.pw.edu.pl.domain.usecase.chat
 
-import ee.pw.edu.pl.domain.core.result.UseCaseResult
+import ee.pw.edu.pl.domain.repository.ChatRepository
 import javax.inject.Inject
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class SendMessageUseCase @Inject constructor(
-
+    private val chatRepository: ChatRepository
 ) {
-    operator fun invoke(message: String): Flow<UseCaseResult<String>> = flow {
-        delay(2000L)
-        emit(UseCaseResult.Ok(message))
+    operator fun invoke(message: String) {
+        chatRepository.sendMessage(message)
     }
 }

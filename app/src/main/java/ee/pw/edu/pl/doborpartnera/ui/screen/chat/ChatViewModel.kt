@@ -6,7 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
-import ee.pw.edu.pl.domain.usecase.chat.Chat
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageUseCase
 import ee.pw.edu.pl.domain.usecase.chat.SubscribeToChatUseCase
 import javax.inject.Inject
@@ -37,25 +36,25 @@ class ChatViewModel @Inject constructor(
 
     fun sendMessage() {
         viewModelScope.launch {
-            sendMessageUseCase(state.value.message).onEach { result ->
-                result.fold(
-                    onOk = {
-                        updateState { state ->
-                            state.copy(
-                                chats = state.chats + Chat(text = it.value, isYour = true),
-                                messagesBeingSent = state.messagesBeingSent - 1,
-                            )
-                        }
-                    }, onError = { error ->
-                        updateState { state ->
-                            state.copy(
-                                errorMsg = error.type.getMessage(),
-                                messagesBeingSent = state.messagesBeingSent - 1,
-                            )
-                        }
-                    }
+            sendMessageUseCase(state.value.message)
+//                .onEach { result ->
+//                result.fold(
+//                    onOk = {
+            updateState { state ->
+                state.copy(
+                    messagesBeingSent = state.messagesBeingSent - 1,
                 )
-            }.launchIn(this)
+            }
+//                    }, onError = { error ->
+//                        updateState { state ->
+//                            state.copy(
+//                                errorMsg = error.type.getMessage(),
+//                                messagesBeingSent = state.messagesBeingSent - 1,
+//                            )
+//                        }
+//                    }
+//                )
+//            }.launchIn(this)
         }
         updateState { state ->
             state.copy(

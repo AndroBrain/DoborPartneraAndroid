@@ -7,4 +7,7 @@ class ChatRepositoryImpl(
     private val chatRemoteDataSource: ChatRemoteDataSource
 ) : ChatRepository {
     override fun getChat() = chatRemoteDataSource.connectToChat()
+    override fun sendMessage(message: String) {
+        chatRemoteDataSource.sendMessage(message)
+    }
 }

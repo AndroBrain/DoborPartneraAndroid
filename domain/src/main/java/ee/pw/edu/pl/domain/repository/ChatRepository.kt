@@ -4,4 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ChatRepository {
     fun getChat(): Flow<String>
+    fun sendMessage(message: String)
 }
