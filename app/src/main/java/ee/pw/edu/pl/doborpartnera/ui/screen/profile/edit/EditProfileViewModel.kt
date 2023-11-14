@@ -1,6 +1,7 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit
 
 import android.net.Uri
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -83,6 +84,7 @@ class EditProfileViewModel @Inject constructor(
     }
 
     fun save(interests: List<String>) {
+        Log.d("Interests", interests.toString())
         updateState { state -> state.copy(isLoading = true) }
         val currentState = state.value
         val avatarError = Validator.validate(
@@ -107,7 +109,7 @@ class EditProfileViewModel @Inject constructor(
         )
         val interestsError = Validator.validate(
             interests,
-            NameLengthValidator(
+            CollectionSizeValidator(
                 errorMessage = R.string.profile_err_interests,
                 min = MIN_INTERESTS,
                 max = MAX_INTERESTS
