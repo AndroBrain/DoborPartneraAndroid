@@ -51,6 +51,6 @@ object DataSourceModule {
     ): MatchRemoteDataSource = RetrofitMatchRemoteDataSource(apiService)
 
     @Provides
-    fun provideChatRemoteDataSource(): ChatRemoteDataSource =
-        SignalRChatRemoteDataSource()
+    fun provideChatRemoteDataSource(authLocalDataSource: AuthLocalDataSource): ChatRemoteDataSource =
+        SignalRChatRemoteDataSource(authLocalDataSource)
 }

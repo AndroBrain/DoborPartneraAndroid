@@ -6,13 +6,16 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.AuthRemoteDataSource
+import ee.pw.edu.pl.data.datasource.chat.ChatRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.ImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.match.MatchRemoteDataSource
 import ee.pw.edu.pl.data.datasource.profile.ProfileRemoteDataSource
 import ee.pw.edu.pl.data.repository.AuthRepositoryImpl
+import ee.pw.edu.pl.data.repository.ChatRepositoryImpl
 import ee.pw.edu.pl.data.repository.MatchRepositoryImpl
 import ee.pw.edu.pl.data.repository.ProfileRepositoryImpl
 import ee.pw.edu.pl.domain.repository.AuthRepository
+import ee.pw.edu.pl.domain.repository.ChatRepository
 import ee.pw.edu.pl.domain.repository.MatchRepository
 import ee.pw.edu.pl.domain.repository.ProfileRepository
 
@@ -44,4 +47,9 @@ object RepositoryModule {
     ): MatchRepository = MatchRepositoryImpl(
         matchRemoteDataSource = matchRemoteDataSource,
     )
+
+    @Provides
+    fun provideChatRepository(
+        chatRemoteDataSource: ChatRemoteDataSource
+    ): ChatRepository = ChatRepositoryImpl(chatRemoteDataSource = chatRemoteDataSource)
 }
