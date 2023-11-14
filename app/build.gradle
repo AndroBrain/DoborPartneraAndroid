@@ -76,7 +76,7 @@ dependencies {
     implementation "androidx.compose.material:material-icons-extended"
     implementation "androidx.constraintlayout:constraintlayout-compose:$compose_constraint_layout_version"
 
-    implementation "io.github.dokar3:chiptextfield-m3:0.6.3"
+    implementation "io.github.dokar3:chiptextfield-m3:$compose_chip_textfield_version"
 
     // Accompanist
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
