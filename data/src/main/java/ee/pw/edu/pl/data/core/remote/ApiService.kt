@@ -6,6 +6,7 @@ import ee.pw.edu.pl.data.model.auth.RegisterRequest
 import ee.pw.edu.pl.data.model.auth.RegisterResponse
 import ee.pw.edu.pl.data.model.chat.remote.ChatProfileResponse
 import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
+import ee.pw.edu.pl.data.model.match.MatchRequest
 import ee.pw.edu.pl.data.model.match.MatchResponse
 import ee.pw.edu.pl.data.model.profile.GetProfileInfoResponse
 import ee.pw.edu.pl.data.model.profile.SetProfileInfoRequest
@@ -40,6 +41,9 @@ interface ApiService {
 
     @GET("$PATH_MATCH/matches")
     suspend fun getMatches(): Response<List<MatchResponse>>
+
+    @POST("$PATH_MATCH/match")
+    suspend fun getMatch(@Body request: MatchRequest): Response<MatchResponse>
 
     // Message
     @GET("$PATH_MESSAGE/conversations")
