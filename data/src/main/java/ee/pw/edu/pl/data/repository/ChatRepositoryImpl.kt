@@ -10,9 +10,10 @@ import ee.pw.edu.pl.data.model.chat.remote.SendMessageRequest
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.ChatRepository
+import ee.pw.edu.pl.domain.usecase.chat.Chat
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageForm
-import ee.pw.edu.pl.domain.usecase.chat.profile.ChatMessage
 import ee.pw.edu.pl.domain.usecase.chat.profile.ChatProfile
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class ChatRepositoryImpl(
@@ -20,6 +21,13 @@ class ChatRepositoryImpl(
     private val chatLocalDataSource: ChatLocalDataSource,
 ) : ChatRepository {
     override fun getChat() = chatRemoteDataSource.connectToChat()
+    override fun getMessages(id: Int): Flow<List<Chat>> =
+        chatLocalDataSource.getMessages(id).map { messages ->
+            messages.map { message ->
+                Chat(text = message.text, isYour = message.fromUser != id)
+            }
+        }
+
     override fun sendMessage(form: SendMessageForm) {
         chatRemoteDataSource.sendMessage(
             SendMessageRequest(
@@ -38,7 +46,7 @@ class ChatRepositoryImpl(
                     name = profile.name,
                     avatar = profile.avatar,
                     messages = messages.map { message ->
-                        ChatMessage(id = message.id, ownerId = message.ownerId, text = message.text)
+                        Chat(text = message.text, isYour = message.fromUser == profile.id)
                     },
                 )
             }
@@ -64,7 +72,8 @@ class ChatRepositoryImpl(
                         profile.messages.map { message ->
                             MessageEntity(
                                 id = message.id,
-                                ownerId = message.fromUser,
+                                fromUser = message.fromUser,
+                                toUser = message.toUser,
                                 text = message.messageText,
                                 timestamp = message.sentTimestamp,
                             )

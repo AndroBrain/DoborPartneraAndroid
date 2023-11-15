@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class MessageEntity(
     @PrimaryKey val id: Int,
-    val ownerId: Int,
+    val fromUser: Int,
+    val toUser: Int,
     val text: String,
     val timestamp: Long,
 )

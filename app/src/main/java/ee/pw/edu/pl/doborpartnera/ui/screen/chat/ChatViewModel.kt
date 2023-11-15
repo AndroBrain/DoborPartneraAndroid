@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
+import ee.pw.edu.pl.domain.usecase.chat.GetChatMessagesUseCase
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageForm
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageUseCase
 import ee.pw.edu.pl.domain.usecase.chat.SubscribeToChatUseCase
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 class ChatViewModel @Inject constructor(
     private val sendMessageUseCase: SendMessageUseCase,
     private val subscribeToChatUseCase: SubscribeToChatUseCase,
+    private val getChatMessagesUseCase: GetChatMessagesUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<ChatState>(savedStateHandle, ChatState()) {
     private val args = ChatArgs(savedStateHandle)
@@ -31,6 +33,11 @@ class ChatViewModel @Inject constructor(
             )
         }
         subscribeToChat()
+        viewModelScope.launch {
+            getChatMessagesUseCase(args.id).onEach { chats ->
+                updateState { state -> state.copy(chats = chats) }
+            }.launchIn(this)
+        }
     }
 
     fun clearErrorMsg() {
@@ -50,30 +57,11 @@ class ChatViewModel @Inject constructor(
                     message = currentState.message,
                 )
             )
-//                .onEach { result ->
-//                result.fold(
-//                    onOk = {
             updateState { state ->
                 state.copy(
                     messagesBeingSent = state.messagesBeingSent - 1,
                 )
             }
-//                    }, onError = { error ->
-//                        updateState { state ->
-//                            state.copy(
-//                                errorMsg = error.type.getMessage(),
-//                                messagesBeingSent = state.messagesBeingSent - 1,
-//                            )
-//                        }
-//                    }
-//                )
-//            }.launchIn(this)
-        }
-        updateState { state ->
-            state.copy(
-                messagesBeingSent = state.messagesBeingSent + 1,
-                message = "",
-            )
         }
     }
 

@@ -19,8 +19,8 @@ interface ChatDao {
     @Query("SELECT * FROM ChatProfileEntity")
     fun getProfilesWithMessages(): Flow<List<ChatProfileWithMessages>>
 
-    @Query("SELECT * FROM MessageEntity WHERE ownerId == :ownerId")
-    fun getMessages(ownerId: Int): Flow<List<MessageEntity>>
+    @Query("SELECT * FROM MessageEntity WHERE fromUser == :chatId OR toUser == :chatId")
+    fun getMessages(chatId: Int): Flow<List<MessageEntity>>
 
     @Query("DELETE FROM ChatProfileEntity WHERE id == :id")
     suspend fun remove(id: Int)
