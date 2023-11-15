@@ -1,11 +1,11 @@
 package ee.pw.edu.pl.data.datasource.chat.remote
 
-import android.util.Log
 import com.microsoft.signalr.HubConnection
 import com.microsoft.signalr.HubConnectionBuilder
 import ee.pw.edu.pl.data.core.remote.ApiService
 import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
 import ee.pw.edu.pl.data.model.apiCallWithHeaders
+import ee.pw.edu.pl.data.model.chat.remote.MessageResponse
 import ee.pw.edu.pl.data.model.chat.remote.SendMessageRequest
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.channels.awaitClose
@@ -17,7 +17,7 @@ class SignalRChatRemoteDataSource(
     private val api: ApiService,
 ) : ChatRemoteDataSource {
     private lateinit var connection: HubConnection
-    override fun connectToChat() = callbackFlow<String> {
+    override fun connectToChat() = callbackFlow {
         val token = authLocalDataSource.getToken().first() ?: return@callbackFlow
         connection = HubConnectionBuilder.create("http://localhost:8081/hub/chat")
             .withAccessTokenProvider(
@@ -26,13 +26,22 @@ class SignalRChatRemoteDataSource(
             .build()
         connection.on(
             "ReceiveMessage",
-            { receiverId, senderId, message ->
-                Log.d("Message", "receiver $receiverId sender $senderId message $message")
-                trySend(message)
+            { id, toUser, fromUser, message, timestamp ->
+                trySend(
+                    MessageResponse(
+                        id = id,
+                        fromUser = fromUser,
+                        toUser = toUser,
+                        messageText = message,
+                        sentTimestamp = timestamp,
+                    )
+                )
             },
             Int::class.java,
             Int::class.java,
+            Int::class.java,
             String::class.java,
+            Long::class.java,
         )
         connection.start()
         awaitClose {
@@ -41,7 +50,6 @@ class SignalRChatRemoteDataSource(
     }
 
     override fun sendMessage(request: SendMessageRequest) {
-        Log.d("MessageRequest", request.toString())
         connection.invoke("SendMessage", request.receiverId, request.message)
     }
 

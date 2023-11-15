@@ -3,9 +3,7 @@ package ee.pw.edu.pl.doborpartnera.ui.screen.chat
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
-import ee.pw.edu.pl.domain.core.result.fold
 import ee.pw.edu.pl.domain.usecase.chat.GetChatMessagesUseCase
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageForm
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageUseCase
@@ -63,19 +61,12 @@ class ChatViewModel @Inject constructor(
                 )
             }
         }
+        updateState { state -> state.copy(message = "") }
     }
 
     private fun subscribeToChat() {
         viewModelScope.launch {
-            subscribeToChatUseCase().onEach { result ->
-                result.fold(
-                    onOk = {
-                        updateState { state -> state.copy(chats = state.chats + it.value) }
-                    }, onError = { error ->
-                        updateState { state -> state.copy(errorMsg = error.type.getMessage()) }
-                    }
-                )
-            }.launchIn(this)
+            subscribeToChatUseCase()
         }
     }
 }

@@ -7,7 +7,7 @@ import ee.pw.edu.pl.domain.usecase.chat.profile.ChatProfile
 import kotlinx.coroutines.flow.Flow
 
 interface ChatRepository {
-    fun getChat(): Flow<String>
+    suspend fun subscribeToChat()
     fun getMessages(id: Int): Flow<List<Chat>>
     fun sendMessage(form: SendMessageForm)
     fun getProfileChats(): Flow<List<ChatProfile>>
