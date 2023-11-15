@@ -11,7 +11,7 @@ import ee.pw.edu.pl.data.model.chat.local.MessageEntity
         ChatProfileEntity::class,
         MessageEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 abstract class AppDatabase : RoomDatabase() {

@@ -10,4 +10,6 @@ interface ChatLocalDataSource {
     fun getMessages(ownerId: Int): Flow<List<MessageEntity>>
     suspend fun insertChatProfiles(profiles: List<ChatProfileEntity>)
     suspend fun removeChatPerson(id: Int)
+    suspend fun removeAll()
+    suspend fun insertMessages(messageEntities: List<MessageEntity>)
 }

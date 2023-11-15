@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class MessageEntity(
-//    TOOD remove autogenerate if unnecessary
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey val id: Int,
     val ownerId: Int,
     val text: String,
+    val timestamp: Long,
 )

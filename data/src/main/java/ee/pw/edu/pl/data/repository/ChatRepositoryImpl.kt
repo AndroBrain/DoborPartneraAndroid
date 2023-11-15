@@ -5,6 +5,7 @@ import ee.pw.edu.pl.data.datasource.chat.local.ChatLocalDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
 import ee.pw.edu.pl.data.model.chat.local.ChatProfileEntity
+import ee.pw.edu.pl.data.model.chat.local.MessageEntity
 import ee.pw.edu.pl.data.model.chat.remote.SendMessageRequest
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
@@ -50,6 +51,7 @@ class ChatRepositoryImpl(
             is ApiResponseWithHeaders.Ok -> {
                 val result = chatProfiles.body
                 Log.d("ResponseChats", result.toString())
+                chatLocalDataSource.removeAll()
                 chatLocalDataSource.insertChatProfiles(
                     result.map { response ->
                         ChatProfileEntity(
@@ -57,6 +59,18 @@ class ChatRepositoryImpl(
                         )
                     }
                 )
+                result.forEach { profile ->
+                    chatLocalDataSource.insertMessages(
+                        profile.messages.map { message ->
+                            MessageEntity(
+                                id = message.id,
+                                ownerId = message.fromUser,
+                                text = message.messageText,
+                                timestamp = message.sentTimestamp,
+                            )
+                        }
+                    )
+                }
                 UseCaseResult.Ok(Unit)
             }
         }

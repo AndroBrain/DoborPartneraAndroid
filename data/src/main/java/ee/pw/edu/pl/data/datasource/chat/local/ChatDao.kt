@@ -24,4 +24,13 @@ interface ChatDao {
 
     @Query("DELETE FROM ChatProfileEntity WHERE id == :id")
     suspend fun remove(id: Int)
+
+    @Query("DELETE FROM MessageEntity")
+    suspend fun removeAllMessages()
+
+    @Query("DELETE FROM ChatProfileEntity")
+    suspend fun removeAllProfiles()
+
+    @Insert
+    suspend fun insertMessage(message: MessageEntity)
 }

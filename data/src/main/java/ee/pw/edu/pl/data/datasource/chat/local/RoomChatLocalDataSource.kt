@@ -21,4 +21,15 @@ class RoomChatLocalDataSource(
     override suspend fun removeChatPerson(id: Int) {
         chatDao.remove(id)
     }
+
+    override suspend fun removeAll() {
+        chatDao.removeAllMessages()
+        chatDao.removeAllProfiles()
+    }
+
+    override suspend fun insertMessages(messageEntities: List<MessageEntity>) {
+        messageEntities.forEach { message ->
+            chatDao.insertMessage(message)
+        }
+    }
 }

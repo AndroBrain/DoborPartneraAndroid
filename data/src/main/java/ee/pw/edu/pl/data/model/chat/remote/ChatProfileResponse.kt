@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 data class ChatProfileResponse(
     val avatar: String,
     val id: Int,
-    val name: String
+    val name: String,
+    val messages: List<MessageResponse>,
 )
