@@ -4,6 +4,7 @@ import ee.pw.edu.pl.data.datasource.account.remote.AccountRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.remote.ImageRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponse
 import ee.pw.edu.pl.data.model.account.remote.SetAccountInfoRequest
+import ee.pw.edu.pl.data.model.account.toModel
 import ee.pw.edu.pl.data.model.profile.remote.ProfileImageUrl
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
@@ -48,19 +49,7 @@ class AccountRepositoryImpl(
         when (val response = accountRemoteDataSource.getInfo()) {
             is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
-            is ApiResponse.Ok -> {
-                val account = response.body
-                UseCaseResult.Ok(
-                    Account(
-                        name = account.name,
-                        surname = account.surname,
-                        avatar = account.avatar,
-                        shortDescription = account.description,
-                        images = account.images,
-                        interests = account.interests,
-                    )
-                )
-            }
+            is ApiResponse.Ok -> UseCaseResult.Ok(response.body.toModel())
         }
 
     private suspend fun uploadImages(
