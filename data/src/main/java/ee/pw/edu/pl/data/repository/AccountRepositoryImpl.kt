@@ -1,13 +1,13 @@
 package ee.pw.edu.pl.data.repository
 
+import ee.pw.edu.pl.data.datasource.account.remote.AccountRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.remote.ImageRemoteDataSource
-import ee.pw.edu.pl.data.datasource.profile.remote.ProfileRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponse
 import ee.pw.edu.pl.data.model.profile.remote.ProfileImageUrl
 import ee.pw.edu.pl.data.model.profile.remote.SetProfileInfoRequest
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
-import ee.pw.edu.pl.domain.repository.ProfileRepository
+import ee.pw.edu.pl.domain.repository.AccountRepository
 import ee.pw.edu.pl.domain.usecase.profile.EditProfileForm
 import ee.pw.edu.pl.domain.usecase.profile.Profile
 import ee.pw.edu.pl.domain.usecase.profile.ProfileAvatar
@@ -17,10 +17,10 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class ProfileRepositoryImpl(
+class AccountRepositoryImpl(
     private val imageRemoteDataSource: ImageRemoteDataSource,
-    private val profileRemoteDataSource: ProfileRemoteDataSource,
-) : ProfileRepository {
+    private val accountRemoteDataSource: AccountRemoteDataSource,
+) : AccountRepository {
     override suspend fun updateProfile(profileForm: EditProfileForm): UseCaseResult<Unit> {
         val (profileUrl, allImages) = uploadImages(
             avatar = profileForm.profileAvatar,
@@ -29,7 +29,7 @@ class ProfileRepositoryImpl(
         if (profileUrl == null || allImages.any { it == null }) {
             return UseCaseResult.Error()
         }
-        val response = profileRemoteDataSource.setInfo(
+        val response = accountRemoteDataSource.setInfo(
             SetProfileInfoRequest(
                 avatar = profileUrl,
                 description = profileForm.description,
@@ -45,7 +45,7 @@ class ProfileRepositoryImpl(
     }
 
     override suspend fun getProfile(): UseCaseResult<Profile> =
-        when (val response = profileRemoteDataSource.getInfo()) {
+        when (val response = accountRemoteDataSource.getInfo()) {
             is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> {

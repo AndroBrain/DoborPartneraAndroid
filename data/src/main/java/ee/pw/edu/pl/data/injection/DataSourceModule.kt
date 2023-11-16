@@ -7,6 +7,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ee.pw.edu.pl.data.core.remote.ApiService
+import ee.pw.edu.pl.data.datasource.account.remote.AccountRemoteDataSource
+import ee.pw.edu.pl.data.datasource.account.remote.RetrofitAccountRemoteDataSource
 import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.local.PrefsAuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.remote.AuthRemoteDataSource
@@ -25,8 +27,6 @@ import ee.pw.edu.pl.data.datasource.message.remote.RetrofitMessageRemoteDataSour
 import ee.pw.edu.pl.data.datasource.profile.local.ProfileDao
 import ee.pw.edu.pl.data.datasource.profile.local.ProfileLocalDataSource
 import ee.pw.edu.pl.data.datasource.profile.local.RoomProfileLocalDataSource
-import ee.pw.edu.pl.data.datasource.profile.remote.ProfileRemoteDataSource
-import ee.pw.edu.pl.data.datasource.profile.remote.RetrofitProfileRemoteDataSource
 import javax.inject.Singleton
 
 @Module
@@ -49,9 +49,9 @@ object DataSourceModule {
     ): ImageRemoteDataSource = FirebaseImageRemoteDataSource(firebaseStorage)
 
     @Provides
-    fun provideProfileRemoteDataSource(
+    fun provideAccountRemoteDataSource(
         apiService: ApiService,
-    ): ProfileRemoteDataSource = RetrofitProfileRemoteDataSource(apiService)
+    ): AccountRemoteDataSource = RetrofitAccountRemoteDataSource(apiService)
 
     @Provides
     fun provideMatchRemoteDataSource(
