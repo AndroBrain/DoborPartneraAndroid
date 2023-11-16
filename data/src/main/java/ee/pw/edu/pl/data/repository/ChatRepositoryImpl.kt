@@ -2,9 +2,8 @@ package ee.pw.edu.pl.data.repository
 
 import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
 import ee.pw.edu.pl.data.datasource.message.local.MessageLocalDataSource
-import ee.pw.edu.pl.data.model.message.local.MessageEntity
-import ee.pw.edu.pl.data.model.message.remote.MessageResponse
-import ee.pw.edu.pl.data.model.message.remote.SendMessageRequest
+import ee.pw.edu.pl.data.model.message.toEntity
+import ee.pw.edu.pl.data.model.message.toRequest
 import ee.pw.edu.pl.domain.repository.ChatRepository
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageForm
 import kotlinx.coroutines.Dispatchers
@@ -25,19 +24,6 @@ class ChatRepositoryImpl(
     }
 
     override fun sendMessage(form: SendMessageForm) {
-        chatRemoteDataSource.sendMessage(
-            SendMessageRequest(
-                receiverId = form.receiverId,
-                message = form.message,
-            )
-        )
+        chatRemoteDataSource.sendMessage(form.toRequest())
     }
-
-    private fun MessageResponse.toEntity() = MessageEntity(
-        id = id,
-        fromUser = fromUser,
-        toUser = toUser,
-        text = messageText,
-        timestamp = sentTimestamp,
-    )
 }

@@ -3,16 +3,16 @@ package ee.pw.edu.pl.data.repository
 import ee.pw.edu.pl.data.datasource.message.local.MessageLocalDataSource
 import ee.pw.edu.pl.data.datasource.message.remote.MessageRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponse
-import ee.pw.edu.pl.data.model.message.local.MessageEntity
 import ee.pw.edu.pl.data.model.message.remote.LoadMoreMessagesRequest
-import ee.pw.edu.pl.data.model.message.remote.MessageResponse
+import ee.pw.edu.pl.data.model.message.toEntities
+import ee.pw.edu.pl.data.model.message.toModels
+import ee.pw.edu.pl.data.model.message.toProfileModels
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.MessageRepository
 import ee.pw.edu.pl.domain.repository.ProfileRepository
 import ee.pw.edu.pl.domain.usecase.message.Message
 import ee.pw.edu.pl.domain.usecase.message.profile.ProfileWithMessages
-import ee.pw.edu.pl.domain.usecase.profile.Profile
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -22,27 +22,13 @@ class MessageRepositoryImpl(
     private val messageLocalDataSource: MessageLocalDataSource,
     private val profileRepository: ProfileRepository,
 ) : MessageRepository {
-    override fun getMessages(id: Int): Flow<List<Message>> =
-        messageLocalDataSource.get(id).map { messages ->
-            messages.map { message ->
-                Message(text = message.text, isYour = message.fromUser != id)
-            }
-        }
+    override fun getMessages(id: Int): Flow<List<Message>> = messageLocalDataSource
+        .get(id)
+        .map { messages -> messages.toModels() }
 
     override fun getProfilesWithMessages(): Flow<List<ProfileWithMessages>> =
-        messageLocalDataSource.getProfilesWithMessages().map { profilesWithMessages ->
-            profilesWithMessages.map { profileWithMessages ->
-                val (profile, messages) = profileWithMessages
-                ProfileWithMessages(
-                    id = profile.id,
-                    name = profile.name,
-                    avatar = profile.avatar,
-                    messages = messages.map { message ->
-                        Message(text = message.text, isYour = message.fromUser == profile.id)
-                    },
-                )
-            }
-        }
+        messageLocalDataSource.getProfilesWithMessages()
+            .map { profilesWithMessages -> profilesWithMessages.toModels() }
 
     override suspend fun updateProfilesWithMessages(): UseCaseResult<Unit> =
         when (val response = messageRemoteDataSource.getProfilesWithMessages()) {
@@ -52,17 +38,9 @@ class MessageRepositoryImpl(
                 val profiles = response.body
                 messageLocalDataSource.removeAll()
                 profileRepository.removeAll()
-                profileRepository.insert(
-                    profiles.map { profile ->
-                        Profile(
-                            id = profile.id, name = profile.name, avatar = profile.avatar,
-                        )
-                    }
-                )
+                profileRepository.insert(profiles.toProfileModels())
                 profiles.forEach { profile ->
-                    messageLocalDataSource.insert(
-                        profile.messages.map { message -> message.toEntity() }
-                    )
+                    messageLocalDataSource.insert(profile.messages.toEntities())
                 }
                 UseCaseResult.Ok(Unit)
             }
@@ -82,17 +60,9 @@ class MessageRepositoryImpl(
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
             is ApiResponse.Ok -> {
                 val messages = response.body.messages
-                messageLocalDataSource.insert(messages.map { it.toEntity() })
+                messageLocalDataSource.insert(messages.toEntities())
                 UseCaseResult.Ok(response.body.canLoadMore)
             }
         }
     }
-
-    private fun MessageResponse.toEntity() = MessageEntity(
-        id = id,
-        fromUser = fromUser,
-        toUser = toUser,
-        text = messageText,
-        timestamp = sentTimestamp,
-    )
 }

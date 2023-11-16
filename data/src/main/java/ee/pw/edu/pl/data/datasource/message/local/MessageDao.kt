@@ -6,14 +6,14 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import ee.pw.edu.pl.data.model.message.local.MessageEntity
-import ee.pw.edu.pl.data.model.message.local.ProfileWithMessages
+import ee.pw.edu.pl.data.model.message.local.ProfileWithMessagesRelation
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MessageDao {
     @Transaction
     @Query("SELECT * FROM ProfileEntity")
-    fun getProfilesWithMessages(): Flow<List<ProfileWithMessages>>
+    fun getProfilesWithMessages(): Flow<List<ProfileWithMessagesRelation>>
 
     @Query("SELECT * FROM MessageEntity WHERE fromUser == :chatId OR toUser == :chatId ORDER BY timestamp")
     fun getMessages(chatId: Int): Flow<List<MessageEntity>>
