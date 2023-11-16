@@ -13,4 +13,7 @@ interface ProfileDao {
 
     @Query("DELETE FROM ProfileEntity WHERE id == :id")
     suspend fun remove(id: Int)
+
+    @Query("DELETE FROM ProfileEntity")
+    suspend fun removeAll()
 }

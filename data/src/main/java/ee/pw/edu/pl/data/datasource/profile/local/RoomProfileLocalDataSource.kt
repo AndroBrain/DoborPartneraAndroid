@@ -14,4 +14,8 @@ class RoomProfileLocalDataSource(
     override suspend fun remove(id: Int) {
         profileDao.remove(id)
     }
+
+    override suspend fun removeAll() {
+        profileDao.removeAll()
+    }
 }

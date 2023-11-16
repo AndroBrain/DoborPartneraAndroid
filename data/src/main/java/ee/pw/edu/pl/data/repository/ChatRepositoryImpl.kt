@@ -74,6 +74,7 @@ class ChatRepositoryImpl(
                 val result = chatProfiles.body
                 Log.d("ResponseChats", result.toString())
                 chatLocalDataSource.removeAll()
+                profileLocalDataSource.removeAll()
                 profileLocalDataSource.insert(
                     result.map { response ->
                         ProfileEntity(

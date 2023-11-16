@@ -18,10 +18,7 @@ interface ChatDao {
     fun getMessages(chatId: Int): Flow<List<MessageEntity>>
 
     @Query("DELETE FROM MessageEntity")
-    suspend fun removeAllMessages()
-
-    @Query("DELETE FROM ProfileEntity")
-    suspend fun removeAllProfiles()
+    suspend fun removeAll()
 
     @Insert
     suspend fun insertMessage(message: MessageEntity)
