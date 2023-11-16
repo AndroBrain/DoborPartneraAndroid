@@ -2,11 +2,9 @@ package ee.pw.edu.pl.data.datasource.chat.remote
 
 import com.microsoft.signalr.HubConnection
 import com.microsoft.signalr.HubConnectionBuilder
-import ee.pw.edu.pl.data.core.remote.ApiService
 import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
-import ee.pw.edu.pl.data.model.apiCall
-import ee.pw.edu.pl.data.model.chat.remote.MessageResponse
-import ee.pw.edu.pl.data.model.chat.remote.SendMessageRequest
+import ee.pw.edu.pl.data.model.message.remote.MessageResponse
+import ee.pw.edu.pl.data.model.message.remote.SendMessageRequest
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -14,7 +12,6 @@ import kotlinx.coroutines.flow.first
 
 class SignalRChatRemoteDataSource(
     private val authLocalDataSource: AuthLocalDataSource,
-    private val api: ApiService,
 ) : ChatRemoteDataSource {
     private lateinit var connection: HubConnection
     override fun connectToChat() = callbackFlow {
@@ -51,9 +48,5 @@ class SignalRChatRemoteDataSource(
 
     override fun sendMessage(request: SendMessageRequest) {
         connection.invoke("SendMessage", request.receiverId, request.message)
-    }
-
-    override suspend fun getChats() = apiCall {
-        api.getConversations()
     }
 }

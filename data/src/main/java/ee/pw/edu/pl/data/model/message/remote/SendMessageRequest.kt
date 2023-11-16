@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.model.chat.remote
+package ee.pw.edu.pl.data.model.message.remote
 
 data class SendMessageRequest(
     val receiverId: Int,

@@ -1,11 +1,11 @@
 package ee.pw.edu.pl.domain.usecase.chat.profile
 
-import ee.pw.edu.pl.domain.repository.ChatRepository
+import ee.pw.edu.pl.domain.repository.MessageRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
 class GetChatProfilesUseCase @Inject constructor(
-    private val chatRepository: ChatRepository,
+    private val messageRepository: MessageRepository,
 ) {
-    operator fun invoke(): Flow<List<ChatProfile>> = chatRepository.getProfileChats()
+    operator fun invoke(): Flow<List<ChatProfile>> = messageRepository.getProfileChats()
 }

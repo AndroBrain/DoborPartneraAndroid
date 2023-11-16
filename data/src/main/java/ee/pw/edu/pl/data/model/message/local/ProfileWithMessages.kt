@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.model.chat.local
+package ee.pw.edu.pl.data.model.message.local
 
 import androidx.room.Embedded
 import androidx.room.Relation

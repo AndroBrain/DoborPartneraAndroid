@@ -1,15 +1,15 @@
-package ee.pw.edu.pl.data.datasource.chat.local
+package ee.pw.edu.pl.data.datasource.message.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
-import ee.pw.edu.pl.data.model.chat.local.MessageEntity
-import ee.pw.edu.pl.data.model.chat.local.ProfileWithMessages
+import ee.pw.edu.pl.data.model.message.local.MessageEntity
+import ee.pw.edu.pl.data.model.message.local.ProfileWithMessages
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ChatDao {
+interface MessageDao {
     @Transaction
     @Query("SELECT * FROM ProfileEntity")
     fun getProfilesWithMessages(): Flow<List<ProfileWithMessages>>

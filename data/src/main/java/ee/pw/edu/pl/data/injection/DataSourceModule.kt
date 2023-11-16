@@ -11,15 +11,17 @@ import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.local.PrefsAuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.remote.AuthRemoteDataSource
 import ee.pw.edu.pl.data.datasource.auth.remote.RetrofitAuthRemoteDataSource
-import ee.pw.edu.pl.data.datasource.chat.local.ChatDao
-import ee.pw.edu.pl.data.datasource.chat.local.ChatLocalDataSource
-import ee.pw.edu.pl.data.datasource.chat.local.RoomChatLocalDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.SignalRChatRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.remote.FirebaseImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.remote.ImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.match.remote.MatchRemoteDataSource
 import ee.pw.edu.pl.data.datasource.match.remote.RetrofitMatchRemoteDataSource
+import ee.pw.edu.pl.data.datasource.message.local.MessageDao
+import ee.pw.edu.pl.data.datasource.message.local.MessageLocalDataSource
+import ee.pw.edu.pl.data.datasource.message.local.RoomMessageLocalDataSource
+import ee.pw.edu.pl.data.datasource.message.remote.MessageRemoteDataSource
+import ee.pw.edu.pl.data.datasource.message.remote.RetrofitMessageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.profile.local.ProfileDao
 import ee.pw.edu.pl.data.datasource.profile.local.ProfileLocalDataSource
 import ee.pw.edu.pl.data.datasource.profile.local.RoomProfileLocalDataSource
@@ -60,15 +62,17 @@ object DataSourceModule {
     @Singleton
     fun provideChatRemoteDataSource(
         authLocalDataSource: AuthLocalDataSource,
-        api: ApiService
-    ): ChatRemoteDataSource =
-        SignalRChatRemoteDataSource(authLocalDataSource, api)
+    ): ChatRemoteDataSource = SignalRChatRemoteDataSource(authLocalDataSource)
 
     @Provides
-    fun provideChatLocalDataSource(chatDao: ChatDao): ChatLocalDataSource =
-        RoomChatLocalDataSource(chatDao)
+    fun provideMessageLocalDataSource(messageDao: MessageDao): MessageLocalDataSource =
+        RoomMessageLocalDataSource(messageDao)
 
     @Provides
     fun provideProfileLocalDataSource(profileDao: ProfileDao): ProfileLocalDataSource =
         RoomProfileLocalDataSource(profileDao)
+
+    @Provides
+    fun provideMessageRemoteDataSource(api: ApiService): MessageRemoteDataSource =
+        RetrofitMessageRemoteDataSource(api)
 }

@@ -1,0 +1,82 @@
+package ee.pw.edu.pl.data.repository
+
+import android.util.Log
+import ee.pw.edu.pl.data.datasource.message.local.MessageLocalDataSource
+import ee.pw.edu.pl.data.datasource.message.remote.MessageRemoteDataSource
+import ee.pw.edu.pl.data.datasource.profile.local.ProfileLocalDataSource
+import ee.pw.edu.pl.data.model.ApiResponse
+import ee.pw.edu.pl.data.model.message.local.MessageEntity
+import ee.pw.edu.pl.data.model.message.remote.MessageResponse
+import ee.pw.edu.pl.data.model.profile.local.ProfileEntity
+import ee.pw.edu.pl.domain.core.result.ResultErrorType
+import ee.pw.edu.pl.domain.core.result.UseCaseResult
+import ee.pw.edu.pl.domain.repository.MessageRepository
+import ee.pw.edu.pl.domain.usecase.chat.Chat
+import ee.pw.edu.pl.domain.usecase.chat.profile.ChatProfile
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+
+class MessageRepositoryImpl(
+    private val messageRemoteDataSource: MessageRemoteDataSource,
+    private val messageLocalDataSource: MessageLocalDataSource,
+    private val profileLocalDataSource: ProfileLocalDataSource,
+) : MessageRepository {
+    override fun getMessages(id: Int): Flow<List<Chat>> =
+        messageLocalDataSource.getMessages(id).map { messages ->
+            messages.map { message ->
+                Chat(text = message.text, isYour = message.fromUser != id)
+            }
+        }
+
+    override fun getProfileChats(): Flow<List<ChatProfile>> =
+        messageLocalDataSource.getProfilesWithMessages().map { profilesWithMessages ->
+            profilesWithMessages.map { profileWithMessages ->
+                val (profile, messages) = profileWithMessages
+                ChatProfile(
+                    id = profile.id,
+                    name = profile.name,
+                    avatar = profile.avatar,
+                    messages = messages.map { message ->
+                        Chat(text = message.text, isYour = message.fromUser == profile.id)
+                    },
+                )
+            }
+        }
+
+    override suspend fun updateChatProfiles(): UseCaseResult<Unit> =
+        when (val chatProfiles = messageRemoteDataSource.getChats()) {
+            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponse.Ok -> {
+                val result = chatProfiles.body
+                Log.d("ResponseChats", result.toString())
+                messageLocalDataSource.removeAll()
+                profileLocalDataSource.removeAll()
+                profileLocalDataSource.insert(
+                    result.map { response ->
+                        ProfileEntity(
+                            id = response.id, name = response.name, avatar = response.avatar,
+                        )
+                    }
+                )
+                result.forEach { profile ->
+                    messageLocalDataSource.insertMessages(
+                        profile.messages.map { message -> message.toEntity() }
+                    )
+                }
+                UseCaseResult.Ok(Unit)
+            }
+        }
+
+    override suspend fun removeChatProfile(id: Int) {
+        profileLocalDataSource.remove(id)
+    }
+
+    private fun MessageResponse.toEntity() = MessageEntity(
+        id = id,
+        fromUser = fromUser,
+        toUser = toUser,
+        text = messageText,
+        timestamp = sentTimestamp,
+    )
+}

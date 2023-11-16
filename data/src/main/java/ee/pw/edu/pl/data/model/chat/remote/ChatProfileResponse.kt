@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.data.model.chat.remote
 
+import ee.pw.edu.pl.data.model.message.remote.MessageResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
