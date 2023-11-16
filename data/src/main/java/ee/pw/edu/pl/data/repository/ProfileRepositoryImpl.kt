@@ -1,7 +1,7 @@
 package ee.pw.edu.pl.data.repository
 
 import ee.pw.edu.pl.data.datasource.profile.local.ProfileLocalDataSource
-import ee.pw.edu.pl.data.model.profile.local.ProfileEntity
+import ee.pw.edu.pl.data.model.profile.toEntities
 import ee.pw.edu.pl.domain.repository.ProfileRepository
 import ee.pw.edu.pl.domain.usecase.profile.Profile
 
@@ -17,12 +17,6 @@ class ProfileRepositoryImpl(
     }
 
     override suspend fun insert(profiles: List<Profile>) {
-        profileLocalDataSource.insert(
-            profiles.map { profile ->
-                ProfileEntity(
-                    id = profile.id, name = profile.name, avatar = profile.avatar,
-                )
-            }
-        )
+        profileLocalDataSource.insert(profiles.toEntities())
     }
 }
