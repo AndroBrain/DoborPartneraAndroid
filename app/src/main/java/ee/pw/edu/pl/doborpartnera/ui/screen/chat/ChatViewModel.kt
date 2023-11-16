@@ -3,13 +3,15 @@ package ee.pw.edu.pl.doborpartnera.ui.screen.chat
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
+import ee.pw.edu.pl.domain.core.result.fold
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageForm
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageUseCase
 import ee.pw.edu.pl.domain.usecase.chat.SubscribeToChatUseCase
 import ee.pw.edu.pl.domain.usecase.message.GetMessagesUseCase
+import ee.pw.edu.pl.domain.usecase.message.LoadMoreMessagesUseCase
 import javax.inject.Inject
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -19,6 +21,7 @@ class ChatViewModel @Inject constructor(
     private val sendMessageUseCase: SendMessageUseCase,
     private val subscribeToChatUseCase: SubscribeToChatUseCase,
     private val getMessagesUseCase: GetMessagesUseCase,
+    private val loadMoreMessagesUseCase: LoadMoreMessagesUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<ChatState>(savedStateHandle, ChatState()) {
     private val args = ChatArgs(savedStateHandle)
@@ -74,8 +77,24 @@ class ChatViewModel @Inject constructor(
     fun loadMoreMessages() {
         viewModelScope.launch {
             updateState { state -> state.copy(isLoadingMoreMessages = true) }
-            delay(2000L)
-            updateState { state -> state.copy(isLoadingMoreMessages = false) }
+            loadMoreMessagesUseCase(args.id).fold(
+                onOk = {
+                    updateState { state ->
+                        state.copy(
+                            isLoadingMoreMessages = false,
+                            canLoadMoreMessages = it.value,
+                        )
+                    }
+                },
+                onError = {
+                    updateState { state ->
+                        state.copy(
+                            errorMsg = it.type.getMessage(),
+                            isLoadingMoreMessages = false,
+                        )
+                    }
+                }
+            )
         }
     }
 }

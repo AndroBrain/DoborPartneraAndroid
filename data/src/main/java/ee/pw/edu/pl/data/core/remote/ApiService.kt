@@ -7,6 +7,8 @@ import ee.pw.edu.pl.data.model.auth.RegisterResponse
 import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
 import ee.pw.edu.pl.data.model.match.MatchRequest
 import ee.pw.edu.pl.data.model.match.MatchResponse
+import ee.pw.edu.pl.data.model.message.remote.LoadMoreMessagesRequest
+import ee.pw.edu.pl.data.model.message.remote.LoadMoreMessagesResponse
 import ee.pw.edu.pl.data.model.message.remote.ProfileWithMessagesResponse
 import ee.pw.edu.pl.data.model.profile.remote.GetProfileInfoResponse
 import ee.pw.edu.pl.data.model.profile.remote.SetProfileInfoRequest
@@ -48,4 +50,7 @@ interface ApiService {
     // Message
     @GET("$PATH_MESSAGE/conversations")
     suspend fun getConversations(): Response<List<ProfileWithMessagesResponse>>
+
+    @POST("$PATH_MESSAGE/messages")
+    suspend fun loadMoreMessages(@Body request: LoadMoreMessagesRequest): Response<LoadMoreMessagesResponse>
 }

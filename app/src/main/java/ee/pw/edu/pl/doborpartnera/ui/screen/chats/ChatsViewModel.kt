@@ -1,6 +1,5 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.chats
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -57,7 +56,6 @@ class ChatsViewModel @Inject constructor(
                     }
                 )
             }
-            Log.d("RemoveChat", chatPerson.toString())
             removeProfileWithMessagesUseCase(chatPerson.person.id).fold(
                 onOk = { person ->
                     updateState { state ->

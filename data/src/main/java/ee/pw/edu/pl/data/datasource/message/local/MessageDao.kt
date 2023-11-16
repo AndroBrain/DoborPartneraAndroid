@@ -2,6 +2,7 @@ package ee.pw.edu.pl.data.datasource.message.local
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import ee.pw.edu.pl.data.model.message.local.MessageEntity
@@ -20,6 +21,6 @@ interface MessageDao {
     @Query("DELETE FROM MessageEntity")
     suspend fun removeAll()
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMessage(message: MessageEntity)
 }

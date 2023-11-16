@@ -1,10 +1,10 @@
 package ee.pw.edu.pl.data.repository
 
-import android.util.Log
 import ee.pw.edu.pl.data.datasource.message.local.MessageLocalDataSource
 import ee.pw.edu.pl.data.datasource.message.remote.MessageRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponse
 import ee.pw.edu.pl.data.model.message.local.MessageEntity
+import ee.pw.edu.pl.data.model.message.remote.LoadMoreMessagesRequest
 import ee.pw.edu.pl.data.model.message.remote.MessageResponse
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
@@ -14,6 +14,7 @@ import ee.pw.edu.pl.domain.usecase.message.Message
 import ee.pw.edu.pl.domain.usecase.message.profile.ProfileWithMessages
 import ee.pw.edu.pl.domain.usecase.profile.Profile
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class MessageRepositoryImpl(
@@ -49,7 +50,6 @@ class MessageRepositoryImpl(
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> {
                 val result = chatProfiles.body
-                Log.d("ResponseChats", result.toString())
                 messageLocalDataSource.removeAll()
                 profileRepository.removeAll()
                 profileRepository.insert(
@@ -67,6 +67,26 @@ class MessageRepositoryImpl(
                 UseCaseResult.Ok(Unit)
             }
         }
+
+    override suspend fun loadMoreMessages(id: Int): UseCaseResult<Boolean> {
+        val message = messageLocalDataSource.get(id).first().first()
+        return when (
+            val response = messageRemoteDataSource.loadMoreMessages(
+                LoadMoreMessagesRequest(
+                    id = id,
+                    lastMessageTimestamp = message.timestamp,
+                ),
+            )
+        ) {
+            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.Ok -> {
+                val messages = response.body.messages
+                messageLocalDataSource.insert(messages.map { it.toEntity() })
+                UseCaseResult.Ok(response.body.canLoadMore)
+            }
+        }
+    }
 
     private fun MessageResponse.toEntity() = MessageEntity(
         id = id,
