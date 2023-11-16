@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.model.profile
+package ee.pw.edu.pl.data.model.profile.remote
 
 import kotlinx.serialization.Serializable
 

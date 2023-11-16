@@ -8,8 +8,8 @@ import ee.pw.edu.pl.data.model.chat.remote.ChatProfileResponse
 import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
 import ee.pw.edu.pl.data.model.match.MatchRequest
 import ee.pw.edu.pl.data.model.match.MatchResponse
-import ee.pw.edu.pl.data.model.profile.GetProfileInfoResponse
-import ee.pw.edu.pl.data.model.profile.SetProfileInfoRequest
+import ee.pw.edu.pl.data.model.profile.remote.GetProfileInfoResponse
+import ee.pw.edu.pl.data.model.profile.remote.SetProfileInfoRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

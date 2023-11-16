@@ -3,8 +3,8 @@ package ee.pw.edu.pl.data.repository
 import ee.pw.edu.pl.data.datasource.images.remote.ImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.profile.remote.ProfileRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponse
-import ee.pw.edu.pl.data.model.profile.ProfileImageUrl
-import ee.pw.edu.pl.data.model.profile.SetProfileInfoRequest
+import ee.pw.edu.pl.data.model.profile.remote.ProfileImageUrl
+import ee.pw.edu.pl.data.model.profile.remote.SetProfileInfoRequest
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.ProfileRepository

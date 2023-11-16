@@ -4,10 +4,10 @@ import android.util.Log
 import ee.pw.edu.pl.data.datasource.chat.local.ChatLocalDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponse
-import ee.pw.edu.pl.data.model.chat.local.ChatProfileEntity
 import ee.pw.edu.pl.data.model.chat.local.MessageEntity
 import ee.pw.edu.pl.data.model.chat.remote.MessageResponse
 import ee.pw.edu.pl.data.model.chat.remote.SendMessageRequest
+import ee.pw.edu.pl.data.model.profile.local.ProfileEntity
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.ChatRepository
@@ -74,7 +74,7 @@ class ChatRepositoryImpl(
                 chatLocalDataSource.removeAll()
                 chatLocalDataSource.insertChatProfiles(
                     result.map { response ->
-                        ChatProfileEntity(
+                        ProfileEntity(
                             id = response.id, name = response.name, avatar = response.avatar,
                         )
                     }
