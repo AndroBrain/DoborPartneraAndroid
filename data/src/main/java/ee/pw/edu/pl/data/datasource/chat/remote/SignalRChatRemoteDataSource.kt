@@ -1,7 +1,9 @@
 package ee.pw.edu.pl.data.datasource.chat.remote
 
+import android.content.Context
 import com.microsoft.signalr.HubConnection
 import com.microsoft.signalr.HubConnectionBuilder
+import ee.pw.edu.pl.data.R
 import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
 import ee.pw.edu.pl.data.model.message.remote.MessageResponse
 import ee.pw.edu.pl.data.model.message.remote.SendMessageRequest
@@ -10,19 +12,26 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.first
 
+private const val MESSAGE_TARGET = "ReceiveMessage"
+private const val MESSAGE_METHOD = "SendMessage"
+
+private const val HUB_CHAT_PATH = "hub/chat"
+
 class SignalRChatRemoteDataSource(
+    private val context: Context,
     private val authLocalDataSource: AuthLocalDataSource,
 ) : ChatRemoteDataSource {
     private lateinit var connection: HubConnection
     override fun connectToChat() = callbackFlow {
         val token = authLocalDataSource.getToken().first() ?: return@callbackFlow
-        connection = HubConnectionBuilder.create("http://localhost:8081/hub/chat")
-            .withAccessTokenProvider(
-                Single.defer { Single.just(token) }
-            )
-            .build()
+        connection =
+            HubConnectionBuilder.create("${context.getString(R.string.api_url)}$HUB_CHAT_PATH")
+                .withAccessTokenProvider(
+                    Single.defer { Single.just(token) }
+                )
+                .build()
         connection.on(
-            "ReceiveMessage",
+            MESSAGE_TARGET,
             { id, toUser, fromUser, message, timestamp ->
                 trySend(
                     MessageResponse(
@@ -47,6 +56,6 @@ class SignalRChatRemoteDataSource(
     }
 
     override fun sendMessage(request: SendMessageRequest) {
-        connection.invoke("SendMessage", request.receiverId, request.message)
+        connection.invoke(MESSAGE_METHOD, request.receiverId, request.message)
     }
 }
