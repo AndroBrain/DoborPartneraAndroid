@@ -13,9 +13,9 @@ import ee.pw.edu.pl.doborpartnera.core.validation.RepeatPasswordValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.Validator
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
+import ee.pw.edu.pl.domain.usecase.account.Gender
 import ee.pw.edu.pl.domain.usecase.auth.register.RegisterForm
 import ee.pw.edu.pl.domain.usecase.auth.register.RegisterUseCase
-import ee.pw.edu.pl.domain.usecase.profile.Gender
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

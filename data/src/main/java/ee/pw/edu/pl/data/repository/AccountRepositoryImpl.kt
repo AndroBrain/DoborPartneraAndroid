@@ -8,8 +8,8 @@ import ee.pw.edu.pl.data.model.profile.remote.SetProfileInfoRequest
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.AccountRepository
-import ee.pw.edu.pl.domain.usecase.profile.EditProfileForm
-import ee.pw.edu.pl.domain.usecase.profile.Profile
+import ee.pw.edu.pl.domain.usecase.account.Account
+import ee.pw.edu.pl.domain.usecase.account.EditAccountForm
 import ee.pw.edu.pl.domain.usecase.profile.ProfileAvatar
 import ee.pw.edu.pl.domain.usecase.profile.ProfileImage
 import kotlinx.coroutines.channels.Channel
@@ -21,7 +21,7 @@ class AccountRepositoryImpl(
     private val imageRemoteDataSource: ImageRemoteDataSource,
     private val accountRemoteDataSource: AccountRemoteDataSource,
 ) : AccountRepository {
-    override suspend fun updateProfile(profileForm: EditProfileForm): UseCaseResult<Unit> {
+    override suspend fun updateProfile(profileForm: EditAccountForm): UseCaseResult<Unit> {
         val (profileUrl, allImages) = uploadImages(
             avatar = profileForm.profileAvatar,
             images = profileForm.images,
@@ -44,14 +44,14 @@ class AccountRepositoryImpl(
         }
     }
 
-    override suspend fun getProfile(): UseCaseResult<Profile> =
+    override suspend fun getProfile(): UseCaseResult<Account> =
         when (val response = accountRemoteDataSource.getInfo()) {
             is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> {
                 val profile = response.body
                 UseCaseResult.Ok(
-                    Profile(
+                    Account(
                         name = profile.name,
                         surname = profile.surname,
                         avatar = profile.avatar,

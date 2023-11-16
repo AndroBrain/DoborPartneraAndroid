@@ -1,6 +1,6 @@
 package ee.pw.edu.pl.domain.usecase.auth.register
 
-import ee.pw.edu.pl.domain.usecase.profile.Gender
+import ee.pw.edu.pl.domain.usecase.account.Gender
 
 data class RegisterForm(
     val email: String,

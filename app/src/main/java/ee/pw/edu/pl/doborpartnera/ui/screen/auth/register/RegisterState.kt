@@ -2,7 +2,7 @@ package ee.pw.edu.pl.doborpartnera.ui.screen.auth.register
 
 import androidx.annotation.StringRes
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.UiState
-import ee.pw.edu.pl.domain.usecase.profile.Gender
+import ee.pw.edu.pl.domain.usecase.account.Gender
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

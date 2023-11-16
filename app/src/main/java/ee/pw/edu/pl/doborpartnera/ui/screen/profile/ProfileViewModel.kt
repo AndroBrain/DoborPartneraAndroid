@@ -5,19 +5,19 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
-import ee.pw.edu.pl.domain.usecase.profile.GetProfileUseCase
+import ee.pw.edu.pl.domain.usecase.account.GetAccountUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val getProfileUseCase: GetProfileUseCase,
+    private val getAccountUseCase: GetAccountUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<ProfileState>(savedStateHandle, ProfileState()) {
     fun loadProfile() {
         viewModelScope.launch {
             updateState { state -> state.copy(isInError = false, isLoading = true) }
-            getProfileUseCase().fold(
+            getAccountUseCase().fold(
                 onOk = {
                     val profile = it.value
                     updateState { state ->

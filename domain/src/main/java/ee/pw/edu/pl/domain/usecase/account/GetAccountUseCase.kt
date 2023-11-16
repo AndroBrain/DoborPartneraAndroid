@@ -1,11 +1,11 @@
-package ee.pw.edu.pl.domain.usecase.profile
+package ee.pw.edu.pl.domain.usecase.account
 
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.AccountRepository
 import javax.inject.Inject
 
-class GetProfileUseCase @Inject constructor(
+class GetAccountUseCase @Inject constructor(
     private val accountRepository: AccountRepository,
 ) {
-    suspend operator fun invoke(): UseCaseResult<Profile> = accountRepository.getProfile()
+    suspend operator fun invoke(): UseCaseResult<Account> = accountRepository.getProfile()
 }

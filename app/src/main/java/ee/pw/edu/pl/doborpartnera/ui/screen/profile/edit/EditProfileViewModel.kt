@@ -14,8 +14,8 @@ import ee.pw.edu.pl.doborpartnera.core.validation.NameLengthValidator
 import ee.pw.edu.pl.doborpartnera.core.validation.Validator
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
-import ee.pw.edu.pl.domain.usecase.profile.EditProfileForm
-import ee.pw.edu.pl.domain.usecase.profile.EditProfileUseCase
+import ee.pw.edu.pl.domain.usecase.account.EditAccountForm
+import ee.pw.edu.pl.domain.usecase.account.EditAccountUseCase
 import ee.pw.edu.pl.domain.usecase.profile.ProfileAvatar
 import ee.pw.edu.pl.domain.usecase.profile.ProfileImage
 import javax.inject.Inject
@@ -34,7 +34,7 @@ const val MAX_IMAGES = 8
 
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
-    private val editProfileUseCase: EditProfileUseCase,
+    private val editAccountUseCase: EditAccountUseCase,
     private val bitmapManager: BitmapManager,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<EditProfileState>(savedStateHandle, EditProfileState()) {
@@ -145,8 +145,8 @@ class EditProfileViewModel @Inject constructor(
             val avatarUri = Uri.parse(state.avatar) ?: return@launch
             val format = "jpg"
             val profileBytes = bitmapManager.compress(avatarUri)
-            editProfileUseCase(
-                EditProfileForm(
+            editAccountUseCase(
+                EditAccountForm(
                     profileAvatar = ProfileAvatar(
                         bytes = profileBytes,
                         url = if (profileBytes == null) state.avatar else null,

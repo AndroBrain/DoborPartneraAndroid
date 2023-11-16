@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
-import ee.pw.edu.pl.domain.usecase.profile.GetIsProfileFilledUseCase
+import ee.pw.edu.pl.domain.usecase.account.GetIsAccountFilledUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MatchViewModel @Inject constructor(
-    private val getIsProfileFilledUseCase: GetIsProfileFilledUseCase,
+    private val getIsAccountFilledUseCase: GetIsAccountFilledUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<MatchState>(savedStateHandle, MatchState()) {
     init {
@@ -28,7 +28,7 @@ class MatchViewModel @Inject constructor(
     fun loadIsProfileFilled() {
         viewModelScope.launch {
             updateState { state -> state.copy(isLoading = true, isInError = false) }
-            getIsProfileFilledUseCase().onEach { result ->
+            getIsAccountFilledUseCase().onEach { result ->
                 result.fold(
                     onOk = {
                         updateState { state ->

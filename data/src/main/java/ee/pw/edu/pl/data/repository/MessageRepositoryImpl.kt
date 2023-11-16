@@ -3,23 +3,23 @@ package ee.pw.edu.pl.data.repository
 import android.util.Log
 import ee.pw.edu.pl.data.datasource.message.local.MessageLocalDataSource
 import ee.pw.edu.pl.data.datasource.message.remote.MessageRemoteDataSource
-import ee.pw.edu.pl.data.datasource.profile.local.ProfileLocalDataSource
 import ee.pw.edu.pl.data.model.ApiResponse
 import ee.pw.edu.pl.data.model.message.local.MessageEntity
 import ee.pw.edu.pl.data.model.message.remote.MessageResponse
-import ee.pw.edu.pl.data.model.profile.local.ProfileEntity
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.MessageRepository
+import ee.pw.edu.pl.domain.repository.ProfileRepository
 import ee.pw.edu.pl.domain.usecase.message.Message
 import ee.pw.edu.pl.domain.usecase.message.profile.ProfileWithMessages
+import ee.pw.edu.pl.domain.usecase.profile.Profile
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class MessageRepositoryImpl(
     private val messageRemoteDataSource: MessageRemoteDataSource,
     private val messageLocalDataSource: MessageLocalDataSource,
-    private val profileLocalDataSource: ProfileLocalDataSource,
+    private val profileRepository: ProfileRepository,
 ) : MessageRepository {
     override fun getMessages(id: Int): Flow<List<Message>> =
         messageLocalDataSource.get(id).map { messages ->
@@ -51,10 +51,10 @@ class MessageRepositoryImpl(
                 val result = chatProfiles.body
                 Log.d("ResponseChats", result.toString())
                 messageLocalDataSource.removeAll()
-                profileLocalDataSource.removeAll()
-                profileLocalDataSource.insert(
+                profileRepository.removeAll()
+                profileRepository.insert(
                     result.map { response ->
-                        ProfileEntity(
+                        Profile(
                             id = response.id, name = response.name, avatar = response.avatar,
                         )
                     }

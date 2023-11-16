@@ -11,7 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ee.pw.edu.pl.doborpartnera.R
-import ee.pw.edu.pl.domain.usecase.profile.Gender
+import ee.pw.edu.pl.domain.usecase.account.Gender
 
 @Composable
 fun GenderPicker(

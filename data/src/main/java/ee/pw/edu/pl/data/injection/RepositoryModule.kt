@@ -68,11 +68,11 @@ object RepositoryModule {
     fun provideMessageRepository(
         messageRemoteDataSource: MessageRemoteDataSource,
         messageLocalDataSource: MessageLocalDataSource,
-        profileLocalDataSource: ProfileLocalDataSource,
+        profileRepository: ProfileRepository,
     ): MessageRepository = MessageRepositoryImpl(
         messageRemoteDataSource = messageRemoteDataSource,
         messageLocalDataSource = messageLocalDataSource,
-        profileLocalDataSource = profileLocalDataSource,
+        profileRepository = profileRepository,
     )
 
     @Provides
