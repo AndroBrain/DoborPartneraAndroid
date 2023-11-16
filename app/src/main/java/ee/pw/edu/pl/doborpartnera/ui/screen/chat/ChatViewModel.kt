@@ -9,6 +9,7 @@ import ee.pw.edu.pl.domain.usecase.chat.SendMessageUseCase
 import ee.pw.edu.pl.domain.usecase.chat.SubscribeToChatUseCase
 import ee.pw.edu.pl.domain.usecase.message.GetMessagesUseCase
 import javax.inject.Inject
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -67,6 +68,14 @@ class ChatViewModel @Inject constructor(
     private fun subscribeToChat() {
         viewModelScope.launch {
             subscribeToChatUseCase()
+        }
+    }
+
+    fun loadMoreMessages() {
+        viewModelScope.launch {
+            updateState { state -> state.copy(isLoadingMoreMessages = true) }
+            delay(2000L)
+            updateState { state -> state.copy(isLoadingMoreMessages = false) }
         }
     }
 }

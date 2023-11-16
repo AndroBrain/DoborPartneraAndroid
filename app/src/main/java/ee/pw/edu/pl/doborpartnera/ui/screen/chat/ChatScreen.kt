@@ -29,6 +29,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -117,6 +118,25 @@ fun ChatScreen(
                 modifier = Modifier.weight(1F),
                 contentPadding = PaddingValues(bottom = App.dimens.views_spacing_medium),
             ) {
+                if (state.value.isLoadingMoreMessages) {
+                    item {
+                        Box(modifier = Modifier.fillMaxWidth()) {
+                            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                        }
+                    }
+                }
+                if (state.value.canLoadMoreMessages && !state.value.isLoadingMoreMessages) {
+                    item {
+                        Box(modifier = Modifier.fillMaxWidth()) {
+                            OutlinedButton(
+                                modifier = Modifier.align(Alignment.Center),
+                                onClick = viewModel::loadMoreMessages,
+                            ) {
+                                Text(text = stringResource(id = R.string.chat_load_more))
+                            }
+                        }
+                    }
+                }
                 items(state.value.messages) { chat ->
                     Box(modifier = Modifier.fillMaxWidth()) {
                         Box(

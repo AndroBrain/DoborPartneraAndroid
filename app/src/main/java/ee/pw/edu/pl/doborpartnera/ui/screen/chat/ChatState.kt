@@ -14,4 +14,6 @@ data class ChatState(
     val name: String = "",
     val imageUrl: String = "",
     val id: Int = -1,
+    val canLoadMoreMessages: Boolean = true,
+    val isLoadingMoreMessages: Boolean = false,
 ) : UiState

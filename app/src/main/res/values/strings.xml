@@ -34,6 +34,7 @@
 
     <!-- Chat -->
     <string name="chat_message_placeholder">Napisz wiadomość…</string>
+    <string name="chat_load_more">Wczytaj wiadomości</string>
 
     <!-- Match -->
     <string name="match_title">Szukaj</string>
