@@ -11,9 +11,6 @@ class RoomChatLocalDataSource(
         chatDao.getProfilesWithMessages()
 
     override fun getMessages(ownerId: Int): Flow<List<MessageEntity>> = chatDao.getMessages(ownerId)
-    override suspend fun removeChatPerson(id: Int) {
-        chatDao.remove(id)
-    }
 
     override suspend fun removeAll() {
         chatDao.removeAllMessages()

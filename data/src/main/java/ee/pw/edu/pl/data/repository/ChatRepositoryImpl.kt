@@ -91,7 +91,7 @@ class ChatRepositoryImpl(
         }
 
     override suspend fun removeChatProfile(id: Int) {
-        chatLocalDataSource.removeChatPerson(id)
+        profileLocalDataSource.remove(id)
     }
 
     private fun MessageResponse.toEntity() = MessageEntity(

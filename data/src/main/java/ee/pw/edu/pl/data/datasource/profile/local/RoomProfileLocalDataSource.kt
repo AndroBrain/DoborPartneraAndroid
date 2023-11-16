@@ -10,4 +10,8 @@ class RoomProfileLocalDataSource(
             profileDao.insert(profile)
         }
     }
+
+    override suspend fun remove(id: Int) {
+        profileDao.remove(id)
+    }
 }
