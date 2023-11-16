@@ -2,8 +2,8 @@ package ee.pw.edu.pl.data.datasource.match.remote
 
 import ee.pw.edu.pl.data.core.remote.ApiService
 import ee.pw.edu.pl.data.model.apiCall
-import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
-import ee.pw.edu.pl.data.model.match.MatchRequest
+import ee.pw.edu.pl.data.model.match.remote.DeclineMatchRequest
+import ee.pw.edu.pl.data.model.match.remote.MatchRequest
 
 class RetrofitMatchRemoteDataSource(
     private val apiService: ApiService,

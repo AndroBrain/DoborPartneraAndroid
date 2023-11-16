@@ -2,9 +2,9 @@ package ee.pw.edu.pl.data.repository
 
 import ee.pw.edu.pl.data.datasource.match.remote.MatchRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponse
-import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
-import ee.pw.edu.pl.data.model.match.MatchRequest
-import ee.pw.edu.pl.data.model.match.MatchResponse
+import ee.pw.edu.pl.data.model.match.remote.DeclineMatchRequest
+import ee.pw.edu.pl.data.model.match.remote.MatchRequest
+import ee.pw.edu.pl.data.model.match.remote.MatchResponse
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.MatchRepository

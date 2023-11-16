@@ -6,9 +6,9 @@ import ee.pw.edu.pl.data.model.auth.remote.LoginRequest
 import ee.pw.edu.pl.data.model.auth.remote.LoginResponse
 import ee.pw.edu.pl.data.model.auth.remote.RegisterRequest
 import ee.pw.edu.pl.data.model.auth.remote.RegisterResponse
-import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
-import ee.pw.edu.pl.data.model.match.MatchRequest
-import ee.pw.edu.pl.data.model.match.MatchResponse
+import ee.pw.edu.pl.data.model.match.remote.DeclineMatchRequest
+import ee.pw.edu.pl.data.model.match.remote.MatchRequest
+import ee.pw.edu.pl.data.model.match.remote.MatchResponse
 import ee.pw.edu.pl.data.model.message.remote.LoadMoreMessagesRequest
 import ee.pw.edu.pl.data.model.message.remote.LoadMoreMessagesResponse
 import ee.pw.edu.pl.data.model.message.remote.ProfileWithMessagesResponse

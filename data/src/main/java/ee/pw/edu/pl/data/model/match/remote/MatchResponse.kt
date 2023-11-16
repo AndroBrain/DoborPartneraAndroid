@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.model.match
+package ee.pw.edu.pl.data.model.match.remote
 
 import ee.pw.edu.pl.data.core.serializer.DateSerializer
 import java.util.*
