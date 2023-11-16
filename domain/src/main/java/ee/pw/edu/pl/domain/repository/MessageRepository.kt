@@ -1,13 +1,13 @@
 package ee.pw.edu.pl.domain.repository
 
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
-import ee.pw.edu.pl.domain.usecase.chat.Chat
-import ee.pw.edu.pl.domain.usecase.chat.profile.ChatProfile
+import ee.pw.edu.pl.domain.usecase.message.Message
+import ee.pw.edu.pl.domain.usecase.message.profile.ProfileWithMessages
 import kotlinx.coroutines.flow.Flow
 
 interface MessageRepository {
-    fun getMessages(id: Int): Flow<List<Chat>>
-    fun getProfileChats(): Flow<List<ChatProfile>>
+    fun getMessages(id: Int): Flow<List<Message>>
+    fun getProfilesWithMessages(): Flow<List<ProfileWithMessages>>
     suspend fun updateChatProfiles(): UseCaseResult<Unit>
     suspend fun removeChatProfile(id: Int)
 }

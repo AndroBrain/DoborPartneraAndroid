@@ -4,10 +4,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
-import ee.pw.edu.pl.domain.usecase.chat.GetChatMessagesUseCase
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageForm
 import ee.pw.edu.pl.domain.usecase.chat.SendMessageUseCase
 import ee.pw.edu.pl.domain.usecase.chat.SubscribeToChatUseCase
+import ee.pw.edu.pl.domain.usecase.message.GetMessagesUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class ChatViewModel @Inject constructor(
     private val sendMessageUseCase: SendMessageUseCase,
     private val subscribeToChatUseCase: SubscribeToChatUseCase,
-    private val getChatMessagesUseCase: GetChatMessagesUseCase,
+    private val getMessagesUseCase: GetMessagesUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<ChatState>(savedStateHandle, ChatState()) {
     private val args = ChatArgs(savedStateHandle)
@@ -32,8 +32,8 @@ class ChatViewModel @Inject constructor(
         }
         subscribeToChat()
         viewModelScope.launch {
-            getChatMessagesUseCase(args.id).onEach { chats ->
-                updateState { state -> state.copy(chats = chats) }
+            getMessagesUseCase(args.id).onEach { chats ->
+                updateState { state -> state.copy(messages = chats) }
             }.launchIn(this)
         }
     }

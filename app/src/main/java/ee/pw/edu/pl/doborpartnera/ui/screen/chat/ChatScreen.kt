@@ -65,7 +65,7 @@ fun ChatScreen(
         }
     }
     val lazyListState = rememberLazyListState()
-    state.value.chats.let { chats ->
+    state.value.messages.let { chats ->
         LaunchedEffect(chats) {
             val lastChat = chats.lastOrNull() ?: return@LaunchedEffect
             if (!lastChat.isYour) {
@@ -117,7 +117,7 @@ fun ChatScreen(
                 modifier = Modifier.weight(1F),
                 contentPadding = PaddingValues(bottom = App.dimens.views_spacing_medium),
             ) {
-                items(state.value.chats) { chat ->
+                items(state.value.messages) { chat ->
                     Box(modifier = Modifier.fillMaxWidth()) {
                         Box(
                             modifier = Modifier

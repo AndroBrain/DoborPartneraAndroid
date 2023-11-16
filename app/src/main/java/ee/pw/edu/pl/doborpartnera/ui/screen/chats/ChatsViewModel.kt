@@ -7,9 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
-import ee.pw.edu.pl.domain.usecase.chat.profile.GetChatProfilesUseCase
-import ee.pw.edu.pl.domain.usecase.chat.profile.RemoveChatPersonUseCase
-import ee.pw.edu.pl.domain.usecase.chat.profile.UpdateChatProfilesUseCase
+import ee.pw.edu.pl.domain.usecase.message.profile.GetProfilesWithMessagesUseCase
+import ee.pw.edu.pl.domain.usecase.message.profile.RemoveProfileWithMessagesUseCase
+import ee.pw.edu.pl.domain.usecase.message.profile.UpdateProfilesWithMessagesUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -17,9 +17,9 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ChatsViewModel @Inject constructor(
-    private val removeChatPersonUseCase: RemoveChatPersonUseCase,
-    private val getChatProfilesUseCase: GetChatProfilesUseCase,
-    private val updateChatProfilesUseCase: UpdateChatProfilesUseCase,
+    private val removeProfileWithMessagesUseCase: RemoveProfileWithMessagesUseCase,
+    private val getProfilesWithMessagesUseCase: GetProfilesWithMessagesUseCase,
+    private val updateProfilesWithMessagesUseCase: UpdateProfilesWithMessagesUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<ChatsState>(savedStateHandle, ChatsState()) {
     init {
@@ -29,7 +29,7 @@ class ChatsViewModel @Inject constructor(
     fun updateChats() {
         viewModelScope.launch {
             updateState { state -> state.copy(isLoading = state.chatPeople?.isEmpty() == true) }
-            updateChatProfilesUseCase().fold(
+            updateProfilesWithMessagesUseCase().fold(
                 onOk = {
                     updateState { state -> state.copy(isLoading = false) }
                 }, onError = { error ->
@@ -58,7 +58,7 @@ class ChatsViewModel @Inject constructor(
                 )
             }
             Log.d("RemoveChat", chatPerson.toString())
-            removeChatPersonUseCase(chatPerson.person.id).fold(
+            removeProfileWithMessagesUseCase(chatPerson.person.id).fold(
                 onOk = { person ->
                     updateState { state ->
                         state.copy(
@@ -84,7 +84,7 @@ class ChatsViewModel @Inject constructor(
 
     private fun getChats() {
         viewModelScope.launch {
-            getChatProfilesUseCase().onEach { result ->
+            getProfilesWithMessagesUseCase().onEach { result ->
                 updateState { state ->
                     state.copy(
                         chatPeople = result.map { person ->

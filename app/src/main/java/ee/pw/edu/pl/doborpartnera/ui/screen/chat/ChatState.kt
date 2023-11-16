@@ -2,12 +2,12 @@ package ee.pw.edu.pl.doborpartnera.ui.screen.chat
 
 import androidx.annotation.StringRes
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.UiState
-import ee.pw.edu.pl.domain.usecase.chat.Chat
+import ee.pw.edu.pl.domain.usecase.message.Message
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ChatState(
-    val chats: List<Chat> = emptyList(),
+    val messages: List<Message> = emptyList(),
     val message: String = "",
     val messagesBeingSent: Int = 0,
     @StringRes val errorMsg: Int? = null,

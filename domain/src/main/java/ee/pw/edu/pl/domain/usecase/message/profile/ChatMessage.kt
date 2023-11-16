@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.domain.usecase.chat.profile
+package ee.pw.edu.pl.domain.usecase.message.profile
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

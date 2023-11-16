@@ -1,11 +1,11 @@
-package ee.pw.edu.pl.domain.usecase.chat.profile
+package ee.pw.edu.pl.domain.usecase.message.profile
 
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.MessageRepository
 import ee.pw.edu.pl.domain.usecase.match.DeclineMatchUseCase
 import javax.inject.Inject
 
-class RemoveChatPersonUseCase @Inject constructor(
+class RemoveProfileWithMessagesUseCase @Inject constructor(
     private val declineMatchUseCase: DeclineMatchUseCase,
     private val messageRepository: MessageRepository,
 ) {

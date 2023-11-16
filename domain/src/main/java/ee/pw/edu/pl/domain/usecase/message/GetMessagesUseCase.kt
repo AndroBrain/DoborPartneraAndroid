@@ -1,11 +1,11 @@
-package ee.pw.edu.pl.domain.usecase.chat
+package ee.pw.edu.pl.domain.usecase.message
 
 import ee.pw.edu.pl.domain.repository.MessageRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
-class GetChatMessagesUseCase @Inject constructor(
+class GetMessagesUseCase @Inject constructor(
     private val messageRepository: MessageRepository,
 ) {
-    operator fun invoke(id: Int): Flow<List<Chat>> = messageRepository.getMessages(id)
+    operator fun invoke(id: Int): Flow<List<Message>> = messageRepository.getMessages(id)
 }

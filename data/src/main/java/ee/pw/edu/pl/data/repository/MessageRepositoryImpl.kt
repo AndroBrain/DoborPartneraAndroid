@@ -11,8 +11,8 @@ import ee.pw.edu.pl.data.model.profile.local.ProfileEntity
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.MessageRepository
-import ee.pw.edu.pl.domain.usecase.chat.Chat
-import ee.pw.edu.pl.domain.usecase.chat.profile.ChatProfile
+import ee.pw.edu.pl.domain.usecase.message.Message
+import ee.pw.edu.pl.domain.usecase.message.profile.ProfileWithMessages
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -21,23 +21,23 @@ class MessageRepositoryImpl(
     private val messageLocalDataSource: MessageLocalDataSource,
     private val profileLocalDataSource: ProfileLocalDataSource,
 ) : MessageRepository {
-    override fun getMessages(id: Int): Flow<List<Chat>> =
+    override fun getMessages(id: Int): Flow<List<Message>> =
         messageLocalDataSource.get(id).map { messages ->
             messages.map { message ->
-                Chat(text = message.text, isYour = message.fromUser != id)
+                Message(text = message.text, isYour = message.fromUser != id)
             }
         }
 
-    override fun getProfileChats(): Flow<List<ChatProfile>> =
+    override fun getProfilesWithMessages(): Flow<List<ProfileWithMessages>> =
         messageLocalDataSource.getProfilesWithMessages().map { profilesWithMessages ->
             profilesWithMessages.map { profileWithMessages ->
                 val (profile, messages) = profileWithMessages
-                ChatProfile(
+                ProfileWithMessages(
                     id = profile.id,
                     name = profile.name,
                     avatar = profile.avatar,
                     messages = messages.map { message ->
-                        Chat(text = message.text, isYour = message.fromUser == profile.id)
+                        Message(text = message.text, isYour = message.fromUser == profile.id)
                     },
                 )
             }

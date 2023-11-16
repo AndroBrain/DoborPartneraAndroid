@@ -1,9 +1,9 @@
-package ee.pw.edu.pl.domain.usecase.chat.profile
+package ee.pw.edu.pl.domain.usecase.message.profile
 
 import ee.pw.edu.pl.domain.repository.MessageRepository
 import javax.inject.Inject
 
-class UpdateChatProfilesUseCase @Inject constructor(
+class UpdateProfilesWithMessagesUseCase @Inject constructor(
     private val messageRepository: MessageRepository,
 ) {
     suspend operator fun invoke() = messageRepository.updateChatProfiles()

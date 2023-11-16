@@ -5,11 +5,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import ee.pw.edu.pl.doborpartnera.ui.navigation.composable
-import ee.pw.edu.pl.domain.usecase.chat.profile.ChatProfile
+import ee.pw.edu.pl.domain.usecase.message.profile.ProfileWithMessages
 
 const val FIND_MATCH_ROUTE = "FIND_MATCH"
 
-fun NavGraphBuilder.findMatchScreen(navigateToChat: (ChatProfile) -> Unit) {
+fun NavGraphBuilder.findMatchScreen(navigateToChat: (ProfileWithMessages) -> Unit) {
     composable(FIND_MATCH_ROUTE) {
         val viewModel: FindMatchViewModel = hiltViewModel()
         FindMatchScreen(
