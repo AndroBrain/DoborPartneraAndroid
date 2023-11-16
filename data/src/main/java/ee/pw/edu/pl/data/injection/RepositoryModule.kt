@@ -18,11 +18,13 @@ import ee.pw.edu.pl.data.repository.AuthRepositoryImpl
 import ee.pw.edu.pl.data.repository.ChatRepositoryImpl
 import ee.pw.edu.pl.data.repository.MatchRepositoryImpl
 import ee.pw.edu.pl.data.repository.MessageRepositoryImpl
+import ee.pw.edu.pl.data.repository.ProfileRepositoryImpl
 import ee.pw.edu.pl.domain.repository.AccountRepository
 import ee.pw.edu.pl.domain.repository.AuthRepository
 import ee.pw.edu.pl.domain.repository.ChatRepository
 import ee.pw.edu.pl.domain.repository.MatchRepository
 import ee.pw.edu.pl.domain.repository.MessageRepository
+import ee.pw.edu.pl.domain.repository.ProfileRepository
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -38,7 +40,7 @@ object RepositoryModule {
     )
 
     @Provides
-    fun provideProfileRepository(
+    fun provideAccountRepository(
         imageRemoteDataSource: ImageRemoteDataSource,
         accountRemoteDataSource: AccountRemoteDataSource,
     ): AccountRepository = AccountRepositoryImpl(
@@ -72,4 +74,9 @@ object RepositoryModule {
         messageLocalDataSource = messageLocalDataSource,
         profileLocalDataSource = profileLocalDataSource,
     )
+
+    @Provides
+    fun provideProfileRepository(
+        profileLocalDataSource: ProfileLocalDataSource,
+    ): ProfileRepository = ProfileRepositoryImpl(profileLocalDataSource)
 }

@@ -68,10 +68,6 @@ class MessageRepositoryImpl(
             }
         }
 
-    override suspend fun removeChatProfile(id: Int) {
-        profileLocalDataSource.remove(id)
-    }
-
     private fun MessageResponse.toEntity() = MessageEntity(
         id = id,
         fromUser = fromUser,
