@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.model.auth
+package ee.pw.edu.pl.data.model.auth.remote
 
 import kotlinx.serialization.Serializable
 

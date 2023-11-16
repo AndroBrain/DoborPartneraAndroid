@@ -3,8 +3,8 @@ package ee.pw.edu.pl.data.repository
 import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.remote.AuthRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponse
-import ee.pw.edu.pl.data.model.auth.LoginRequest
-import ee.pw.edu.pl.data.model.auth.RegisterRequest
+import ee.pw.edu.pl.data.model.auth.remote.LoginRequest
+import ee.pw.edu.pl.data.model.auth.remote.RegisterRequest
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.AuthRepository

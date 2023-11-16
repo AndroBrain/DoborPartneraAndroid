@@ -2,8 +2,8 @@ package ee.pw.edu.pl.data.datasource.auth.remote
 
 import ee.pw.edu.pl.data.core.remote.ApiService
 import ee.pw.edu.pl.data.model.apiCall
-import ee.pw.edu.pl.data.model.auth.LoginRequest
-import ee.pw.edu.pl.data.model.auth.RegisterRequest
+import ee.pw.edu.pl.data.model.auth.remote.LoginRequest
+import ee.pw.edu.pl.data.model.auth.remote.RegisterRequest
 
 class RetrofitAuthRemoteDataSource(
     private val api: ApiService,

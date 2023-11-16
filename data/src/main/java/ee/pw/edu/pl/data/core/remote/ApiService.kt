@@ -2,10 +2,10 @@ package ee.pw.edu.pl.data.core.remote
 
 import ee.pw.edu.pl.data.model.account.remote.GetAccountInfoResponse
 import ee.pw.edu.pl.data.model.account.remote.SetAccountInfoRequest
-import ee.pw.edu.pl.data.model.auth.LoginRequest
-import ee.pw.edu.pl.data.model.auth.LoginResponse
-import ee.pw.edu.pl.data.model.auth.RegisterRequest
-import ee.pw.edu.pl.data.model.auth.RegisterResponse
+import ee.pw.edu.pl.data.model.auth.remote.LoginRequest
+import ee.pw.edu.pl.data.model.auth.remote.LoginResponse
+import ee.pw.edu.pl.data.model.auth.remote.RegisterRequest
+import ee.pw.edu.pl.data.model.auth.remote.RegisterResponse
 import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
 import ee.pw.edu.pl.data.model.match.MatchRequest
 import ee.pw.edu.pl.data.model.match.MatchResponse
