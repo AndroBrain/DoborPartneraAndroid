@@ -6,7 +6,7 @@ import ee.pw.edu.pl.data.model.apiCall
 class RetrofitMessageRemoteDataSource(
     private val api: ApiService,
 ) : MessageRemoteDataSource {
-    override suspend fun getChats() = apiCall {
+    override suspend fun getProfilesWithMessages() = apiCall {
         api.getConversations()
     }
 }

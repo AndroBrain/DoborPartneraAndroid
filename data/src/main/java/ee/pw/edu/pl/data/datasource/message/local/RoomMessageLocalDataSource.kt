@@ -10,14 +10,14 @@ class RoomMessageLocalDataSource(
     override fun getProfilesWithMessages(): Flow<List<ProfileWithMessages>> =
         messageDao.getProfilesWithMessages()
 
-    override fun getMessages(ownerId: Int): Flow<List<MessageEntity>> =
+    override fun get(ownerId: Int): Flow<List<MessageEntity>> =
         messageDao.getMessages(ownerId)
 
     override suspend fun removeAll() {
         messageDao.removeAll()
     }
 
-    override suspend fun insertMessages(messageEntities: List<MessageEntity>) {
+    override suspend fun insert(messageEntities: List<MessageEntity>) {
         messageEntities.forEach { message ->
             messageDao.insertMessage(message)
         }

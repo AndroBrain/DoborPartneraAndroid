@@ -1,10 +1,9 @@
-package ee.pw.edu.pl.data.model.chat.remote
+package ee.pw.edu.pl.data.model.message.remote
 
-import ee.pw.edu.pl.data.model.message.remote.MessageResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ChatProfileResponse(
+data class ProfileWithMessagesResponse(
     val avatar: String,
     val id: Int,
     val name: String,

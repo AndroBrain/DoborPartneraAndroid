@@ -19,7 +19,7 @@ class ChatRepositoryImpl(
     override suspend fun subscribeToChat() {
         withContext(Dispatchers.IO) {
             chatRemoteDataSource.connectToChat().onEach { response ->
-                messageLocalDataSource.insertMessages(listOf(response.toEntity()))
+                messageLocalDataSource.insert(listOf(response.toEntity()))
             }.launchIn(this)
         }
     }

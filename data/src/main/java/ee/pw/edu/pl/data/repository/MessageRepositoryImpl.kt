@@ -22,7 +22,7 @@ class MessageRepositoryImpl(
     private val profileLocalDataSource: ProfileLocalDataSource,
 ) : MessageRepository {
     override fun getMessages(id: Int): Flow<List<Chat>> =
-        messageLocalDataSource.getMessages(id).map { messages ->
+        messageLocalDataSource.get(id).map { messages ->
             messages.map { message ->
                 Chat(text = message.text, isYour = message.fromUser != id)
             }
@@ -44,7 +44,7 @@ class MessageRepositoryImpl(
         }
 
     override suspend fun updateChatProfiles(): UseCaseResult<Unit> =
-        when (val chatProfiles = messageRemoteDataSource.getChats()) {
+        when (val chatProfiles = messageRemoteDataSource.getProfilesWithMessages()) {
             is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> {
@@ -60,7 +60,7 @@ class MessageRepositoryImpl(
                     }
                 )
                 result.forEach { profile ->
-                    messageLocalDataSource.insertMessages(
+                    messageLocalDataSource.insert(
                         profile.messages.map { message -> message.toEntity() }
                     )
                 }

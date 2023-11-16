@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface MessageLocalDataSource {
     fun getProfilesWithMessages(): Flow<List<ProfileWithMessages>>
-    fun getMessages(ownerId: Int): Flow<List<MessageEntity>>
+    fun get(ownerId: Int): Flow<List<MessageEntity>>
     suspend fun removeAll()
-    suspend fun insertMessages(messageEntities: List<MessageEntity>)
+    suspend fun insert(messageEntities: List<MessageEntity>)
 }

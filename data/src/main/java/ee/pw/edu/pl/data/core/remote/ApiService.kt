@@ -4,10 +4,10 @@ import ee.pw.edu.pl.data.model.auth.LoginRequest
 import ee.pw.edu.pl.data.model.auth.LoginResponse
 import ee.pw.edu.pl.data.model.auth.RegisterRequest
 import ee.pw.edu.pl.data.model.auth.RegisterResponse
-import ee.pw.edu.pl.data.model.chat.remote.ChatProfileResponse
 import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
 import ee.pw.edu.pl.data.model.match.MatchRequest
 import ee.pw.edu.pl.data.model.match.MatchResponse
+import ee.pw.edu.pl.data.model.message.remote.ProfileWithMessagesResponse
 import ee.pw.edu.pl.data.model.profile.remote.GetProfileInfoResponse
 import ee.pw.edu.pl.data.model.profile.remote.SetProfileInfoRequest
 import retrofit2.Response
@@ -47,5 +47,5 @@ interface ApiService {
 
     // Message
     @GET("$PATH_MESSAGE/conversations")
-    suspend fun getConversations(): Response<List<ChatProfileResponse>>
+    suspend fun getConversations(): Response<List<ProfileWithMessagesResponse>>
 }
