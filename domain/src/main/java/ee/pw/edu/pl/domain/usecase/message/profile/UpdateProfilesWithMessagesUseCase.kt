@@ -6,5 +6,5 @@ import javax.inject.Inject
 class UpdateProfilesWithMessagesUseCase @Inject constructor(
     private val messageRepository: MessageRepository,
 ) {
-    suspend operator fun invoke() = messageRepository.updateChatProfiles()
+    suspend operator fun invoke() = messageRepository.updateProfilesWithMessages()
 }

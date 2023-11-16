@@ -44,22 +44,22 @@ class MessageRepositoryImpl(
             }
         }
 
-    override suspend fun updateChatProfiles(): UseCaseResult<Unit> =
-        when (val chatProfiles = messageRemoteDataSource.getProfilesWithMessages()) {
+    override suspend fun updateProfilesWithMessages(): UseCaseResult<Unit> =
+        when (val response = messageRemoteDataSource.getProfilesWithMessages()) {
             is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> {
-                val result = chatProfiles.body
+                val profiles = response.body
                 messageLocalDataSource.removeAll()
                 profileRepository.removeAll()
                 profileRepository.insert(
-                    result.map { response ->
+                    profiles.map { profile ->
                         Profile(
-                            id = response.id, name = response.name, avatar = response.avatar,
+                            id = profile.id, name = profile.name, avatar = profile.avatar,
                         )
                     }
                 )
-                result.forEach { profile ->
+                profiles.forEach { profile ->
                     messageLocalDataSource.insert(
                         profile.messages.map { message -> message.toEntity() }
                     )

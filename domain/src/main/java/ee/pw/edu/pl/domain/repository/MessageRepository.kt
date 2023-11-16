@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface MessageRepository {
     fun getMessages(id: Int): Flow<List<Message>>
     fun getProfilesWithMessages(): Flow<List<ProfileWithMessages>>
-    suspend fun updateChatProfiles(): UseCaseResult<Unit>
+    suspend fun updateProfilesWithMessages(): UseCaseResult<Unit>
     suspend fun loadMoreMessages(id: Int): UseCaseResult<Boolean>
 }

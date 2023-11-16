@@ -16,8 +16,8 @@ class AuthRepositoryImpl(
     private val authRemoteDataSource: AuthRemoteDataSource,
     private val authLocalDataSource: AuthLocalDataSource,
 ) : AuthRepository {
-    override suspend fun register(form: RegisterForm): UseCaseResult<Unit> {
-        val response = authRemoteDataSource.register(
+    override suspend fun register(form: RegisterForm): UseCaseResult<Unit> =
+        when (val response = authRemoteDataSource.register(
             RegisterRequest(
                 email = form.email,
                 name = form.name,
@@ -26,8 +26,7 @@ class AuthRepositoryImpl(
                 birthdate = Date(form.birthdate),
                 password = form.password,
             )
-        )
-        return when (response) {
+        )) {
             is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.EMAIL_TAKEN)
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> {
@@ -35,13 +34,13 @@ class AuthRepositoryImpl(
                 UseCaseResult.Ok(Unit)
             }
         }
-    }
 
-    override suspend fun login(form: LoginForm): UseCaseResult<Boolean> {
-        val response = authRemoteDataSource.login(
-            LoginRequest(email = form.email, password = form.password)
-        )
-        return when (response) {
+    override suspend fun login(form: LoginForm): UseCaseResult<Boolean> =
+        when (
+            val response = authRemoteDataSource.login(
+                LoginRequest(email = form.email, password = form.password)
+            )
+        ) {
             is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.INVALID_CREDENTIALS)
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> {
@@ -49,7 +48,6 @@ class AuthRepositoryImpl(
                 UseCaseResult.Ok(response.body.isProfileFilled)
             }
         }
-    }
 
     override suspend fun getToken() = authLocalDataSource.getToken()
 }
