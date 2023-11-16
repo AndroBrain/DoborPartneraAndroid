@@ -4,7 +4,7 @@ import com.microsoft.signalr.HubConnection
 import com.microsoft.signalr.HubConnectionBuilder
 import ee.pw.edu.pl.data.core.remote.ApiService
 import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
-import ee.pw.edu.pl.data.model.apiCallWithHeaders
+import ee.pw.edu.pl.data.model.apiCall
 import ee.pw.edu.pl.data.model.chat.remote.MessageResponse
 import ee.pw.edu.pl.data.model.chat.remote.SendMessageRequest
 import io.reactivex.rxjava3.core.Single
@@ -53,7 +53,7 @@ class SignalRChatRemoteDataSource(
         connection.invoke("SendMessage", request.receiverId, request.message)
     }
 
-    override suspend fun getChats() = apiCallWithHeaders {
+    override suspend fun getChats() = apiCall {
         api.getConversations()
     }
 }

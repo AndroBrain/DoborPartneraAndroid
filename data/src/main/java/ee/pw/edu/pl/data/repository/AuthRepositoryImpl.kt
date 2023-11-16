@@ -2,7 +2,7 @@ package ee.pw.edu.pl.data.repository
 
 import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
 import ee.pw.edu.pl.data.datasource.auth.remote.AuthRemoteDataSource
-import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
+import ee.pw.edu.pl.data.model.ApiResponse
 import ee.pw.edu.pl.data.model.auth.LoginRequest
 import ee.pw.edu.pl.data.model.auth.RegisterRequest
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
@@ -28,9 +28,9 @@ class AuthRepositoryImpl(
             )
         )
         return when (response) {
-            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.EMAIL_TAKEN)
-            is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
-            is ApiResponseWithHeaders.Ok -> {
+            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.EMAIL_TAKEN)
+            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponse.Ok -> {
                 authLocalDataSource.setToken(response.body.token)
                 UseCaseResult.Ok(Unit)
             }
@@ -42,9 +42,9 @@ class AuthRepositoryImpl(
             LoginRequest(email = form.email, password = form.password)
         )
         return when (response) {
-            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.INVALID_CREDENTIALS)
-            is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
-            is ApiResponseWithHeaders.Ok -> {
+            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.INVALID_CREDENTIALS)
+            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponse.Ok -> {
                 authLocalDataSource.setToken(response.body.token)
                 UseCaseResult.Ok(response.body.isProfileFilled)
             }

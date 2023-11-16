@@ -3,7 +3,7 @@ package ee.pw.edu.pl.data.repository
 import android.util.Log
 import ee.pw.edu.pl.data.datasource.chat.local.ChatLocalDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
-import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
+import ee.pw.edu.pl.data.model.ApiResponse
 import ee.pw.edu.pl.data.model.chat.local.ChatProfileEntity
 import ee.pw.edu.pl.data.model.chat.local.MessageEntity
 import ee.pw.edu.pl.data.model.chat.remote.MessageResponse
@@ -66,9 +66,9 @@ class ChatRepositoryImpl(
 
     override suspend fun updateChatProfiles(): UseCaseResult<Unit> =
         when (val chatProfiles = chatRemoteDataSource.getChats()) {
-            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
-            is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
-            is ApiResponseWithHeaders.Ok -> {
+            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponse.Ok -> {
                 val result = chatProfiles.body
                 Log.d("ResponseChats", result.toString())
                 chatLocalDataSource.removeAll()

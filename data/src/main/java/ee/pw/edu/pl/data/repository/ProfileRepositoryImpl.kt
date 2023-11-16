@@ -2,7 +2,7 @@ package ee.pw.edu.pl.data.repository
 
 import ee.pw.edu.pl.data.datasource.images.remote.ImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.profile.remote.ProfileRemoteDataSource
-import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
+import ee.pw.edu.pl.data.model.ApiResponse
 import ee.pw.edu.pl.data.model.profile.ProfileImageUrl
 import ee.pw.edu.pl.data.model.profile.SetProfileInfoRequest
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
@@ -38,17 +38,17 @@ class ProfileRepositoryImpl(
             )
         )
         return when (response) {
-            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
-            is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
-            is ApiResponseWithHeaders.Ok -> UseCaseResult.Ok(Unit)
+            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponse.Ok -> UseCaseResult.Ok(Unit)
         }
     }
 
     override suspend fun getProfile(): UseCaseResult<Profile> =
         when (val response = profileRemoteDataSource.getInfo()) {
-            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
-            is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
-            is ApiResponseWithHeaders.Ok -> {
+            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponse.Ok -> {
                 val profile = response.body
                 UseCaseResult.Ok(
                     Profile(

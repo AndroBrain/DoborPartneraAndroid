@@ -9,34 +9,21 @@ import retrofit2.Response
 
 suspend fun <T> apiCall(
     dispatcher: CoroutineDispatcher = Dispatchers.IO,
-    call: suspend () -> T
-) = withContext(dispatcher) {
-    try {
-        ApiResponse.Ok(value = call.invoke())
-    } catch (httpException: HttpException) {
-        ApiResponse.Error(ApiException(httpException.code(), httpException.response()))
-    } catch (unknownHostException: UnknownHostException) {
-        ApiResponse.NetworkError(unknownHostException)
-    }
-}
-
-suspend fun <T> apiCallWithHeaders(
-    dispatcher: CoroutineDispatcher = Dispatchers.IO,
     call: suspend () -> Response<T>
 ) = withContext(dispatcher) {
     try {
         val response = call.invoke()
         when {
-            response.isSuccessful -> ApiResponseWithHeaders.Ok(
+            response.isSuccessful -> ApiResponse.Ok(
                 headers = response.headers(),
                 body = response.body()!!
             )
 
-            else -> ApiResponseWithHeaders.Error(ApiException(response.code(), response))
+            else -> ApiResponse.Error(ApiException(response.code(), response))
         }
     } catch (httpException: HttpException) {
-        ApiResponseWithHeaders.Error(ApiException(httpException.code(), httpException.response()))
+        ApiResponse.Error(ApiException(httpException.code(), httpException.response()))
     } catch (unknownHostException: UnknownHostException) {
-        ApiResponseWithHeaders.NetworkError(unknownHostException)
+        ApiResponse.NetworkError(unknownHostException)
     }
 }

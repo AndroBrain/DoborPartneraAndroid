@@ -1,7 +1,7 @@
 package ee.pw.edu.pl.data.repository
 
 import ee.pw.edu.pl.data.datasource.match.remote.MatchRemoteDataSource
-import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
+import ee.pw.edu.pl.data.model.ApiResponse
 import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
 import ee.pw.edu.pl.data.model.match.MatchRequest
 import ee.pw.edu.pl.data.model.match.MatchResponse
@@ -17,9 +17,9 @@ class MatchRepositoryImpl(
 ) : MatchRepository {
     override suspend fun getMatches(): UseCaseResult<List<MatchProfile>> =
         when (val response = matchRemoteDataSource.getMatches()) {
-            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.NOT_FOUND)
-            is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
-            is ApiResponseWithHeaders.Ok -> {
+            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.NOT_FOUND)
+            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponse.Ok -> {
                 val data = response.body
                 UseCaseResult.Ok(
                     data.map { match -> match.toModel() }
@@ -29,16 +29,16 @@ class MatchRepositoryImpl(
 
     override suspend fun decline(id: Int): UseCaseResult<Unit> =
         when (matchRemoteDataSource.decline(DeclineMatchRequest(id = id))) {
-            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
-            is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
-            is ApiResponseWithHeaders.Ok -> UseCaseResult.Ok(Unit)
+            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponse.Ok -> UseCaseResult.Ok(Unit)
         }
 
     override suspend fun getMatch(id: Int): UseCaseResult<MatchProfile> =
         when (val response = matchRemoteDataSource.getMatch(MatchRequest(id = id))) {
-            is ApiResponseWithHeaders.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
-            is ApiResponseWithHeaders.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
-            is ApiResponseWithHeaders.Ok -> UseCaseResult.Ok(response.body.toModel())
+            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponse.Ok -> UseCaseResult.Ok(response.body.toModel())
         }
 
     private fun MatchResponse.toModel() = MatchProfile(
