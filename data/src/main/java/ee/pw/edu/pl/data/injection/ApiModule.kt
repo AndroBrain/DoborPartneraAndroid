@@ -11,7 +11,7 @@ import ee.pw.edu.pl.data.BuildConfig
 import ee.pw.edu.pl.data.R
 import ee.pw.edu.pl.data.core.remote.ApiService
 import ee.pw.edu.pl.data.core.remote.interceptor.AuthInterceptor
-import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
+import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 import kotlinx.serialization.json.Json

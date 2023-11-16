@@ -1,6 +1,6 @@
 package ee.pw.edu.pl.data.repository
 
-import ee.pw.edu.pl.data.datasource.match.MatchRemoteDataSource
+import ee.pw.edu.pl.data.datasource.match.remote.MatchRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
 import ee.pw.edu.pl.data.model.match.DeclineMatchRequest
 import ee.pw.edu.pl.data.model.match.MatchRequest

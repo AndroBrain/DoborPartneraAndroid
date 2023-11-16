@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.datasource.match
+package ee.pw.edu.pl.data.datasource.match.remote
 
 import ee.pw.edu.pl.data.core.remote.ApiService
 import ee.pw.edu.pl.data.model.apiCallWithHeaders

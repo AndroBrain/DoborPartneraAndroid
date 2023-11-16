@@ -1,7 +1,7 @@
 package ee.pw.edu.pl.data.repository
 
-import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
-import ee.pw.edu.pl.data.datasource.auth.AuthRemoteDataSource
+import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
+import ee.pw.edu.pl.data.datasource.auth.remote.AuthRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
 import ee.pw.edu.pl.data.model.auth.LoginRequest
 import ee.pw.edu.pl.data.model.auth.RegisterRequest

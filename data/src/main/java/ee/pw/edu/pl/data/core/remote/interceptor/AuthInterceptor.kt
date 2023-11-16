@@ -1,7 +1,7 @@
 package ee.pw.edu.pl.data.core.remote.interceptor
 
 import ee.pw.edu.pl.data.core.remote.withAccessToken
-import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
+import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
 import okhttp3.Interceptor
 import okhttp3.Response
 

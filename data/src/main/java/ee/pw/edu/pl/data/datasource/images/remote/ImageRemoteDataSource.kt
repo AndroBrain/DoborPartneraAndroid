@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.datasource.images
+package ee.pw.edu.pl.data.datasource.images.remote
 
 import kotlinx.coroutines.flow.Flow
 

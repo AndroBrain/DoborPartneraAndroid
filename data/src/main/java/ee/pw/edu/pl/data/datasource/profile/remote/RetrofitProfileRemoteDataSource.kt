@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.datasource.profile
+package ee.pw.edu.pl.data.datasource.profile.remote
 
 import ee.pw.edu.pl.data.core.remote.ApiService
 import ee.pw.edu.pl.data.model.ApiResponseWithHeaders

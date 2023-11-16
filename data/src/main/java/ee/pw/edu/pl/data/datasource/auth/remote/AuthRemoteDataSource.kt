@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.datasource.auth
+package ee.pw.edu.pl.data.datasource.auth.remote
 
 import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
 import ee.pw.edu.pl.data.model.auth.LoginRequest

@@ -1,7 +1,7 @@
 package ee.pw.edu.pl.data.repository
 
-import ee.pw.edu.pl.data.datasource.images.ImageRemoteDataSource
-import ee.pw.edu.pl.data.datasource.profile.ProfileRemoteDataSource
+import ee.pw.edu.pl.data.datasource.images.remote.ImageRemoteDataSource
+import ee.pw.edu.pl.data.datasource.profile.remote.ProfileRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
 import ee.pw.edu.pl.data.model.profile.ProfileImageUrl
 import ee.pw.edu.pl.data.model.profile.SetProfileInfoRequest

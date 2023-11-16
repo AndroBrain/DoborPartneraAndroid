@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.data.datasource.match
+package ee.pw.edu.pl.data.datasource.match.remote
 
 import ee.pw.edu.pl.data.model.ApiResponseWithHeaders
 import ee.pw.edu.pl.data.model.match.DeclineMatchRequest

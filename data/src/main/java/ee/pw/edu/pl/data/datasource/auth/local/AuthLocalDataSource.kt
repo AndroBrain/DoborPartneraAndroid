@@ -1,8 +1,7 @@
-package ee.pw.edu.pl.data.datasource.auth
+package ee.pw.edu.pl.data.datasource.auth.local
 
+import ee.pw.edu.pl.data.datasource.auth.Token
 import kotlinx.coroutines.flow.StateFlow
-
-typealias Token = String
 
 interface AuthLocalDataSource {
     fun getToken(): StateFlow<Token?>

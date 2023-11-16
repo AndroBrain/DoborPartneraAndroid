@@ -1,7 +1,8 @@
-package ee.pw.edu.pl.data.datasource.auth
+package ee.pw.edu.pl.data.datasource.auth.local
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import ee.pw.edu.pl.data.datasource.auth.Token
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

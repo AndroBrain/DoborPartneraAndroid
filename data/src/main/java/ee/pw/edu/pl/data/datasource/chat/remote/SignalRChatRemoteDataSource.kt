@@ -3,7 +3,7 @@ package ee.pw.edu.pl.data.datasource.chat.remote
 import com.microsoft.signalr.HubConnection
 import com.microsoft.signalr.HubConnectionBuilder
 import ee.pw.edu.pl.data.core.remote.ApiService
-import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
+import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
 import ee.pw.edu.pl.data.model.apiCallWithHeaders
 import ee.pw.edu.pl.data.model.chat.remote.MessageResponse
 import ee.pw.edu.pl.data.model.chat.remote.SendMessageRequest

@@ -7,21 +7,21 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ee.pw.edu.pl.data.core.remote.ApiService
-import ee.pw.edu.pl.data.datasource.auth.AuthLocalDataSource
-import ee.pw.edu.pl.data.datasource.auth.AuthRemoteDataSource
-import ee.pw.edu.pl.data.datasource.auth.PrefsAuthLocalDataSource
-import ee.pw.edu.pl.data.datasource.auth.RetrofitAuthRemoteDataSource
+import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
+import ee.pw.edu.pl.data.datasource.auth.remote.AuthRemoteDataSource
+import ee.pw.edu.pl.data.datasource.auth.local.PrefsAuthLocalDataSource
+import ee.pw.edu.pl.data.datasource.auth.remote.RetrofitAuthRemoteDataSource
 import ee.pw.edu.pl.data.datasource.chat.local.ChatDao
 import ee.pw.edu.pl.data.datasource.chat.local.ChatLocalDataSource
 import ee.pw.edu.pl.data.datasource.chat.local.RoomChatLocalDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.SignalRChatRemoteDataSource
-import ee.pw.edu.pl.data.datasource.images.FirebaseImageRemoteDataSource
-import ee.pw.edu.pl.data.datasource.images.ImageRemoteDataSource
-import ee.pw.edu.pl.data.datasource.match.MatchRemoteDataSource
-import ee.pw.edu.pl.data.datasource.match.RetrofitMatchRemoteDataSource
-import ee.pw.edu.pl.data.datasource.profile.ProfileRemoteDataSource
-import ee.pw.edu.pl.data.datasource.profile.RetrofitProfileRemoteDataSource
+import ee.pw.edu.pl.data.datasource.images.remote.FirebaseImageRemoteDataSource
+import ee.pw.edu.pl.data.datasource.images.remote.ImageRemoteDataSource
+import ee.pw.edu.pl.data.datasource.match.remote.MatchRemoteDataSource
+import ee.pw.edu.pl.data.datasource.match.remote.RetrofitMatchRemoteDataSource
+import ee.pw.edu.pl.data.datasource.profile.remote.ProfileRemoteDataSource
+import ee.pw.edu.pl.data.datasource.profile.remote.RetrofitProfileRemoteDataSource
 import javax.inject.Singleton
 
 @Module
