@@ -2,19 +2,14 @@ package ee.pw.edu.pl.data.datasource.chat.local
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import ee.pw.edu.pl.data.model.chat.local.MessageEntity
 import ee.pw.edu.pl.data.model.chat.local.ProfileWithMessages
-import ee.pw.edu.pl.data.model.profile.local.ProfileEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ChatDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertChatProfile(entity: ProfileEntity)
-
     @Transaction
     @Query("SELECT * FROM ProfileEntity")
     fun getProfilesWithMessages(): Flow<List<ProfileWithMessages>>

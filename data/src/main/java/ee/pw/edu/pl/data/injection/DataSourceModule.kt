@@ -8,8 +8,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ee.pw.edu.pl.data.core.remote.ApiService
 import ee.pw.edu.pl.data.datasource.auth.local.AuthLocalDataSource
-import ee.pw.edu.pl.data.datasource.auth.remote.AuthRemoteDataSource
 import ee.pw.edu.pl.data.datasource.auth.local.PrefsAuthLocalDataSource
+import ee.pw.edu.pl.data.datasource.auth.remote.AuthRemoteDataSource
 import ee.pw.edu.pl.data.datasource.auth.remote.RetrofitAuthRemoteDataSource
 import ee.pw.edu.pl.data.datasource.chat.local.ChatDao
 import ee.pw.edu.pl.data.datasource.chat.local.ChatLocalDataSource
@@ -20,6 +20,9 @@ import ee.pw.edu.pl.data.datasource.images.remote.FirebaseImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.remote.ImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.match.remote.MatchRemoteDataSource
 import ee.pw.edu.pl.data.datasource.match.remote.RetrofitMatchRemoteDataSource
+import ee.pw.edu.pl.data.datasource.profile.local.ProfileDao
+import ee.pw.edu.pl.data.datasource.profile.local.ProfileLocalDataSource
+import ee.pw.edu.pl.data.datasource.profile.local.RoomProfileLocalDataSource
 import ee.pw.edu.pl.data.datasource.profile.remote.ProfileRemoteDataSource
 import ee.pw.edu.pl.data.datasource.profile.remote.RetrofitProfileRemoteDataSource
 import javax.inject.Singleton
@@ -64,4 +67,8 @@ object DataSourceModule {
     @Provides
     fun provideChatLocalDataSource(chatDao: ChatDao): ChatLocalDataSource =
         RoomChatLocalDataSource(chatDao)
+
+    @Provides
+    fun provideProfileLocalDataSource(profileDao: ProfileDao): ProfileLocalDataSource =
+        RoomProfileLocalDataSource(profileDao)
 }

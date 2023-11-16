@@ -3,6 +3,7 @@ package ee.pw.edu.pl.data.repository
 import android.util.Log
 import ee.pw.edu.pl.data.datasource.chat.local.ChatLocalDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
+import ee.pw.edu.pl.data.datasource.profile.local.ProfileLocalDataSource
 import ee.pw.edu.pl.data.model.ApiResponse
 import ee.pw.edu.pl.data.model.chat.local.MessageEntity
 import ee.pw.edu.pl.data.model.chat.remote.MessageResponse
@@ -24,6 +25,7 @@ import kotlinx.coroutines.withContext
 class ChatRepositoryImpl(
     private val chatRemoteDataSource: ChatRemoteDataSource,
     private val chatLocalDataSource: ChatLocalDataSource,
+    private val profileLocalDataSource: ProfileLocalDataSource,
 ) : ChatRepository {
     override suspend fun subscribeToChat() {
         withContext(Dispatchers.IO) {
@@ -72,7 +74,7 @@ class ChatRepositoryImpl(
                 val result = chatProfiles.body
                 Log.d("ResponseChats", result.toString())
                 chatLocalDataSource.removeAll()
-                chatLocalDataSource.insertChatProfiles(
+                profileLocalDataSource.insert(
                     result.map { response ->
                         ProfileEntity(
                             id = response.id, name = response.name, avatar = response.avatar,

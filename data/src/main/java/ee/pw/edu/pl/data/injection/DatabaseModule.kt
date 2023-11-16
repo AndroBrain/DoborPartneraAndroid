@@ -28,4 +28,8 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideChatDao(database: AppDatabase) = database.chatDao()
+
+    @Provides
+    @Singleton
+    fun provideProfileDao(database: AppDatabase) = database.profileDao()
 }

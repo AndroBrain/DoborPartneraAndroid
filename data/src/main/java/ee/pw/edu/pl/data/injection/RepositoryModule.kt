@@ -10,6 +10,7 @@ import ee.pw.edu.pl.data.datasource.chat.local.ChatLocalDataSource
 import ee.pw.edu.pl.data.datasource.chat.remote.ChatRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.remote.ImageRemoteDataSource
 import ee.pw.edu.pl.data.datasource.match.remote.MatchRemoteDataSource
+import ee.pw.edu.pl.data.datasource.profile.local.ProfileLocalDataSource
 import ee.pw.edu.pl.data.datasource.profile.remote.ProfileRemoteDataSource
 import ee.pw.edu.pl.data.repository.AuthRepositoryImpl
 import ee.pw.edu.pl.data.repository.ChatRepositoryImpl
@@ -53,8 +54,10 @@ object RepositoryModule {
     fun provideChatRepository(
         chatRemoteDataSource: ChatRemoteDataSource,
         chatLocalDataSource: ChatLocalDataSource,
+        profileLocalDataSource: ProfileLocalDataSource,
     ): ChatRepository = ChatRepositoryImpl(
         chatRemoteDataSource = chatRemoteDataSource,
         chatLocalDataSource = chatLocalDataSource,
+        profileLocalDataSource = profileLocalDataSource,
     )
 }
