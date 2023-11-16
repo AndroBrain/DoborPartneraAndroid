@@ -1,9 +1,9 @@
-package ee.pw.edu.pl.data.model.profile.remote
+package ee.pw.edu.pl.data.model.account.remote
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GetProfileInfoResponse(
+data class GetAccountInfoResponse(
     val name: String,
     val surname: String,
     val avatar: String,

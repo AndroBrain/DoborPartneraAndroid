@@ -10,6 +10,6 @@ class EditAccountUseCase @Inject constructor(
     private val accountRepository: AccountRepository
 ) {
     operator fun invoke(form: EditAccountForm): Flow<UseCaseResult<Unit>> = flow {
-        emit(accountRepository.updateProfile(form))
+        emit(accountRepository.update(form))
     }
 }

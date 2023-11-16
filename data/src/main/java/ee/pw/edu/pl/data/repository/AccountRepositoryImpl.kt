@@ -3,8 +3,8 @@ package ee.pw.edu.pl.data.repository
 import ee.pw.edu.pl.data.datasource.account.remote.AccountRemoteDataSource
 import ee.pw.edu.pl.data.datasource.images.remote.ImageRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponse
+import ee.pw.edu.pl.data.model.account.remote.SetAccountInfoRequest
 import ee.pw.edu.pl.data.model.profile.remote.ProfileImageUrl
-import ee.pw.edu.pl.data.model.profile.remote.SetProfileInfoRequest
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.AccountRepository
@@ -21,7 +21,7 @@ class AccountRepositoryImpl(
     private val imageRemoteDataSource: ImageRemoteDataSource,
     private val accountRemoteDataSource: AccountRemoteDataSource,
 ) : AccountRepository {
-    override suspend fun updateProfile(profileForm: EditAccountForm): UseCaseResult<Unit> {
+    override suspend fun update(profileForm: EditAccountForm): UseCaseResult<Unit> {
         val (profileUrl, allImages) = uploadImages(
             avatar = profileForm.profileAvatar,
             images = profileForm.images,
@@ -30,7 +30,7 @@ class AccountRepositoryImpl(
             return UseCaseResult.Error()
         }
         val response = accountRemoteDataSource.setInfo(
-            SetProfileInfoRequest(
+            SetAccountInfoRequest(
                 avatar = profileUrl,
                 description = profileForm.description,
                 images = allImages.map { it!!.url },
@@ -44,20 +44,20 @@ class AccountRepositoryImpl(
         }
     }
 
-    override suspend fun getProfile(): UseCaseResult<Account> =
+    override suspend fun get(): UseCaseResult<Account> =
         when (val response = accountRemoteDataSource.getInfo()) {
             is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> {
-                val profile = response.body
+                val account = response.body
                 UseCaseResult.Ok(
                     Account(
-                        name = profile.name,
-                        surname = profile.surname,
-                        avatar = profile.avatar,
-                        shortDescription = profile.description,
-                        images = profile.images,
-                        interests = profile.interests,
+                        name = account.name,
+                        surname = account.surname,
+                        avatar = account.avatar,
+                        shortDescription = account.description,
+                        images = account.images,
+                        interests = account.interests,
                     )
                 )
             }

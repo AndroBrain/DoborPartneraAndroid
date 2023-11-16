@@ -5,6 +5,6 @@ import ee.pw.edu.pl.domain.usecase.account.Account
 import ee.pw.edu.pl.domain.usecase.account.EditAccountForm
 
 interface AccountRepository {
-    suspend fun updateProfile(profileForm: EditAccountForm): UseCaseResult<Unit>
-    suspend fun getProfile(): UseCaseResult<Account>
+    suspend fun update(profileForm: EditAccountForm): UseCaseResult<Unit>
+    suspend fun get(): UseCaseResult<Account>
 }

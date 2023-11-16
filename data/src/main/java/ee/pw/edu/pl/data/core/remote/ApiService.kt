@@ -1,5 +1,7 @@
 package ee.pw.edu.pl.data.core.remote
 
+import ee.pw.edu.pl.data.model.account.remote.GetAccountInfoResponse
+import ee.pw.edu.pl.data.model.account.remote.SetAccountInfoRequest
 import ee.pw.edu.pl.data.model.auth.LoginRequest
 import ee.pw.edu.pl.data.model.auth.LoginResponse
 import ee.pw.edu.pl.data.model.auth.RegisterRequest
@@ -10,8 +12,6 @@ import ee.pw.edu.pl.data.model.match.MatchResponse
 import ee.pw.edu.pl.data.model.message.remote.LoadMoreMessagesRequest
 import ee.pw.edu.pl.data.model.message.remote.LoadMoreMessagesResponse
 import ee.pw.edu.pl.data.model.message.remote.ProfileWithMessagesResponse
-import ee.pw.edu.pl.data.model.profile.remote.GetProfileInfoResponse
-import ee.pw.edu.pl.data.model.profile.remote.SetProfileInfoRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -32,10 +32,10 @@ interface ApiService {
 
     // Account
     @POST("$PATH_ACCOUNT/info")
-    suspend fun setInfo(@Body request: SetProfileInfoRequest): Response<Unit>
+    suspend fun setInfo(@Body request: SetAccountInfoRequest): Response<Unit>
 
     @GET("$PATH_ACCOUNT/info")
-    suspend fun getInfo(): Response<GetProfileInfoResponse>
+    suspend fun getInfo(): Response<GetAccountInfoResponse>
 
     // Match
     @POST("$PATH_MATCH/decline")

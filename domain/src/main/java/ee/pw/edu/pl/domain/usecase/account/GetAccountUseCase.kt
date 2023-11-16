@@ -7,5 +7,5 @@ import javax.inject.Inject
 class GetAccountUseCase @Inject constructor(
     private val accountRepository: AccountRepository,
 ) {
-    suspend operator fun invoke(): UseCaseResult<Account> = accountRepository.getProfile()
+    suspend operator fun invoke(): UseCaseResult<Account> = accountRepository.get()
 }
