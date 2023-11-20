@@ -61,7 +61,7 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideHealthyLivingApi(
+    fun provideApiService(
         @ApplicationContext context: Context,
         json: Json,
         okHttpClient: OkHttpClient
