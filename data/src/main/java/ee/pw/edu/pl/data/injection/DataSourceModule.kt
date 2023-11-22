@@ -1,10 +1,12 @@
 package ee.pw.edu.pl.data.injection
 
+import android.content.Context
 import android.content.SharedPreferences
 import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ee.pw.edu.pl.data.core.remote.ApiService
 import ee.pw.edu.pl.data.datasource.account.remote.AccountRemoteDataSource
@@ -61,8 +63,9 @@ object DataSourceModule {
     @Provides
     @Singleton
     fun provideChatRemoteDataSource(
+        @ApplicationContext context: Context,
         authLocalDataSource: AuthLocalDataSource,
-    ): ChatRemoteDataSource = SignalRChatRemoteDataSource(authLocalDataSource)
+    ): ChatRemoteDataSource = SignalRChatRemoteDataSource(context, authLocalDataSource)
 
     @Provides
     fun provideMessageLocalDataSource(messageDao: MessageDao): MessageLocalDataSource =

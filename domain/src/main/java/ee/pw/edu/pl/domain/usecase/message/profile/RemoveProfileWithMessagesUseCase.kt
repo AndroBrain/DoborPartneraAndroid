@@ -3,9 +3,8 @@ package ee.pw.edu.pl.domain.usecase.message.profile
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.ProfileRepository
 import ee.pw.edu.pl.domain.usecase.match.DeclineMatchUseCase
-import javax.inject.Inject
 
-class RemoveProfileWithMessagesUseCase @Inject constructor(
+class RemoveProfileWithMessagesUseCase(
     private val declineMatchUseCase: DeclineMatchUseCase,
     private val profileRepository: ProfileRepository,
 ) {

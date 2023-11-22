@@ -25,6 +25,7 @@ fun MessageResponse.toEntity() = MessageEntity(
     timestamp = sentTimestamp,
 )
 
+@JvmName("messageEntityToModels")
 fun List<MessageEntity>.toModels() = map { it.toModel() }
 
 fun MessageEntity.toModel() = Message(
@@ -32,6 +33,7 @@ fun MessageEntity.toModel() = Message(
     isYour = fromUser != id
 )
 
+@JvmName("profileWithMessagesRelationToModels")
 fun List<ProfileWithMessagesRelation>.toModels() = map { it.toModel() }
 
 fun ProfileWithMessagesRelation.toModel() = ProfileWithMessages(
