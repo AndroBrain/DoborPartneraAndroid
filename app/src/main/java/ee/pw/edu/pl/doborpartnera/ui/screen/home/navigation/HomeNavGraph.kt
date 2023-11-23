@@ -8,9 +8,9 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.chats.CHATS_ROUTE
 import ee.pw.edu.pl.doborpartnera.ui.screen.chats.chatsScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.chats.navigateToChats
 import ee.pw.edu.pl.doborpartnera.ui.screen.match.matchScreen
+import ee.pw.edu.pl.doborpartnera.ui.screen.match.profile.ProfileWithMessagesDisplayable
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.EditProfileArgs
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.profileScreen
-import ee.pw.edu.pl.domain.usecase.message.profile.ProfileWithMessages
 
 @Composable
 fun HomeNavGraph(
@@ -18,7 +18,7 @@ fun HomeNavGraph(
     navController: NavHostController,
     navigateToFindMatch: () -> Unit,
     navigateToEditProfile: (EditProfileArgs) -> Unit,
-    navigateToChat: (ProfileWithMessages) -> Unit,
+    navigateToChat: (ProfileWithMessagesDisplayable) -> Unit,
 ) {
     NavHost(
         modifier = modifier,

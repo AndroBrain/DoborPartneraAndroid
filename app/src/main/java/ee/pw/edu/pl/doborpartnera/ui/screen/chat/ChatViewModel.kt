@@ -37,7 +37,7 @@ class ChatViewModel @Inject constructor(
         subscribeToChat()
         viewModelScope.launch {
             getMessagesUseCase(args.id).onEach { chats ->
-                updateState { state -> state.copy(messages = chats) }
+                updateState { state -> state.copy(messages = chats.map(::MessageDisplayable)) }
             }.launchIn(this)
         }
     }

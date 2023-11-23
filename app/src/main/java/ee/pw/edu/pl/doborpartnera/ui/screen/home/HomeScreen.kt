@@ -7,15 +7,15 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigation.HomeNavGraph
 import ee.pw.edu.pl.doborpartnera.ui.screen.home.navigation.HomeNavigationBar
+import ee.pw.edu.pl.doborpartnera.ui.screen.match.profile.ProfileWithMessagesDisplayable
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.EditProfileArgs
-import ee.pw.edu.pl.domain.usecase.message.profile.ProfileWithMessages
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navigateToFindMatch: () -> Unit,
     navigateToEditProfile: (EditProfileArgs) -> Unit,
-    navigateToChat: (ProfileWithMessages) -> Unit,
+    navigateToChat: (ProfileWithMessagesDisplayable) -> Unit,
 ) {
     val navController = rememberNavController()
     Scaffold(

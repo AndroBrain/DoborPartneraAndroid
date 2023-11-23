@@ -84,11 +84,7 @@ class ChatsViewModel @Inject constructor(
         viewModelScope.launch {
             getProfilesWithMessagesUseCase().onEach { result ->
                 updateState { state ->
-                    state.copy(
-                        chatPeople = result.map { person ->
-                            ChatPersonDisplayable(person = person)
-                        },
-                    )
+                    state.copy(chatPeople = result.map(::ChatPersonDisplayable))
                 }
             }.launchIn(this)
         }

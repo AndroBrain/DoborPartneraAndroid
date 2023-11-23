@@ -5,11 +5,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import ee.pw.edu.pl.doborpartnera.ui.navigation.composable
-import ee.pw.edu.pl.domain.usecase.message.profile.ProfileWithMessages
+import ee.pw.edu.pl.doborpartnera.ui.screen.match.profile.ProfileWithMessagesDisplayable
 
 const val CHATS_ROUTE = "CHATS"
 
-fun NavGraphBuilder.chatsScreen(navigateToChat: (ProfileWithMessages) -> Unit) {
+fun NavGraphBuilder.chatsScreen(navigateToChat: (ProfileWithMessagesDisplayable) -> Unit) {
     composable(CHATS_ROUTE) {
         val viewModel: ChatsViewModel = hiltViewModel()
         ChatsScreen(viewModel = viewModel, navigateToChat = navigateToChat)

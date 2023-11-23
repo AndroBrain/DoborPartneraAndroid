@@ -7,7 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import ee.pw.edu.pl.doborpartnera.ui.navigation.NavigationEncoder
 import ee.pw.edu.pl.doborpartnera.ui.navigation.composable
-import ee.pw.edu.pl.domain.usecase.message.profile.ProfileWithMessages
+import ee.pw.edu.pl.doborpartnera.ui.screen.match.profile.ProfileWithMessagesDisplayable
 
 const val CHAT_ROUTE = "CHAT"
 private const val ID_ARG = "ID"
@@ -28,7 +28,10 @@ fun NavGraphBuilder.chatScreen(
     }
 }
 
-fun NavController.navigateToChat(navOptions: NavOptions? = null, person: ProfileWithMessages) {
+fun NavController.navigateToChat(
+    navOptions: NavOptions? = null,
+    person: ProfileWithMessagesDisplayable
+) {
     navigate(
         "${CHAT_ROUTE}/${person.id}/${person.name}/${NavigationEncoder.encode(person.avatar)}",
         navOptions

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
+import ee.pw.edu.pl.doborpartnera.ui.screen.match.MatchProfileDisplayable
 import ee.pw.edu.pl.domain.core.result.fold
 import ee.pw.edu.pl.domain.usecase.match.GetMatchProfileUseCase
 import javax.inject.Inject
@@ -26,7 +27,7 @@ class MatchProfileViewModel @Inject constructor(
             updateState { state -> state.copy(isInError = false) }
             getMatchProfileUseCase(id).fold(
                 onOk = { profile ->
-                    updateState { state -> state.copy(profile = profile.value) }
+                    updateState { state -> state.copy(profile = MatchProfileDisplayable(profile.value)) }
                 }, onError = { error ->
                     updateState { state ->
                         state.copy(

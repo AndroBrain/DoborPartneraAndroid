@@ -29,15 +29,15 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.skydoves.landscapist.glide.GlideImage
 import ee.pw.edu.pl.doborpartnera.R
+import ee.pw.edu.pl.doborpartnera.ui.screen.match.MatchProfileDisplayable
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
-import ee.pw.edu.pl.domain.usecase.match.MatchProfile
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Match(
     modifier: Modifier = Modifier,
-    profile: MatchProfile,
+    profile: MatchProfileDisplayable,
     onAccept: (() -> Unit)? = null,
     onDecline: (() -> Unit)? = null,
 ) {
