@@ -11,4 +11,6 @@ fun ResultErrorType.getMessage() = when (this) {
     ResultErrorType.NETWORK -> R.string.result_err_network
     ResultErrorType.UNKNOWN -> R.string.result_err_unknown
     ResultErrorType.NOT_FOUND -> R.string.result_err_not_found
+    ResultErrorType.PROFILE_FILE_TOO_LARGE -> R.string.result_err_profile_img_too_large
+    ResultErrorType.PROFILE_IMAGE_TOO_LARGE -> R.string.result_err_img_too_large
 }

@@ -11,4 +11,8 @@ enum class ResultErrorType {
     NETWORK,
     UNKNOWN,
     NOT_FOUND,
+
+    //    Image
+    PROFILE_FILE_TOO_LARGE,
+    PROFILE_IMAGE_TOO_LARGE;
 }
