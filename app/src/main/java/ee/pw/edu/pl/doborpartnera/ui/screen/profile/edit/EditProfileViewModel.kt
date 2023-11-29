@@ -26,6 +26,8 @@ import kotlinx.coroutines.launch
 private const val DESCRIPTION_MIN_LENGTH = 60
 const val DESCRIPTION_MAX_LENGTH = 240
 
+private const val PROFILE_IMAGE_SIZE = 320
+
 const val MIN_INTERESTS = 2
 const val MAX_INTERESTS = 5
 
@@ -144,7 +146,11 @@ class EditProfileViewModel @Inject constructor(
         viewModelScope.launch {
             val avatarUri = Uri.parse(state.avatar) ?: return@launch
             val format = "jpg"
-            val profileBytes = bitmapManager.compress(avatarUri)
+            val profileBytes = bitmapManager.compress(
+                uri = avatarUri,
+                width = PROFILE_IMAGE_SIZE,
+                height = PROFILE_IMAGE_SIZE,
+            )
             editAccountUseCase(
                 EditAccountForm(
                     profileAvatar = ProfileAvatar(
