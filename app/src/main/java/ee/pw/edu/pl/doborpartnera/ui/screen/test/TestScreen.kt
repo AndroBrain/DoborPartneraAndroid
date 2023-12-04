@@ -56,6 +56,16 @@ fun TestScreen(
             modifier = Modifier.padding(insets),
             contentPadding = PaddingValues(bottom = App.dimens.screen_spacing_medium),
         ) {
+            item {
+                Text(
+                    modifier = Modifier.padding(
+                        horizontal = App.dimens.screen_spacing_medium,
+                        vertical = App.dimens.views_spacing_small
+                    ),
+                    text = stringResource(id = R.string.test_subtitle),
+                    textAlign = TextAlign.Center,
+                )
+            }
             items(TestQuestion.entries) { question ->
                 Box {
                     val contentColor = if (state.value.errorQuestions.contains(question)) {
