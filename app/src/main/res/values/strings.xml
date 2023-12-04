@@ -65,6 +65,31 @@
     <string name="gender_male">Mężczyzna</string>
     <string name="gender_female">Kobieta</string>
 
+    <!-- Test -->
+    <string name="aspects_psychical">Aspekty fizyczne</string>
+    <string name="aspects_psychological">Aspekty psychologiczne</string>
+
+    <!-- Test: questions & answers-->
+    <string name="question_height">Wzrost:</string>
+    <string name="question_weight">Waga:</string>
+
+    <string name="question_eyes">Kolor oczu:</string>
+    <string name="question_hair">Kolor włosów:</string>
+    <string name="question_tattoo">Czy masz albo chciałbyś mieć tatuaż?</string>
+    <string name="question_sport">Czy uprawiasz rekreacyjnie sport?</string>
+
+    <string name="question_education">Czy masz wykształcenie wyższe?</string>
+    <string name="question_recreation">Wolisz spędzać czas w domu, czy gdzieś wyjść?</string>
+    <string name="question_family">Czy rodzina jest dla Ciebie ważna?</string>
+    <string name="question_charity">Czy uczestniczyłeś w akcjach charytatywnych?</string>
+    <string name="question_people">Wolisz spotkania w mniejszym, czy większym gronie ludzi?</string>
+    <string name="question_wedding">Czy masz zamiast się ożenić?</string>
+    <string name="question_belief">Czy określiłbyś swoje poglądy jako?</string>
+    <string name="question_money">Rola pieniądza w Twoim życiu</string>
+    <string name="question_religious">Czy jesteś osobą religijną?</string>
+    <string name="question_mind">Typ umysłu</string>
+    <string name="question_humour">Czy masz poczucie humoru?</string>string>
+
     <!-- Validation -->
     <string name="validation_err_email">Wpisz poprawny email</string>
     <string name="validation_err_name_length">Imię musi zawierać od 3 do 50 znaków.</string>
