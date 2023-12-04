@@ -13,6 +13,7 @@ import ee.pw.edu.pl.domain.repository.ProfileRepository
 import ee.pw.edu.pl.domain.usecase.account.EditAccountUseCase
 import ee.pw.edu.pl.domain.usecase.account.GetAccountUseCase
 import ee.pw.edu.pl.domain.usecase.account.GetIsAccountFilledUseCase
+import ee.pw.edu.pl.domain.usecase.account.SetTestUseCase
 import ee.pw.edu.pl.domain.usecase.auth.login.IsLoggedInUseCase
 import ee.pw.edu.pl.domain.usecase.auth.login.LoginUseCase
 import ee.pw.edu.pl.domain.usecase.auth.register.RegisterUseCase
@@ -92,4 +93,7 @@ object UseCaseModule {
     @Provides
     fun provideUpdateProfilesWithMessagesUseCase(messageRepository: MessageRepository) =
         UpdateProfilesWithMessagesUseCase(messageRepository)
+
+    @Provides
+    fun provideSetTestUseCase() = SetTestUseCase()
 }

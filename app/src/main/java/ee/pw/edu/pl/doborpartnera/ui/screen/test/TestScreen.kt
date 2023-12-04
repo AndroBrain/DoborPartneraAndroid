@@ -42,6 +42,11 @@ fun TestScreen(
             viewModel.clearErrorMsg()
         }
     }
+    LaunchedEffect(state.value.isFilled) {
+        if (state.value.isFilled) {
+//            TODO show the home screen (most likelyy
+        }
+    }
     Scaffold(
         modifier = modifier,
         topBar = {

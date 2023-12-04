@@ -1,8 +1,6 @@
 package ee.pw.edu.pl.domain.usecase.account
 
 data class SetTestForm(
-    val weight: Int,
-    val height: Int,
     val eyes: TestAnswer,
     val hair: TestAnswer,
     val tattoo: TestAnswer,

@@ -1,15 +1,22 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.test
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ee.pw.edu.pl.doborpartnera.R
+import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
+import ee.pw.edu.pl.domain.core.result.fold
+import ee.pw.edu.pl.domain.usecase.account.SetTestForm
+import ee.pw.edu.pl.domain.usecase.account.SetTestUseCase
 import ee.pw.edu.pl.domain.usecase.account.TestAnswer
 import ee.pw.edu.pl.domain.usecase.account.TestQuestion
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class TestViewModel @Inject constructor(
+    private val setTestUseCase: SetTestUseCase,
     savedStateHandle: SavedStateHandle,
 ) : SingleStateViewModel<TestState>(savedStateHandle, TestState()) {
     fun clearErrorMsg() {
@@ -40,7 +47,45 @@ class TestViewModel @Inject constructor(
             currentState.qa.containsKey(question)
         }.toSet()
         if (unfilledQuestions.isEmpty()) {
-            updateState { state -> state.copy(isLoading = false) }
+            val qa = currentState.qa
+            val form = SetTestForm(
+                eyes = qa[TestQuestion.EYES] ?: return,
+                hair = qa[TestQuestion.HAIR] ?: return,
+                tattoo = qa[TestQuestion.TATTOO] ?: return,
+                sport = qa[TestQuestion.SPORT] ?: return,
+                education = qa[TestQuestion.EDUCATION] ?: return,
+                recreation = qa[TestQuestion.RECREATION] ?: return,
+                family = qa[TestQuestion.FAMILY] ?: return,
+                charity = qa[TestQuestion.CHARITY] ?: return,
+                people = qa[TestQuestion.PEOPLE] ?: return,
+                wedding = qa[TestQuestion.WEDDING] ?: return,
+                belief = qa[TestQuestion.BELIEF] ?: return,
+                money = qa[TestQuestion.MONEY] ?: return,
+                religious = qa[TestQuestion.RELIGIOUS] ?: return,
+                mind = qa[TestQuestion.MIND] ?: return,
+                humour = qa[TestQuestion.HUMOUR] ?: return,
+            )
+            viewModelScope.launch {
+                val result = setTestUseCase(form)
+                result.fold(
+                    onOk = {
+                        updateState { state ->
+                            state.copy(
+                                isLoading = false,
+                                isFilled = true,
+                            )
+                        }
+                    },
+                    onError = {
+                        updateState { state ->
+                            state.copy(
+                                isLoading = false,
+                                errorMsg = it.type.getMessage(),
+                            )
+                        }
+                    }
+                )
+            }
         } else {
             updateState { state ->
                 state.copy(

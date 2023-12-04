@@ -12,5 +12,6 @@ data class TestState(
     val qa: Map<TestQuestion, TestAnswer> = mapOf(),
     val expandedQuestion: TestQuestion? = null,
     val isLoading: Boolean = false,
+    val isFilled: Boolean = false,
     val errorQuestions: Set<TestQuestion> = emptySet(),
 ) : UiState
