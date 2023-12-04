@@ -27,6 +27,21 @@ fun TestQASection(
     answer: TestAnswer?,
     onClick: () -> Unit,
 ) {
+    TestQASection(
+        modifier = modifier,
+        onClick = onClick,
+        question = stringResource(id = question.question),
+        answer = answer?.answer?.let { stringResource(id = it) },
+    )
+}
+
+@Composable
+fun TestQASection(
+    modifier: Modifier,
+    onClick: () -> Unit,
+    question: String,
+    answer: String?,
+) {
     OutlinedCard(modifier = modifier, shape = RectangleShape) {
         Row(
             modifier = Modifier
@@ -39,7 +54,7 @@ fun TestQASection(
         ) {
             Text(
                 modifier = Modifier.weight(1F),
-                text = stringResource(id = question.question),
+                text = question,
                 style = MaterialTheme.typography.titleMedium,
             )
             Spacer(modifier = Modifier.size(App.dimens.views_spacing_small))
@@ -53,7 +68,7 @@ fun TestQASection(
                 } else {
                     Text(
                         modifier = Modifier.align(Alignment.CenterEnd),
-                        text = stringResource(id = answer.answer),
+                        text = answer,
                         textAlign = TextAlign.End,
                     )
                 }
