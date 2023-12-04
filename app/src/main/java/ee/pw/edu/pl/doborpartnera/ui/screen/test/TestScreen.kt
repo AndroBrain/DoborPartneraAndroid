@@ -33,6 +33,7 @@ import ee.pw.edu.pl.domain.usecase.account.TestQuestion
 fun TestScreen(
     modifier: Modifier = Modifier,
     viewModel: TestViewModel,
+    onSent: () -> Unit,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     state.value.errorMsg?.let { errorMsg ->
@@ -44,7 +45,7 @@ fun TestScreen(
     }
     LaunchedEffect(state.value.isFilled) {
         if (state.value.isFilled) {
-//            TODO show the home screen (most likelyy
+            onSent()
         }
     }
     Scaffold(

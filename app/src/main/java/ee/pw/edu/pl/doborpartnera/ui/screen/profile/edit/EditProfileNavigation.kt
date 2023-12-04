@@ -40,11 +40,11 @@ fun NavGraphBuilder.editProfileScreen(navigateUp: () -> Unit) {
     }
 }
 
-fun NavGraphBuilder.fillProfileScreen(navigateToHome: () -> Unit) {
+fun NavGraphBuilder.fillProfileScreen(onSaved: () -> Unit) {
     composable(FILL_PROFILE_ROUTE) {
         val viewModel: EditProfileViewModel = hiltViewModel()
         EditProfileScreen(
-            onSaved = navigateToHome,
+            onSaved = onSaved,
             viewModel = viewModel,
             title = stringResource(id = R.string.profile_fill)
         )

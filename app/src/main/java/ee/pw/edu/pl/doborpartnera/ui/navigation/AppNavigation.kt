@@ -26,6 +26,8 @@ import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.editProfileScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.fillProfileScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.navigateToEditProfile
 import ee.pw.edu.pl.doborpartnera.ui.screen.profile.edit.navigateToFillProfile
+import ee.pw.edu.pl.doborpartnera.ui.screen.test.TEST_ROUTE
+import ee.pw.edu.pl.doborpartnera.ui.screen.test.navigateToTestScreen
 import ee.pw.edu.pl.doborpartnera.ui.screen.test.testScreen
 
 @Composable
@@ -91,10 +93,20 @@ fun AppNavigation(modifier: Modifier = Modifier, isLoggedIn: Boolean) {
         )
         matchProfileScreen(navigateUp = { navController.navigateUp() })
         editProfileScreen(navigateUp = { navController.navigateUp() })
-        testScreen()
-        fillProfileScreen(
-            navigateToHome = {
+        testScreen(
+            onSent = {
                 navController.navigateToHome(
+                    navOptions = navOptions {
+                        popUpTo(TEST_ROUTE) {
+                            inclusive = true
+                        }
+                    }
+                )
+            }
+        )
+        fillProfileScreen(
+            onSaved = {
+                navController.navigateToTestScreen(
                     navOptions = navOptions {
                         popUpTo(FILL_PROFILE_ROUTE) {
                             inclusive = true
