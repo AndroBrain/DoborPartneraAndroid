@@ -2,6 +2,7 @@ package ee.pw.edu.pl.data.core.remote
 
 import ee.pw.edu.pl.data.model.account.remote.GetAccountInfoResponse
 import ee.pw.edu.pl.data.model.account.remote.SetAccountInfoRequest
+import ee.pw.edu.pl.data.model.account.remote.SetTestRequest
 import ee.pw.edu.pl.data.model.auth.remote.LoginRequest
 import ee.pw.edu.pl.data.model.auth.remote.LoginResponse
 import ee.pw.edu.pl.data.model.auth.remote.RegisterRequest
@@ -36,6 +37,9 @@ interface ApiService {
 
     @GET("$PATH_ACCOUNT/info")
     suspend fun getInfo(): Response<GetAccountInfoResponse>
+
+    @POST("$PATH_ACCOUNT/test")
+    suspend fun setTest(@Body request: SetTestRequest): Response<Unit>
 
     // Match
     @POST("$PATH_MATCH/decline")

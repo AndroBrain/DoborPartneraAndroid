@@ -5,12 +5,14 @@ import ee.pw.edu.pl.data.datasource.images.remote.ImageRemoteDataSource
 import ee.pw.edu.pl.data.model.ApiResponse
 import ee.pw.edu.pl.data.model.account.remote.SetAccountInfoRequest
 import ee.pw.edu.pl.data.model.account.toModel
+import ee.pw.edu.pl.data.model.account.toRequest
 import ee.pw.edu.pl.data.model.profile.remote.ProfileImageUrl
 import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.AccountRepository
 import ee.pw.edu.pl.domain.usecase.account.Account
 import ee.pw.edu.pl.domain.usecase.account.EditAccountForm
+import ee.pw.edu.pl.domain.usecase.account.SetTestForm
 import ee.pw.edu.pl.domain.usecase.profile.ProfileAvatar
 import ee.pw.edu.pl.domain.usecase.profile.ProfileImage
 import kotlinx.coroutines.channels.Channel
@@ -52,9 +54,16 @@ class AccountRepositoryImpl(
             is ApiResponse.Ok -> UseCaseResult.Ok(response.body.toModel())
         }
 
+    override suspend fun setTest(test: SetTestForm): UseCaseResult<Unit> =
+        when (accountRemoteDataSource.setTest(test.toRequest())) {
+            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
+            is ApiResponse.Ok -> UseCaseResult.Ok(Unit)
+        }
+
     private suspend fun uploadImages(
         avatar: ProfileAvatar,
-        images: List<ProfileImage>
+        images: List<ProfileImage>,
     ): Pair<String?, List<ProfileImageUrl?>> = coroutineScope {
         val profileChannel = Channel<String?>()
         launch {

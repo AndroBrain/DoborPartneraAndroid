@@ -1,8 +1,8 @@
 package ee.pw.edu.pl.domain.usecase.account
 
 enum class TestAnswer {
-    YES,
     NO,
+    YES,
 
     EYES_BROWN, EYES_GREEN, EYES_BLUE,
 

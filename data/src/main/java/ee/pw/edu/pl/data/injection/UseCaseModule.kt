@@ -95,5 +95,6 @@ object UseCaseModule {
         UpdateProfilesWithMessagesUseCase(messageRepository)
 
     @Provides
-    fun provideSetTestUseCase() = SetTestUseCase()
+    fun provideSetTestUseCase(accountRepository: AccountRepository) =
+        SetTestUseCase(accountRepository)
 }
