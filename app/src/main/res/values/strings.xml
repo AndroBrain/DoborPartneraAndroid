@@ -66,8 +66,6 @@
     <string name="gender_female">Kobieta</string>
 
     <!-- Test -->
-    <string name="aspects_psychical">Aspekty fizyczne</string>
-    <string name="aspects_psychological">Aspekty psychologiczne</string>
 
     <!-- Test: questions & answers-->
     <string name="question_height">Wzrost:</string>
@@ -89,6 +87,28 @@
     <string name="question_religious">Czy jesteś osobą religijną?</string>
     <string name="question_mind">Typ umysłu</string>
     <string name="question_humour">Czy masz poczucie humoru?</string>string>
+
+    <string name="answer_yes">Tak</string>
+    <string name="answer_no">Nie</string>
+    <string name="answer_eyes_brown">Brązowe</string>
+    <string name="answer_eyes_green">Zielone</string>
+    <string name="answer_eyes_blue">Niebieskie</string>
+    <string name="answer_hair_blond">Blond</string>
+    <string name="answer_hair_brown">Brunatne</string>
+    <string name="answer_hair_red">Rude</string>
+    <string name="answer_recreation_home">W domu</string>
+    <string name="answer_recreation_outside">Gdzieś wyjść</string>
+    <string name="answer_people_smaller">Mniejszym</string>
+    <string name="answer_people_bigger">Większym</string>
+    <string name="answer_belief_right">Prawicowe</string>
+    <string name="answer_belief_liberal">Liberalne</string>
+    <string name="answer_belief_left">Lewicowe</string>
+    <string name="answer_money_high">Najważniejszy</string>
+    <string name="answer_money_medium">Średnio ważny</string>
+    <string name="answer_money_low">Mało ważny</string>
+    <string name="answer_mind_scientific">Ścisły</string>
+    <string name="answer_mind_humanistic">Humanistyczny</string>
+    <string name="answer_mind_artistic">Artystyczny</string>string>
 
     <!-- Validation -->
     <string name="validation_err_email">Wpisz poprawny email</string>
