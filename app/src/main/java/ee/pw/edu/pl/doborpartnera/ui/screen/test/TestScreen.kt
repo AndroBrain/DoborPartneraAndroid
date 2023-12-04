@@ -2,13 +2,18 @@ package ee.pw.edu.pl.doborpartnera.ui.screen.test
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.R
+import ee.pw.edu.pl.doborpartnera.ui.components.LoadingButton
+import ee.pw.edu.pl.doborpartnera.ui.theme.App
 import ee.pw.edu.pl.domain.usecase.account.TestQuestion
 
 @Composable
@@ -45,16 +52,24 @@ fun TestScreen(
             )
         }
     ) { insets ->
-        LazyColumn(modifier = Modifier.padding(insets)) {
-//            TODO weight, height (numbers) > questions with picker > send button
+        LazyColumn(
+            modifier = Modifier.padding(insets),
+            contentPadding = PaddingValues(bottom = App.dimens.screen_spacing_medium),
+        ) {
             items(TestQuestion.entries) { question ->
                 Box {
+                    val contentColor = if (state.value.errorQuestions.contains(question)) {
+                        MaterialTheme.colorScheme.error
+                    } else {
+                        MaterialTheme.colorScheme.onSurface
+                    }
                     TestQASection(
                         question = question,
                         answer = state.value.qa[question],
                         onClick = {
                             viewModel.setExpandedQuestion(question)
-                        }
+                        },
+                        colors = CardDefaults.outlinedCardColors(contentColor = contentColor)
                     )
                     Box(
                         modifier = Modifier.align(Alignment.BottomEnd),
@@ -80,6 +95,20 @@ fun TestScreen(
                             }
                         }
                     }
+                }
+            }
+            item {
+                Spacer(modifier = Modifier.size(App.dimens.views_spacing_medium))
+            }
+            item {
+                LoadingButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = App.dimens.screen_spacing_medium),
+                    onClick = viewModel::setTest,
+                    isLoading = state.value.isLoading
+                ) {
+                    Text(text = stringResource(id = R.string.test_send))
                 }
             }
         }

@@ -11,4 +11,6 @@ data class TestState(
     @StringRes val errorMsg: Int? = null,
     val qa: Map<TestQuestion, TestAnswer> = mapOf(),
     val expandedQuestion: TestQuestion? = null,
+    val isLoading: Boolean = false,
+    val errorQuestions: Set<TestQuestion> = emptySet(),
 ) : UiState

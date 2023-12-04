@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -26,12 +28,14 @@ fun TestQASection(
     question: TestQuestion,
     answer: TestAnswer?,
     onClick: () -> Unit,
+    colors: CardColors = CardDefaults.outlinedCardColors(),
 ) {
     TestQASection(
         modifier = modifier,
         onClick = onClick,
         question = stringResource(id = question.question),
         answer = answer?.answer?.let { stringResource(id = it) },
+        colors = colors,
     )
 }
 
@@ -41,8 +45,9 @@ fun TestQASection(
     onClick: () -> Unit,
     question: String,
     answer: String?,
+    colors: CardColors = CardDefaults.outlinedCardColors(),
 ) {
-    OutlinedCard(modifier = modifier, shape = RectangleShape) {
+    OutlinedCard(modifier = modifier, shape = RectangleShape, colors = colors) {
         Row(
             modifier = Modifier
                 .clickable(onClick = onClick)
