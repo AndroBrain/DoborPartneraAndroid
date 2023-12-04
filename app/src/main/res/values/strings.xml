@@ -66,6 +66,7 @@
     <string name="gender_female">Kobieta</string>
 
     <!-- Test -->
+    <string name="test_title">Test</string>
 
     <!-- Test: questions & answers-->
     <string name="question_height">Wzrost:</string>
