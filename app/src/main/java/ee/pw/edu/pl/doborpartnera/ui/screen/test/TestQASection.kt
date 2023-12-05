@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
 import ee.pw.edu.pl.domain.usecase.account.TestAnswer
 import ee.pw.edu.pl.domain.usecase.account.TestQuestion
@@ -75,6 +76,8 @@ fun TestQASection(
                         modifier = Modifier.align(Alignment.CenterEnd),
                         text = answer,
                         textAlign = TextAlign.End,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
                 }
             }
