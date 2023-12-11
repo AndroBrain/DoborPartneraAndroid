@@ -41,7 +41,7 @@ class AccountRepositoryImpl(
             )
         )
         return when (response) {
-            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.Error -> UseCaseResult.Error(response.toResultErrorType())
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> UseCaseResult.Ok(Unit)
         }
@@ -49,14 +49,14 @@ class AccountRepositoryImpl(
 
     override suspend fun get(): UseCaseResult<Account> =
         when (val response = accountRemoteDataSource.getInfo()) {
-            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.Error -> UseCaseResult.Error(response.toResultErrorType())
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> UseCaseResult.Ok(response.body.toModel())
         }
 
     override suspend fun setTest(test: SetTestForm): UseCaseResult<Unit> =
-        when (accountRemoteDataSource.setTest(test.toRequest())) {
-            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+        when (val response = accountRemoteDataSource.setTest(test.toRequest())) {
+            is ApiResponse.Error -> UseCaseResult.Error(response.toResultErrorType())
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> UseCaseResult.Ok(Unit)
         }

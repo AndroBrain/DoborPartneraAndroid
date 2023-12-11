@@ -1,5 +1,6 @@
 package ee.pw.edu.pl.data.model
 
+import ee.pw.edu.pl.domain.core.result.ResultErrorType
 import okhttp3.Headers
 import retrofit2.Response
 
@@ -12,22 +13,20 @@ sealed class ApiResponse<out T> {
     data class Error(
         val exception: ApiException,
     ) : ApiResponse<Nothing>() {
-        override fun isUnauthorized() = exception.httpCode == 401
-        override fun isForbidden() = exception.httpCode == 403
-        override fun isNotFound() = exception.httpCode == 404
-        override fun isTooManyRequests() = exception.httpCode == 429
-        override fun isServerError() = exception.httpCode >= 500
+        fun toResultErrorType() =
+            when (exception.httpCode) {
+                401 -> ResultErrorType.UNAUTHORIZED
+                403 -> ResultErrorType.FORBIDDEN
+                404 -> ResultErrorType.NOT_FOUND
+                429 -> ResultErrorType.TOO_MANY_REQUESTS
+                500 -> ResultErrorType.SERVER
+                else -> ResultErrorType.UNKNOWN
+            }
     }
 
     data class NetworkError(
         val throwable: Throwable,
     ) : ApiResponse<Nothing>()
-
-    open fun isNotFound() = false
-    open fun isUnauthorized() = false
-    open fun isTooManyRequests() = false
-    open fun isForbidden() = false
-    open fun isServerError() = false
 }
 
 class ApiException(

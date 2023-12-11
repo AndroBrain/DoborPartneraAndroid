@@ -13,4 +13,8 @@ fun ResultErrorType.getMessage() = when (this) {
     ResultErrorType.NOT_FOUND -> R.string.result_err_not_found
     ResultErrorType.PROFILE_FILE_TOO_LARGE -> R.string.result_err_profile_img_too_large
     ResultErrorType.PROFILE_IMAGE_TOO_LARGE -> R.string.result_err_img_too_large
+    ResultErrorType.UNAUTHORIZED -> R.string.result_err_unauthorized
+    ResultErrorType.FORBIDDEN -> R.string.result_err_forbidden
+    ResultErrorType.TOO_MANY_REQUESTS -> R.string.result_err_too_many_requests
+    ResultErrorType.SERVER -> R.string.result_err_server
 }

@@ -22,15 +22,15 @@ class MatchRepositoryImpl(
         }
 
     override suspend fun decline(id: Int): UseCaseResult<Unit> =
-        when (matchRemoteDataSource.decline(DeclineMatchRequest(id = id))) {
-            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+        when (val response = matchRemoteDataSource.decline(DeclineMatchRequest(id = id))) {
+            is ApiResponse.Error -> UseCaseResult.Error(response.toResultErrorType())
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> UseCaseResult.Ok(Unit)
         }
 
     override suspend fun getMatch(id: Int): UseCaseResult<MatchProfile> =
         when (val response = matchRemoteDataSource.getMatch(MatchRequest(id = id))) {
-            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.Error -> UseCaseResult.Error(response.toResultErrorType())
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> UseCaseResult.Ok(response.body.toModel())
         }

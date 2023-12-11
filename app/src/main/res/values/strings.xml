@@ -130,5 +130,9 @@
     <string name="result_err_unknown">Wystąpił nieznany błąd.</string>
     <string name="result_err_profile_img_too_large">Plik zdjęcia profilowego jest zbyt duży. Proszę wybierz inne zdjęcie profilowe.</string>
     <string name="result_err_img_too_large">Pliki ze zdjęciami są zbyt duże. Proszę wybierz mniejsze zdjęcia.</string>
-    <string name="result_err_not_found">Nie można znaleźć żądanej informacji</string>
+    <string name="result_err_not_found">Nie można znaleźć żądanej informacji.</string>
+    <string name="result_err_unauthorized">Proszę zaloguj się.</string>
+    <string name="result_err_forbidden">Odmowa dostępu</string>
+    <string name="result_err_too_many_requests">Wykonałeś zbyt wiele prób spróbuj ponownie za 15 minut.</string>
+    <string name="result_err_server">Błąd serwera.</string>
 </resources>

@@ -32,7 +32,7 @@ class MessageRepositoryImpl(
 
     override suspend fun updateProfilesWithMessages(): UseCaseResult<Unit> =
         when (val response = messageRemoteDataSource.getProfilesWithMessages()) {
-            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.Error -> UseCaseResult.Error(response.toResultErrorType())
             is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> {
                 val profiles = response.body
@@ -56,8 +56,8 @@ class MessageRepositoryImpl(
                 ),
             )
         ) {
-            is ApiResponse.Error -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
-            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.UNKNOWN)
+            is ApiResponse.Error -> UseCaseResult.Error(response.toResultErrorType())
+            is ApiResponse.NetworkError -> UseCaseResult.Error(ResultErrorType.NETWORK)
             is ApiResponse.Ok -> {
                 val messages = response.body.messages
                 messageLocalDataSource.insert(messages.toEntities())
