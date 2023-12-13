@@ -2,8 +2,8 @@ package ee.pw.edu.pl.doborpartnera.ui.screen.test
 
 import androidx.annotation.StringRes
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.UiState
-import ee.pw.edu.pl.domain.usecase.account.TestAnswer
-import ee.pw.edu.pl.domain.usecase.account.TestQuestion
+import ee.pw.edu.pl.domain.usecase.test.TestAnswer
+import ee.pw.edu.pl.domain.usecase.test.TestQuestion
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

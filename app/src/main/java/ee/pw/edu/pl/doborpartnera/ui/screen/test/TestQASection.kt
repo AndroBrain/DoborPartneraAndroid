@@ -20,8 +20,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
-import ee.pw.edu.pl.domain.usecase.account.TestAnswer
-import ee.pw.edu.pl.domain.usecase.account.TestQuestion
+import ee.pw.edu.pl.domain.usecase.test.TestAnswer
+import ee.pw.edu.pl.domain.usecase.test.TestQuestion
 
 @Composable
 fun TestQASection(

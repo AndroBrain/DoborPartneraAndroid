@@ -13,7 +13,6 @@ import ee.pw.edu.pl.domain.repository.ProfileRepository
 import ee.pw.edu.pl.domain.usecase.account.EditAccountUseCase
 import ee.pw.edu.pl.domain.usecase.account.GetAccountUseCase
 import ee.pw.edu.pl.domain.usecase.account.GetIsAccountFilledUseCase
-import ee.pw.edu.pl.domain.usecase.account.SetTestUseCase
 import ee.pw.edu.pl.domain.usecase.auth.login.IsLoggedInUseCase
 import ee.pw.edu.pl.domain.usecase.auth.login.LoginUseCase
 import ee.pw.edu.pl.domain.usecase.auth.register.RegisterUseCase
@@ -27,6 +26,7 @@ import ee.pw.edu.pl.domain.usecase.message.LoadMoreMessagesUseCase
 import ee.pw.edu.pl.domain.usecase.message.profile.GetProfilesWithMessagesUseCase
 import ee.pw.edu.pl.domain.usecase.message.profile.RemoveProfileWithMessagesUseCase
 import ee.pw.edu.pl.domain.usecase.message.profile.UpdateProfilesWithMessagesUseCase
+import ee.pw.edu.pl.domain.usecase.test.SetTestUseCase
 
 @Module
 @InstallIn(SingletonComponent::class)

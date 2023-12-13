@@ -7,10 +7,10 @@ import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.core.result.getMessage
 import ee.pw.edu.pl.doborpartnera.core.viewmodel.SingleStateViewModel
 import ee.pw.edu.pl.domain.core.result.fold
-import ee.pw.edu.pl.domain.usecase.account.SetTestForm
-import ee.pw.edu.pl.domain.usecase.account.SetTestUseCase
-import ee.pw.edu.pl.domain.usecase.account.TestAnswer
-import ee.pw.edu.pl.domain.usecase.account.TestQuestion
+import ee.pw.edu.pl.domain.usecase.test.SetTestForm
+import ee.pw.edu.pl.domain.usecase.test.SetTestUseCase
+import ee.pw.edu.pl.domain.usecase.test.TestAnswer
+import ee.pw.edu.pl.domain.usecase.test.TestQuestion
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 

@@ -1,7 +1,7 @@
 package ee.pw.edu.pl.doborpartnera.ui.screen.test
 
 import ee.pw.edu.pl.doborpartnera.R
-import ee.pw.edu.pl.domain.usecase.account.TestQuestion
+import ee.pw.edu.pl.domain.usecase.test.TestQuestion
 
 val TestQuestion.question
     get() = when (this) {

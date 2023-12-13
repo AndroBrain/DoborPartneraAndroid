@@ -1,4 +1,4 @@
-package ee.pw.edu.pl.domain.usecase.account
+package ee.pw.edu.pl.domain.usecase.test
 
 data class SetTestForm(
     val eyes: TestAnswer,

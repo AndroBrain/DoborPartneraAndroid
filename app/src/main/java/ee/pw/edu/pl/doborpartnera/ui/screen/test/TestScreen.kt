@@ -27,7 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ee.pw.edu.pl.doborpartnera.R
 import ee.pw.edu.pl.doborpartnera.ui.components.LoadingButton
 import ee.pw.edu.pl.doborpartnera.ui.theme.App
-import ee.pw.edu.pl.domain.usecase.account.TestQuestion
+import ee.pw.edu.pl.domain.usecase.test.TestQuestion
 
 @Composable
 fun TestScreen(

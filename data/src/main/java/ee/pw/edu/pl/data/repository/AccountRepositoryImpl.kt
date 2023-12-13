@@ -12,9 +12,9 @@ import ee.pw.edu.pl.domain.core.result.UseCaseResult
 import ee.pw.edu.pl.domain.repository.AccountRepository
 import ee.pw.edu.pl.domain.usecase.account.Account
 import ee.pw.edu.pl.domain.usecase.account.EditAccountForm
-import ee.pw.edu.pl.domain.usecase.account.SetTestForm
 import ee.pw.edu.pl.domain.usecase.profile.ProfileAvatar
 import ee.pw.edu.pl.domain.usecase.profile.ProfileImage
+import ee.pw.edu.pl.domain.usecase.test.SetTestForm
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
