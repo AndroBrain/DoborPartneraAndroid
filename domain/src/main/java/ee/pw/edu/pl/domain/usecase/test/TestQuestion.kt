@@ -65,6 +65,7 @@ enum class TestQuestion(
     BELIEF(answers = listOf(BELIEF_LEFT, BELIEF_LIBERAL, BELIEF_RIGHT)),
     MONEY(answers = listOf(MONEY_HIGH, MONEY_MEDIUM, MONEY_LOW)),
     RELIGIOUS(answers = listOf(YES, NO)),
+    HUMOUR(answers = listOf(YES, NO)),
     MIND(
         answers = listOf(
             MIND_LOGICAL,
@@ -77,5 +78,4 @@ enum class TestQuestion(
             MIND_NATURAL,
         )
     ),
-    HUMOUR(answers = listOf(YES, NO)),
 }

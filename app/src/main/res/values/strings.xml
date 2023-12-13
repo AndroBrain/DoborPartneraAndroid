@@ -82,12 +82,12 @@
     <string name="question_family">Czy rodzina jest dla Ciebie ważna?</string>
     <string name="question_charity">Czy uczestniczyłeś w akcjach charytatywnych?</string>
     <string name="question_people">Wolisz spotkania w mniejszym, czy większym gronie ludzi?</string>
-    <string name="question_wedding">Czy masz zamiast się ożenić?</string>
+    <string name="question_wedding">Czy masz zamiar się ożenić?</string>
     <string name="question_belief">Czy określiłbyś swoje poglądy jako?</string>
-    <string name="question_money">Rola pieniądza w Twoim życiu</string>
+    <string name="question_money">Jak ważny jest pieniądz w Twoim życiu?</string>
     <string name="question_religious">Czy jesteś osobą religijną?</string>
     <string name="question_mind">Typ umysłu</string>
-    <string name="question_humour">Czy masz poczucie humoru?</string>string>
+    <string name="question_humour">Czy masz poczucie humoru?</string>
 
     <string name="answer_yes">Tak</string>
     <string name="answer_no">Nie</string>
