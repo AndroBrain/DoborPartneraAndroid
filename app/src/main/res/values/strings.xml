@@ -72,9 +72,6 @@
     <string name="test_err_not_filled">Nie wszystkie pola są wypełnione.</string>
 
     <!-- Test: questions & answers-->
-    <string name="question_height">Wzrost:</string>
-    <string name="question_weight">Waga:</string>
-
     <string name="question_eyes">Kolor oczu:</string>
     <string name="question_hair">Kolor włosów:</string>
     <string name="question_tattoo">Czy masz albo chciałbyś mieć tatuaż?</string>
