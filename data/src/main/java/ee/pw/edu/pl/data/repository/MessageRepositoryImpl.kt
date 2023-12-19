@@ -24,7 +24,7 @@ class MessageRepositoryImpl(
 ) : MessageRepository {
     override fun getMessages(id: Int): Flow<List<Message>> = messageLocalDataSource
         .get(id)
-        .map { messages -> messages.toModels() }
+        .map { messages -> messages.toModels(id) }
 
     override fun getProfilesWithMessages(): Flow<List<ProfileWithMessages>> =
         messageLocalDataSource.getProfilesWithMessages()
