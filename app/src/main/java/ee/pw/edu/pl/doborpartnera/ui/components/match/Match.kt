@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -17,6 +19,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -43,7 +46,7 @@ fun Match(
 ) {
     val pagerState = rememberPagerState { profile.images.size }
     ConstraintLayout(modifier = modifier) {
-        val (background, profileImage, name, shortDescription, choicesContainer, nextButton, previousButton) = createRefs()
+        val (background, profileImage, name, shortDescription, choicesContainer, interestsContainer, nextButton, previousButton) = createRefs()
         HorizontalPager(
             state = pagerState,
             pageContent = { imageIndex ->
@@ -147,7 +150,7 @@ fun Match(
             modifier = Modifier
                 .constrainAs(shortDescription) {
                     start.linkTo(parent.start)
-                    bottom.linkTo(choicesContainer.top)
+                    bottom.linkTo(interestsContainer.top)
                 }
                 .padding(bottom = App.dimens.views_spacing_medium)
                 .padding(horizontal = App.dimens.screen_spacing_medium),
@@ -155,6 +158,33 @@ fun Match(
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.surface,
         )
+
+        LazyRow(
+            modifier = Modifier
+                .constrainAs(interestsContainer) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(choicesContainer.top)
+                }
+                .padding(bottom = App.dimens.views_spacing_small)
+        ) {
+            items(profile.interests) { interest ->
+                Surface(
+                    modifier = Modifier.padding(horizontal = App.dimens.views_spacing_extra_small),
+                    shape = MaterialTheme.shapes.small,
+                    color = MaterialTheme.colorScheme.primary,
+                ) {
+                    Text(
+                        modifier = Modifier.padding(
+                            horizontal = App.dimens.views_spacing_small,
+                            vertical = App.dimens.views_spacing_extra_small,
+                        ),
+                        text = interest,
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                }
+            }
+        }
 
         MatchChoices(
             modifier = Modifier
