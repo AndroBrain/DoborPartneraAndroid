@@ -25,7 +25,7 @@ class SignalRChatRemoteDataSource(
     override fun connectToChat() = callbackFlow {
         val token = authLocalDataSource.getToken().first() ?: return@callbackFlow
         connection =
-            HubConnectionBuilder.create("${context.getString(R.string.api_url)}$HUB_CHAT_PATH")
+            HubConnectionBuilder.create("${context.getString(R.string.api_base_url)}$HUB_CHAT_PATH")
                 .withAccessTokenProvider(
                     Single.defer { Single.just(token) }
                 )

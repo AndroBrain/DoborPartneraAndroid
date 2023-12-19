@@ -107,7 +107,6 @@ fun ChatScreen(
             )
         },
     ) { insets ->
-//        TODO add LazyColumn that with topBarState that will change colors, figure out automatic scrolling when user is at the bottom, consider adding sound
         Column(
             modifier = Modifier
                 .fillMaxSize()

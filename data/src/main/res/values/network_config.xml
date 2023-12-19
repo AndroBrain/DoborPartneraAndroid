@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="api_url">http://localhost:8081/api/</string>
+    <string name="api_base_url">http://localhost:8081/</string>
 
     <integer name="api_connect_timeout_seconds">60</integer>
     <integer name="api_read_timeout_seconds">60</integer>
