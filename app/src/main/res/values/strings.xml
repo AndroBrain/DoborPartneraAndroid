@@ -87,7 +87,7 @@
     <string name="question_money">Jak ważne są finanse w Twoim życiu?</string>
     <string name="question_religious">Czy jesteś osobą religijną?</string>
     <string name="question_mind">Typ umysłu</string>
-    <string name="question_humour">Czy masz poczucie humoru?</string>
+    <string name="question_humour">Czy inni uważają, że masz poczucie humoru?</string>
 
     <string name="answer_yes">Tak</string>
     <string name="answer_no">Nie</string>
