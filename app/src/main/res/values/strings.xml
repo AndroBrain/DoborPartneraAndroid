@@ -84,7 +84,7 @@
     <string name="question_people">Wolisz spotkania w mniejszym, czy większym gronie ludzi?</string>
     <string name="question_wedding">Czy masz zamiar się ożenić?</string>
     <string name="question_belief">Czy określiłbyś swoje poglądy jako?</string>
-    <string name="question_money">Jak ważny jest pieniądz w Twoim życiu?</string>
+    <string name="question_money">Jak ważne są finanse w Twoim życiu?</string>
     <string name="question_religious">Czy jesteś osobą religijną?</string>
     <string name="question_mind">Typ umysłu</string>
     <string name="question_humour">Czy masz poczucie humoru?</string>
@@ -116,9 +116,9 @@
     <string name="answer_belief_liberal">Liberalne</string>
     <string name="answer_belief_left">Lewicowe</string>
 
-    <string name="answer_money_high">Najważniejszy</string>
-    <string name="answer_money_medium">Średnio ważny</string>
-    <string name="answer_money_low">Mało ważny</string>
+    <string name="answer_money_high">Najważniejsze</string>
+    <string name="answer_money_medium">Średnio ważne</string>
+    <string name="answer_money_low">Mało ważne</string>
 
     <string name="answer_mind_logical">Logiczno-matematyczny</string>
     <string name="answer_mind_interpersonal">Interpersonalny</string>
