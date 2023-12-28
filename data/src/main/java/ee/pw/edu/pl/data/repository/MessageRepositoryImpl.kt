@@ -47,7 +47,8 @@ class MessageRepositoryImpl(
         }
 
     override suspend fun loadMoreMessages(id: Int): UseCaseResult<Boolean> {
-        val message = messageLocalDataSource.get(id).first().first()
+        val message = messageLocalDataSource.get(id).first().firstOrNull()
+            ?: return UseCaseResult.Ok(false)
         return when (
             val response = messageRemoteDataSource.loadMoreMessages(
                 LoadMoreMessagesRequest(
