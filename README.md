@@ -1,7 +1,3 @@
-## Architecture Diagram
-
-![mobile_architecture](https://github.com/AndroBrain/DoborPartneraAndroid/assets/75139757/96a40438-5d5d-44cf-84ed-94875370bf60)
-
 ## Tech Stack
 
 | What                                    | How                                                                                                                                                                             |
@@ -11,12 +7,16 @@
 | 💉 DI                                   | [Dagger Hilt](https://dagger.dev/hilt/)                                                                                                                                                |
 | 🔃 Async                                | [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) + [Flow](https://kotlinlang.org/docs/flow.html) |
 | 🗃️ Local Storage                        | [Room](https://developer.android.com/training/data-storage/room/) + [EncryptedSharedPreferences](https://developer.android.com/reference/androidx/security/crypto/EncryptedSharedPreferences) |
-| 🌐 Networking                           | [Retrofit](https://square.github.io/retrofit/) + [OkHttp](https://square.github.io/okhttp/) |
+| 🌐 REST API                             | [Retrofit](https://square.github.io/retrofit/) + [OkHttp](https://square.github.io/okhttp/) |
+| 🔌 Websocket                            | [SignalR Client](https://learn.microsoft.com/en-us/aspnet/core/signalr/java-client?view=aspnetcore-8.0)
 | 📜 Serialization                        | [Kotlinx Serilization](https://github.com/Kotlin/kotlinx.serialization) |
 | 🖼️ Image loading                        | [Landscapist Glide](https://github.com/skydoves/landscapist?tab=readme-ov-file#glide) |
 | 🧭 Navigation                           | [Jetpack Compose Navigation](https://developer.android.com/jetpack/compose/navigation) + [Compose Type safe Navigation](https://developer.android.com/guide/navigation/design/type-safety) |
 | 🎨 Design system                        | [Material Design 3](https://m3.material.io/) |
 
+# Architecture Diagram
+
+![mobile_architecture](https://github.com/AndroBrain/DoborPartneraAndroid/assets/75139757/96a40438-5d5d-44cf-84ed-94875370bf60)
 
 ## Backend
 
