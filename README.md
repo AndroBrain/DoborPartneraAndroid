@@ -2,6 +2,16 @@
 
 ![mobile_architecture](https://github.com/AndroBrain/DoborPartneraAndroid/assets/75139757/96a40438-5d5d-44cf-84ed-94875370bf60)
 
+# Presentation
+
+## Browsing partners 
+
+![m_1](https://github.com/AndroBrain/DoborPartneraAndroid/assets/75139757/ae4fc8e2-68d6-4cff-89d2-9bca37d5ff4a) ![m_2](https://github.com/AndroBrain/DoborPartneraAndroid/assets/75139757/f03288da-2e7b-4a50-9b7b-f07020370b1d)
+
+
+
+
+
 ## Tech Stack
 
 | What                                    | How                                                                                                                                                                             |
