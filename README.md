@@ -1,6 +1,6 @@
 ## Architecture Diagram
 
-[mobile_architecture.pdf](https://github.com/AndroBrain/DoborPartneraAndroid/files/14298099/mobile_architecture.pdf)
+![mobile_architecture](https://github.com/AndroBrain/DoborPartneraAndroid/assets/75139757/96a40438-5d5d-44cf-84ed-94875370bf60)
 
 ## Tech Stack
 
