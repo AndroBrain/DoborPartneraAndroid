@@ -1,3 +1,7 @@
+## Architecture Diagram
+
+[mobile_architecture.pdf](https://github.com/AndroBrain/DoborPartneraAndroid/files/14298099/mobile_architecture.pdf)
+
 ## Tech Stack
 
 | What                                    | How                                                                                                                                                                             |
