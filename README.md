@@ -6,7 +6,7 @@
 
 ## Browsing partners 
 
-<img src="https://github.com/AndroBrain/DoborPartneraAndroid/assets/75139757/ae4fc8e2-68d6-4cff-89d2-9bca37d5ff4a" width="360" height="800"> <img src="https://github.com/AndroBrain/DoborPartneraAndroid/assets/75139757/f03288da-2e7b-4a50-9b7b-f07020370b1d" width="360" height="800"> 
+<img src="https://github.com/AndroBrain/DoborPartneraAndroid/assets/75139757/ae4fc8e2-68d6-4cff-89d2-9bca37d5ff4a" width="180" height="400"> <img src="https://github.com/AndroBrain/DoborPartneraAndroid/assets/75139757/f03288da-2e7b-4a50-9b7b-f07020370b1d" width="180" height="400"> 
 
 ## Tech Stack
 
