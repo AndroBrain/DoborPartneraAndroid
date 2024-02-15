@@ -18,6 +18,10 @@
 | 🎨 Design system                        | [Material Design 3](https://m3.material.io/) |
 
 
+## Backend
+
+Here's a link to backend repo [https://github.com/AndroBrain/DoborPartneraAPI](https://github.com/AndroBrain/DoborPartneraAPI)
+
 # Presentation
 
 Here, you'll find screenshots of the app:
